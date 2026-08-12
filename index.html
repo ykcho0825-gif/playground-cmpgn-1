@@ -501,7 +501,7 @@ const segmentChart=document.createElement('canvas');
 function renderScenario(){}
 
 async function init(){
- const response=await fetch('api/campaigns');
+ const response=await fetch('api/campaigns/');
  if(!response.ok)throw new Error(`캠페인 데이터를 불러오지 못했습니다. (${response.status})`);
  const payload=await response.json();rows=payload.rows;toastDailyRows=payload.toastDailyRows||[];popupDailyRows=payload.popupDailyRows||[];couponDailyRows=payload.couponDailyRows||[];
  months=[...new Set(rows.map(r=>r.month))].sort().reverse();
