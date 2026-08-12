@@ -347,19 +347,24 @@ router.get('/api/campaigns', (req, res, next) => {
 
 app.use(basePath || '/', router);
 
-const server = app.listen(port, '0.0.0.0', () => {
-  console.log(`Campaign Dashboard listening on port ${port}`);
-  console.log(`Base Path: ${basePath}`);
-  console.log(`Environment: ${process.env.APP_ENV || 'development'}`);
-  if (calendarRuntimeSyncEnabled) syncCalendarSources();
-});
+let calendarSyncTimer = null;
+if (calendarRuntimeSyncEnabled) {
+  syncCalendarSources();
+  calendarSyncTimer = setInterval(syncCalendarSources, calendarSyncIntervalMs);
+  calendarSyncTimer.unref();
+}
 
-const calendarSyncTimer = calendarRuntimeSyncEnabled
-  ? setInterval(syncCalendarSources, calendarSyncIntervalMs)
-  : null;
-if (calendarSyncTimer) calendarSyncTimer.unref();
+if (require.main === module) {
+  const server = app.listen(port, '0.0.0.0', () => {
+    console.log(`Campaign Dashboard listening on port ${port}`);
+    console.log(`Base Path: ${basePath}`);
+    console.log(`Environment: ${process.env.APP_ENV || 'development'}`);
+  });
 
-process.on('SIGTERM', () => {
-  if (calendarSyncTimer) clearInterval(calendarSyncTimer);
-  server.close(() => process.exit(0));
-});
+  process.on('SIGTERM', () => {
+    if (calendarSyncTimer) clearInterval(calendarSyncTimer);
+    server.close(() => process.exit(0));
+  });
+}
+
+module.exports = app;
