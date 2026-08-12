@@ -131,8 +131,8 @@ function resolveCouponDailyDataPath() {
     .sort((a, b) => b.modified - a.modified);
   return candidates[0]?.path || null;
 }
-// BASE_PATH가 명시되면 우선 사용 (vscode-server dev preview 등), 없으면 SERVICE_NAME 기반
-const basePath = (process.env.BASE_PATH ?? (process.env.SERVICE_NAME ? `/${process.env.SERVICE_NAME}` : '')).replace(/\/+$/, '');
+// 일반 웹 배포에서는 루트(/)를 사용하고, 하위 경로 배포가 필요한 경우에만 BASE_PATH를 지정한다.
+const basePath = String(process.env.BASE_PATH || '').trim().replace(/\/+$/, '');
 
 const router = express.Router();
 
