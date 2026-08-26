@@ -8,6 +8,7 @@ const { parse } = require('csv-parse/sync');
 
 const app = express();
 const port = process.env.APP_PORT || 3000;
+const host = process.env.APP_HOST || '127.0.0.1';
 const publicPath = path.join(__dirname, 'public');
 const calendarCachePath = path.join(__dirname, '.calendar-cache');
 const calendarSnapshotPath = path.join(__dirname, 'data');
@@ -131,8 +132,8 @@ function resolveCouponDailyDataPath() {
     .sort((a, b) => b.modified - a.modified);
   return candidates[0]?.path || null;
 }
-// BASE_PATH가 명시되면 우선 사용 (vscode-server dev preview 등), 없으면 SERVICE_NAME 기반
-const basePath = (process.env.BASE_PATH ?? (process.env.SERVICE_NAME ? `/${process.env.SERVICE_NAME}` : '')).replace(/\/+$/, '');
+// 일반 웹 배포에서는 루트(/)를 사용하고, 하위 경로 배포가 필요한 경우에만 BASE_PATH를 지정한다.
+const basePath = String(process.env.BASE_PATH || '').trim().replace(/\/+$/, '');
 
 const router = express.Router();
 
@@ -347,19 +348,25 @@ router.get('/api/campaigns', (req, res, next) => {
 
 app.use(basePath || '/', router);
 
-const server = app.listen(port, '0.0.0.0', () => {
-  console.log(`Campaign Dashboard listening on port ${port}`);
-  console.log(`Base Path: ${basePath}`);
-  console.log(`Environment: ${process.env.APP_ENV || 'development'}`);
-  if (calendarRuntimeSyncEnabled) syncCalendarSources();
-});
+let calendarSyncTimer = null;
+if (calendarRuntimeSyncEnabled) {
+  syncCalendarSources();
+  calendarSyncTimer = setInterval(syncCalendarSources, calendarSyncIntervalMs);
+  calendarSyncTimer.unref();
+}
 
-const calendarSyncTimer = calendarRuntimeSyncEnabled
-  ? setInterval(syncCalendarSources, calendarSyncIntervalMs)
-  : null;
-if (calendarSyncTimer) calendarSyncTimer.unref();
+if (require.main === module) {
+  const server = app.listen(port, host, () => {
+    console.log(`Campaign Dashboard listening on port ${port}`);
+    console.log(`Host: ${host}`);
+    console.log(`Base Path: ${basePath}`);
+    console.log(`Environment: ${process.env.APP_ENV || 'development'}`);
+  });
 
-process.on('SIGTERM', () => {
-  if (calendarSyncTimer) clearInterval(calendarSyncTimer);
-  server.close(() => process.exit(0));
-});
+  process.on('SIGTERM', () => {
+    if (calendarSyncTimer) clearInterval(calendarSyncTimer);
+    server.close(() => process.exit(0));
+  });
+}
+
+module.exports = app;
