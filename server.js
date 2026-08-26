@@ -8,7 +8,7 @@ const { parse } = require('csv-parse/sync');
 
 const app = express();
 const port = process.env.APP_PORT || 3000;
-const host = process.env.APP_HOST || '127.0.0.1';
+const host = process.env.APP_HOST || '0.0.0.0';
 const publicPath = path.join(__dirname, 'public');
 const calendarCachePath = path.join(__dirname, '.calendar-cache');
 const calendarSnapshotPath = path.join(__dirname, 'data');
