@@ -607,6 +607,36 @@
   }
   .pill-btn:hover { border-color: var(--accent); color: var(--accent); }
 
+  /* Campaign detail analysis (4th tab) */
+  .detail-campaign-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .detail-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: var(--surface-soft);
+    border: 1px solid var(--line);
+    font-size: 11.5px;
+    color: var(--ink-soft);
+  }
+  tr.detail-self-row td { background: var(--accent-soft); font-weight: 600; }
+  .insight-list { display: flex; flex-direction: column; gap: 10px; }
+  .insight-item {
+    display: flex;
+    gap: 12px;
+    padding: 14px 16px;
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--line);
+    border-radius: 10px;
+    background: var(--surface);
+  }
+  .insight-item .insight-icon { font-size: 15px; line-height: 1.6; }
+  .insight-item .insight-body { flex: 1; font-size: 13px; color: var(--ink-soft); line-height: 1.65; }
+  .insight-item .insight-body b { color: var(--ink); }
+  .insight-item.tone-good { border-left-color: var(--pos); background: var(--series-copn-soft); }
+  .insight-item.tone-warn { border-left-color: var(--neg); background: var(--series-smart-soft); }
+  .insight-item.tone-info { border-left-color: var(--accent); background: var(--accent-soft); }
+
   .cal-layout { display: flex; flex-direction: column; gap: 16px; }
   .cal-filters {
     display: flex;
@@ -773,11 +803,207 @@
   @media (max-width: 1100px) {
     .heat-panels { grid-template-columns: 1fr; }
     .forecast-split { grid-template-columns: 1fr !important; }
+    .forecast-dual { grid-template-columns: 1fr; }
   }
 
   .matrix-day-head.weekend { color: var(--neg); font-weight: 700; }
   .forecast-split { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
   .forecast-half-title { display: flex; align-items: center; gap: 8px; font-size: 13.5px; font-weight: 600; margin-bottom: 14px; color: var(--ink); }
+  .forecast-panel-note { margin-top: 10px; font-size: 12px; color: var(--ink-mute); }
+  .forecast-actions { display: inline-flex; gap: 6px; margin-left: auto; }
+  .forecast-mini-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 12px;
+    color: var(--ink-soft);
+    margin-bottom: 14px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--surface-soft);
+  }
+  .forecast-mini-table th,
+  .forecast-mini-table td {
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--line);
+    border-right: 1px solid var(--line);
+    text-align: left;
+    background: rgba(255, 255, 255, 0.6);
+  }
+  .forecast-mini-table th:last-child,
+  .forecast-mini-table td:last-child { border-right: none; }
+  .forecast-mini-table tr:last-child th,
+  .forecast-mini-table tr:last-child td { border-bottom: none; }
+  .forecast-mini-table th {
+    width: 120px;
+    font-weight: 500;
+    color: var(--ink-mute);
+    background: rgba(244, 247, 251, 0.92);
+  }
+  .forecast-mini-table td {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+
+  /* AI-insight style summary (replaces the plain actual/pace/total mini-table) */
+  .ai-insight-card {
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--accent);
+    border-radius: 12px;
+    background: var(--accent-soft);
+    padding: 16px 18px;
+    margin-bottom: 16px;
+  }
+  .ai-insight-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    color: var(--accent);
+    background: var(--surface);
+    border-radius: 999px;
+    padding: 3px 10px;
+    margin-bottom: 10px;
+  }
+  .ai-insight-summary { margin: 0 0 12px; font-size: 13.5px; line-height: 1.6; color: var(--ink); }
+  .ai-insight-summary b { font-weight: 700; }
+  .ai-insight-products { display: flex; flex-wrap: wrap; gap: 8px; }
+  .ai-insight-chip {
+    flex: 1 1 190px;
+    min-width: 170px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-size: 12px;
+    color: var(--ink-soft);
+  }
+  .ai-insight-chip .chip-prod { display: flex; align-items: center; gap: 6px; font-weight: 700; color: var(--ink); font-size: 12.5px; margin-bottom: 6px; }
+  .ai-insight-chip .chip-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+  .ai-insight-chip .chip-row { display: flex; justify-content: space-between; padding: 1px 0; }
+  .ai-insight-chip .chip-row b { color: var(--ink); font-weight: 600; }
+
+  .forecast-dual { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .forecast-chart-card {
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 14px 14px 10px;
+    background: var(--surface);
+  }
+  .forecast-chart-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .trend-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--ink-mute);
+    cursor: pointer;
+  }
+  .trend-toggle input { accent-color: var(--accent); cursor: pointer; }
+
+  /* Goal / gap calculator (under the AI-insight card) */
+  .goal-gap-card {
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--series-copn);
+    border-radius: 12px;
+    background: var(--surface);
+    padding: 16px 18px;
+    margin-bottom: 16px;
+  }
+  .goal-gap-title { font-size: 13px; font-weight: 700; color: var(--ink); margin-bottom: 12px; }
+  .goal-gap-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+  .goal-field label { display: block; font-size: 11.5px; color: var(--ink-mute); margin-bottom: 5px; }
+  .goal-gap-result { font-size: 12.5px; color: var(--ink-soft); line-height: 1.5; }
+  .goal-gap-line { padding: 3px 0; }
+  .goal-gap-line b { color: var(--ink); font-weight: 700; }
+  @media (max-width: 700px) { .goal-gap-row { grid-template-columns: 1fr; } }
+
+  /* Collapsible "실제 쿠폰 반응 수" editable detail table */
+  .detail-toggle-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
+  .detail-toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    background: var(--surface-soft);
+    color: var(--ink);
+    font-family: inherit;
+    font-size: 12.5px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .detail-toggle-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .detail-toggle-btn .chev { display: inline-block; transition: transform 0.12s ease; font-size: 10px; }
+  .detail-toggle-btn.open .chev { transform: rotate(90deg); }
+  .detail-table-wrap { margin-bottom: 18px; }
+  .detail-table-note { font-size: 11.5px; color: var(--ink-mute); margin-bottom: 10px; line-height: 1.5; }
+  .detail-table-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; }
+  .detail-coupon-table { border-collapse: separate; border-spacing: 0; font-size: 11.5px; white-space: nowrap; }
+  .detail-coupon-table th, .detail-coupon-table td { padding: 5px 7px; border-bottom: 1px solid var(--line); text-align: right; }
+  .detail-coupon-table th.row-label-head, .detail-coupon-table td.row-label {
+    position: sticky; left: 0; text-align: left; background: var(--surface); z-index: 1;
+    border-right: 1px solid var(--line); max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .detail-coupon-table thead th { color: var(--ink-mute); font-weight: 600; background: var(--surface-soft); }
+  .detail-coupon-table thead th.row-label-head { background: var(--surface-soft); }
+  .detail-coupon-table th.col-forecast, .detail-coupon-table td.col-forecast { background: var(--accent-soft); }
+  .detail-coupon-table tr.detail-prod-row td { background: var(--surface-soft); font-weight: 700; }
+  .detail-coupon-table tr.detail-prod-row td.col-forecast { background: color-mix(in srgb, var(--accent-soft) 70%, var(--surface-soft)); }
+  .detail-coupon-table tr.detail-prod-row td.row-label { display: flex; align-items: center; gap: 6px; }
+  .detail-coupon-table tr.detail-camp-row td.row-label { padding-left: 20px; color: var(--ink-mute); font-weight: 400; }
+  .detail-coupon-table tr.detail-camp-row td { color: var(--ink-mute); }
+  .detail-coupon-table td.cell-overridden { outline: 1.5px solid var(--series-smart); outline-offset: -1.5px; }
+  .cell-input {
+    width: 56px;
+    border: none;
+    background: transparent;
+    font-family: inherit;
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--ink);
+    text-align: right;
+    padding: 2px 3px;
+    border-radius: 4px;
+  }
+  .cell-input:focus { outline: 1.5px solid var(--accent); background: var(--surface); }
+  .cell-input::-webkit-inner-spin-button { opacity: 0; }
+  .forecast-chart-footnote {
+    margin-top: 8px;
+    font-size: 11.5px;
+    color: var(--ink-mute);
+    line-height: 1.5;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .forecast-chart-footnote span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .forecast-chart-footnote i {
+    width: 14px;
+    height: 2px;
+    display: inline-block;
+    opacity: 0.72;
+  }
 
   /* Daily performance: bar chart */
   .daily-bar-chart {
@@ -793,10 +1019,10 @@
   .daily-bar-day { font-size: 8.5px; color: var(--ink-mute); margin-top: 4px; }
 
   /* Daily performance: forecast line chart */
-  .forecast-chart-wrap { width: 100%; overflow-x: auto; }
-  .forecast-legend { display: flex; gap: 18px; margin-top: 10px; font-size: 12px; color: var(--ink-soft); }
+  .forecast-chart-wrap { width: 100%; overflow-x: auto; opacity: 0.82; }
+  .forecast-legend { display: flex; gap: 18px; margin-top: 10px; font-size: 12px; color: var(--ink-mute); }
   .forecast-legend span { display: inline-flex; align-items: center; gap: 6px; }
-  .forecast-legend i { width: 16px; height: 2px; display: inline-block; }
+  .forecast-legend i { width: 16px; height: 2px; display: inline-block; opacity: 0.72; }
 
   .modal-overlay {
     position: fixed;
@@ -869,6 +1095,7 @@
       <button type="button" class="side-link active" data-view="calendar"><span class="ic">📅</span>캠페인 신청 및 캘린더</button>
       <button type="button" class="side-link" data-view="summary"><span class="ic">📊</span>캠페인 실적 요약</button>
       <button type="button" class="side-link" data-view="daily"><span class="ic">📈</span>일별 실적</button>
+      <button type="button" class="side-link" data-view="detail"><span class="ic">🔎</span>캠페인 상세 분석</button>
     </nav>
   </aside>
 
@@ -1220,49 +1447,148 @@
           </div>
           <div class="filter-grid" style="grid-template-columns: 1fr 1fr 1.4fr; margin-bottom: 18px;">
             <div>
-              <div class="filter-group-head"><span class="filter-group-title">월</span></div>
-              <select id="forecastMonthSelect" class="select" style="width: 100%;"></select>
+              <div class="filter-group-head">
+                <span class="filter-group-title">월</span>
+                <div class="forecast-actions">
+                  <button class="filter-reset" id="forecastMonthSelectAll" disabled>전체 선택</button>
+                  <button class="filter-reset" id="forecastMonthReset" disabled>초기화</button>
+                </div>
+              </div>
+              <div class="filter-list" id="forecastMonthList" style="max-height: 120px;"></div>
             </div>
             <div>
               <div class="filter-group-head">
                 <span class="filter-group-title">상품</span>
-                <button class="filter-reset" id="forecastProdReset" disabled>초기화</button>
+                <div class="forecast-actions">
+                  <button class="filter-reset" id="forecastProdSelectAll" disabled>전체 선택</button>
+                  <button class="filter-reset" id="forecastProdReset" disabled>초기화</button>
+                </div>
               </div>
               <div class="filter-list" id="forecastProdList" style="max-height: 120px;"></div>
             </div>
             <div>
               <div class="filter-group-head">
                 <span class="filter-group-title">캠페인</span>
-                <button class="filter-reset" id="forecastCampaignReset" disabled>초기화</button>
+                <div class="forecast-actions">
+                  <button class="filter-reset" id="forecastCampaignSelectAll" disabled>전체 선택</button>
+                  <button class="filter-reset" id="forecastCampaignReset" disabled>초기화</button>
+                </div>
               </div>
               <div class="filter-list" id="forecastCampaignList" style="max-height: 120px;"></div>
             </div>
           </div>
+          <div class="forecast-panel-note" id="forecastFilterStatus">선택 상품: 없음</div>
 
-          <div class="forecast-split">
-            <div class="forecast-half">
-              <div class="forecast-half-title"><span class="dot" style="background:var(--series-toast)"></span>토스트팝업 반응(바로가기) 클릭 수</div>
-              <div class="kpi-split" style="margin-bottom: 14px;">
-                <div class="kpi-visual-group">
-                  <div class="kpi-visual"><div class="kpi-label">현재까지 누적</div><div class="kpi-value" id="fcToastActual">-</div></div>
-                  <div class="kpi-visual"><div class="kpi-label">일평균 페이스</div><div class="kpi-value" id="fcToastAvg">-</div></div>
-                  <div class="kpi-visual"><div class="kpi-label">월 마감 예상치</div><div class="kpi-value" id="fcToastTotal">-</div></div>
+          <div class="forecast-half">
+            <div class="forecast-half-title"><span class="dot" style="background:var(--series-copn)"></span>쿠폰 반응(사용) 수</div>
+            <div class="ai-insight-card" id="fcInsightCard">
+              <span class="ai-insight-badge">✨ AI 인사이트</span>
+              <p class="ai-insight-summary" id="fcInsightSummary">월과 상품을 선택하면 AI 인사이트가 표시됩니다.</p>
+              <div class="ai-insight-products" id="fcInsightProducts"></div>
+            </div>
+
+            <div class="goal-gap-card" id="goalGapCard">
+              <div class="goal-gap-title">🎯 목표 대비 갭 계산기</div>
+              <div class="goal-gap-row">
+                <div class="goal-field">
+                  <label for="goalProdSelect">상품</label>
+                  <select id="goalProdSelect" class="select" style="width:100%;"></select>
+                </div>
+                <div class="goal-field">
+                  <label for="goalTargetInput">목표 반응 건수</label>
+                  <input type="number" id="goalTargetInput" class="text-input" style="width:100%;" placeholder="예: 20000" min="0">
+                </div>
+                <div class="goal-field">
+                  <label for="goalDeadlineInput">목표 달성 기한</label>
+                  <input type="date" id="goalDeadlineInput" class="text-input" style="width:100%;">
                 </div>
               </div>
-              <div id="fcToastChart"></div>
+              <div class="goal-gap-result" id="goalGapResult">상품과 목표 건수를 입력하면 현재 갭과 필요한 일평균 페이스를 계산해드립니다.</div>
             </div>
-            <div class="forecast-half">
-              <div class="forecast-half-title"><span class="dot" style="background:var(--series-copn)"></span>쿠폰 반응(사용) 수</div>
-              <div class="kpi-split" style="margin-bottom: 14px;">
-                <div class="kpi-visual-group">
-                  <div class="kpi-visual"><div class="kpi-label">현재까지 누적</div><div class="kpi-value" id="fcCopnActual">-</div></div>
-                  <div class="kpi-visual"><div class="kpi-label">일평균 페이스</div><div class="kpi-value" id="fcCopnAvg">-</div></div>
-                  <div class="kpi-visual"><div class="kpi-label">월 마감 예상치</div><div class="kpi-value" id="fcCopnTotal">-</div></div>
-                </div>
-              </div>
-              <div id="fcCopnChart"></div>
+
+            <div class="detail-toggle-row">
+              <button type="button" class="detail-toggle-btn" id="couponDetailToggle"><span class="chev">▸</span>실제 쿠폰 반응 수 · 상품·캠페인·날짜별 보기</button>
+              <button type="button" class="filter-reset" id="couponOverrideReset" disabled>수정값 초기화</button>
             </div>
+            <div class="detail-table-wrap" id="couponDetailWrap" hidden></div>
+
+            <div id="fcCopnChart"></div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="view-detail" class="view">
+      <div class="sheet">
+        <div class="masthead">
+          <div class="eyebrow">Campaign Deep-Dive</div>
+          <h1>캠페인 상세 분석</h1>
+          <p class="subtitle">분석할 캠페인을 검색해 선택하면 동기간에 진행된 다른 캠페인, 동일 상품의 과거 캠페인과 교차 비교해 이번 캠페인의 특징과 다음에 시도해볼 만한 액션을 제안합니다.</p>
+        </div>
+
+        <div class="card filter-card">
+          <div class="filter-group-head" style="margin-bottom: 10px;">
+            <span class="filter-group-title">분석할 캠페인 검색</span>
+          </div>
+          <div class="section-note" style="margin-bottom: 10px;">캠페인명 또는 캠페인 ID로 검색한 뒤 목록에서 선택하세요</div>
+          <input class="filter-search" id="detailSearch" placeholder="예: B tv+ MAX패키지, C2608..." style="width: 100%; margin-bottom: 12px;">
+          <div class="search-result-list" id="detailSearchResults"></div>
+        </div>
+
+        <div id="detailEmptyState" class="card">
+          <div class="empty-state">위에서 분석할 캠페인을 검색해 선택하면 상세 분석이 표시됩니다.</div>
+        </div>
+
+        <div id="detailAnalysis" hidden>
+          <section>
+            <div class="card" style="padding: 22px;">
+              <div class="eyebrow">SELECTED CAMPAIGN</div>
+              <div class="section-title" id="detailCampaignTitle" style="margin-bottom: 4px;"></div>
+              <div class="detail-campaign-meta" id="detailCampaignMeta"></div>
+            </div>
+          </section>
+
+          <section>
+            <div class="section-head">
+              <div class="section-title">핵심 지표 · 동기간 평균 대비</div>
+              <div class="section-note" id="detailKpiNote"></div>
+            </div>
+            <div class="kpi-split" id="detailKpiGrid"></div>
+          </section>
+
+          <section>
+            <div class="section-head">
+              <div class="section-title">동기간 진행 캠페인과 비교</div>
+              <div class="section-note" id="detailPeerNote"></div>
+            </div>
+            <div class="card table-scroll">
+              <table>
+                <thead><tr><th>구분</th><th>서비스 모수</th><th>토스트 반응률</th><th>스마트 반응률</th><th>쿠폰 반응률</th></tr></thead>
+                <tbody id="detailPeerBody"></tbody>
+              </table>
+            </div>
+          </section>
+
+          <section>
+            <div class="section-head">
+              <div class="section-title">동일 상품 캠페인 히스토리</div>
+              <div class="section-note" id="detailHistoryNote"></div>
+            </div>
+            <div class="card table-scroll">
+              <table>
+                <thead><tr><th>캠페인</th><th>시작일</th><th>서비스 모수</th><th>토스트 반응률</th><th>스마트 반응률</th><th>쿠폰 반응률</th></tr></thead>
+                <tbody id="detailHistoryBody"></tbody>
+              </table>
+            </div>
+          </section>
+
+          <section>
+            <div class="section-head">
+              <div class="section-title">특징 요약 및 다음 액션 제안</div>
+              <div class="section-note">동기간·동일 상품 비교에 기반한 규칙 기반 제안입니다 · 최종 판단은 담당자가 확인해 주세요</div>
+            </div>
+            <div class="insight-list" id="detailInsightList"></div>
+          </section>
         </div>
       </div>
     </section>
@@ -1494,9 +1820,37 @@
     return '<span class="kpi-gap ' + cls + '">' + sign + fmtDiff(diff) + '<span style="color:var(--ink-mute); font-weight:500;"> 전월대비</span></span>';
   }
 
-  function renderKPI(a, prev, kpiMonth) {
-    document.getElementById('kpiMonthNote').textContent =
-      monthLabel(kpiMonth) + ' 기준 · ' + monthLabel(prevMonthKey(kpiMonth)) + ' 대비 증감 표시';
+  function monthKeysFromState() {
+    return state.months.size === 0 ? [REPORT_MONTH] : Array.from(state.months).sort();
+  }
+
+  function previousMonthRange(monthKeys) {
+    const count = monthKeys.length;
+    const first = monthKeys[0];
+    const prev = [];
+    let cursor = first;
+    for (let i = 0; i < count; i++) {
+      cursor = prevMonthKey(cursor);
+      prev.push(cursor);
+    }
+    return prev.sort();
+  }
+
+  function aggregateForMonths(monthKeys) {
+    const keySet = new Set(monthKeys);
+    const rows = rowsMatching({ skipMonth: true }).filter(function (r) { return keySet.has(r.ym || ''); });
+    return aggregate(rows);
+  }
+
+  function renderKPI(a, prev, monthKeys) {
+    const label = monthKeys.length === 1
+      ? monthLabel(monthKeys[0]) + ' 기준'
+      : monthLabel(monthKeys[0]) + ' ~ ' + monthLabel(monthKeys[monthKeys.length - 1]) + ' 누적';
+    const prevKeys = previousMonthRange(monthKeys);
+    const prevLabel = prevKeys.length === 1
+      ? monthLabel(prevKeys[0])
+      : monthLabel(prevKeys[0]) + ' ~ ' + monthLabel(prevKeys[prevKeys.length - 1]);
+    document.getElementById('kpiMonthNote').textContent = label + ' · 직전 동일 개월수(' + prevLabel + ') 대비 증감 표시';
     const toastShowRate = div(a.t.show, a.t.pop);
     const toastGoRate = div(a.t.go, a.t.show);
     const copnRate = div(a.copnUse, a.copnSvc);
@@ -1588,21 +1942,25 @@
   function renderFunnel(a) {
     const tShowRate = div(a.t.show, a.t.pop);
     const tClickRate = div(a.t.click, a.t.show);
+    const tGoRate = div(a.t.go, a.t.click);
     const sShowRate = div(a.s.show, a.s.pop);
     const sClickRate = div(a.s.click, a.s.show);
+    const sGoRate = div(a.s.go, a.s.click);
 
     const toastHtml = funnelCard('토스트팝업', 'toast', [
       { label: '모수', value: a.t.pop, width: 100 },
       { label: '노출', value: a.t.show, width: (tShowRate || 0) * 100 },
       { label: '클릭', value: a.t.click, width: (div(a.t.click, a.t.pop) || 0) * 100 },
-    ], tShowRate === null ? '-' : pct(tShowRate, 1), tClickRate === null ? '-' : pct(tClickRate, 1), false);
+      { label: '바로가기', value: a.t.go, width: (div(a.t.go, a.t.pop) || 0) * 100 },
+    ], tShowRate === null ? '-' : pct(tShowRate, 1), (tClickRate === null ? '-' : pct(tClickRate, 1)) + ' · ' + (tGoRate === null ? '-' : pct(tGoRate, 1)), false);
 
     // 스마트알림은 발송 즉시 노출되어 모수대비노출이 항상 100%에 가까움 - 모수 막대와 그 비율만 회색으로 구분
     const smartHtml = funnelCard('스마트알림', 'smart', [
       { label: '모수', value: a.s.pop, width: 100, muted: true },
       { label: '노출', value: a.s.show, width: (sShowRate || 0) * 100 },
       { label: '클릭', value: a.s.click, width: (div(a.s.click, a.s.pop) || 0) * 100 },
-    ], sShowRate === null ? '-' : pct(sShowRate, 1), sClickRate === null ? '-' : pct(sClickRate, 1), true);
+      { label: '바로가기', value: a.s.go, width: (div(a.s.go, a.s.pop) || 0) * 100 },
+    ], sShowRate === null ? '-' : pct(sShowRate, 1), (sClickRate === null ? '-' : pct(sClickRate, 1)) + ' · ' + (sGoRate === null ? '-' : pct(sGoRate, 1)), true);
 
     document.getElementById('funnelGrid').innerHTML = toastHtml + smartHtml;
   }
@@ -1717,18 +2075,6 @@
     }).join('');
   }
 
-  function aggregateForMonth(monthKey) {
-    // 상품/캠페인 필터는 반영하되, 특정 월만 집계 - KPI 밴드(이번달/전월) 계산용
-    const rows = rowsMatching({ skipMonth: true }).filter(function (r) { return (r.ym || '') === monthKey; });
-    return aggregate(rows);
-  }
-
-  // 상단 월 필터에서 선택된 달을 "이번달" 기준으로 사용 (여러 개 선택 시 가장 최근 달, 미선택 시 REPORT_MONTH)
-  function currentKpiMonth() {
-    if (state.months.size === 0) return REPORT_MONTH;
-    return Array.from(state.months).sort().pop();
-  }
-
   let lastRows = [];
 
   function render() {
@@ -1738,10 +2084,11 @@
     document.getElementById('selectedMonthsLabel').textContent =
       state.months.size === 0 ? '전체 (선택 없음)' : Array.from(state.months).sort().map(monthLabel).join(', ');
     const a = aggregate(rows);
-    const kpiMonth = currentKpiMonth();
-    const thisA = aggregateForMonth(kpiMonth);
-    const prevA = aggregateForMonth(prevMonthKey(kpiMonth));
-    renderKPI(thisA, prevA, kpiMonth);
+    const selectedMonthKeys = monthKeysFromState();
+    const prevMonthKeys = previousMonthRange(selectedMonthKeys);
+    const thisA = aggregateForMonths(selectedMonthKeys);
+    const prevA = aggregateForMonths(prevMonthKeys);
+    renderKPI(thisA, prevA, selectedMonthKeys);
     renderFunnel(a);
     renderProductTable(rows);
     renderTop10(rows);
@@ -1798,7 +2145,7 @@
   document.querySelectorAll('.side-link').forEach(function (btn) {
     btn.addEventListener('click', function () { showView(btn.getAttribute('data-view')); });
   });
-  showView(location.hash === '#summary' ? 'summary' : (location.hash === '#daily' ? 'daily' : 'calendar'));
+  showView(location.hash === '#summary' ? 'summary' : (location.hash === '#daily' ? 'daily' : (location.hash === '#detail' ? 'detail' : 'calendar')));
 
   // ---- Campaign request sheet -> calendar (live, fetched directly from the browser) ----
   (function () {
@@ -2820,36 +3167,81 @@
     const PRODUCT_COLOR = {};
     FORECAST_PRODUCT_ORDER.forEach(function (p, i) { PRODUCT_COLOR[p] = FORECAST_PALETTE[i % FORECAST_PALETTE.length]; });
 
-    let forecastMonth = monthOptions.length ? monthOptions[0] : REPORT_MONTH;
+    const forecastMonthState = new Set();
     const forecastProdState = new Set();
     const forecastCampaignState = new Set();
+    let hideDailyTrend = false; // "일자별 추세선 빼고 보기" checkbox state
+    // User-entered overrides for the editable "실제 쿠폰 반응 수" table, keyed "prod|YYYYMMDD".
+    // Applied on top of the raw campaign-summed daily totals inside forecastValuesByProduct('copn'),
+    // so edits flow straight into the chart, KPI totals, and AI insight below.
+    const couponOverrides = new Map();
+    let lastSeriesStats = []; // most recent per-product actual/avg/total, for the goal-gap calculator
+    let lastTimeline = [];
 
-    function campaignHasDataInMonth(r, month) {
-      return monthValuesForCampaign('toast', r.id, month).some(function (v) { return v > 0; }) ||
-        monthValuesForCampaign('smart', r.id, month).some(function (v) { return v > 0; }) ||
-        monthValuesForCampaign('copn', r.id, month).some(function (v) { return v > 0; });
+    function selectedForecastMonths() {
+      return forecastMonthState.size ? Array.from(forecastMonthState).sort() : [];
     }
-    function forecastCandidates(month, prodSet) {
+    function campaignHasDataInMonths(r, months) {
+      return months.some(function (month) {
+        return monthValuesForCampaign('copn', r.id, month).some(function (v) { return v > 0; });
+      });
+    }
+    function forecastCandidates(months, prodSet) {
+      if (!months.length) return [];
       return DATA.filter(function (r) {
         if (!campaignIdsWithData.has(r.id)) return false;
+        if (!months.includes(r.ym || '')) return false;
         if (prodSet && prodSet.size > 0 && !prodSet.has(r.prod)) return false;
-        return campaignHasDataInMonth(r, month);
+        return campaignHasDataInMonths(r, months);
       });
     }
 
-    const fcMonthEl = document.getElementById('forecastMonthSelect');
+    const fcMonthListEl = document.getElementById('forecastMonthList');
+    const fcMonthSelectAllEl = document.getElementById('forecastMonthSelectAll');
+    const fcMonthResetEl = document.getElementById('forecastMonthReset');
     const fcProdListEl = document.getElementById('forecastProdList');
+    const fcProdSelectAllEl = document.getElementById('forecastProdSelectAll');
     const fcProdResetEl = document.getElementById('forecastProdReset');
     const fcCampaignListEl = document.getElementById('forecastCampaignList');
+    const fcCampaignSelectAllEl = document.getElementById('forecastCampaignSelectAll');
     const fcCampaignResetEl = document.getElementById('forecastCampaignReset');
+    const forecastFilterStatusEl = document.getElementById('forecastFilterStatus');
 
-    fcMonthEl.innerHTML = (monthOptions.length ? monthOptions : [forecastMonth]).map(function (m) {
-      return '<option value="' + m + '">' + monthLabelYm(m) + '</option>';
-    }).join('');
-    fcMonthEl.value = forecastMonth;
+    function rebuildForecastMonthOptions() {
+      fcMonthListEl.innerHTML = '';
+      const monthKeys = monthOptions.length ? monthOptions : [REPORT_MONTH];
+      (monthOptions.length ? monthOptions : [REPORT_MONTH]).forEach(function (m) {
+        const id = 'fcmonth-' + m;
+        const label = document.createElement('label');
+        label.className = 'filter-item';
+        label.setAttribute('for', id);
+        const input = document.createElement('input');
+        input.type = 'checkbox';
+        input.id = id;
+        input.checked = forecastMonthState.has(m);
+        input.addEventListener('change', function () {
+          if (input.checked) forecastMonthState.add(m); else forecastMonthState.delete(m);
+          fcMonthResetEl.disabled = forecastMonthState.size === 0;
+          forecastProdState.clear();
+          forecastCampaignState.clear();
+          fcProdResetEl.disabled = true;
+          fcCampaignResetEl.disabled = true;
+          rebuildForecastProdOptions();
+          rebuildForecastCampaignOptions();
+          renderForecastSection();
+        });
+        const span = document.createElement('span');
+        span.textContent = monthLabelYm(m);
+        label.appendChild(input);
+        label.appendChild(span);
+        fcMonthListEl.appendChild(label);
+      });
+      fcMonthSelectAllEl.disabled = monthKeys.length === 0;
+    }
 
     function rebuildForecastProdOptions() {
-      const candidates = forecastCandidates(forecastMonth, null);
+      const months = selectedForecastMonths();
+      const candidates = forecastCandidates(months, null);
       const counts = {};
       candidates.forEach(function (r) { counts[r.prod] = (counts[r.prod] || 0) + 1; });
       const entries = FORECAST_PRODUCT_ORDER
@@ -2879,9 +3271,11 @@
         label.appendChild(input); label.appendChild(dot); label.appendChild(span); label.appendChild(cnt);
         fcProdListEl.appendChild(label);
       });
+      fcProdSelectAllEl.disabled = entries.length === 0;
     }
     function rebuildForecastCampaignOptions() {
-      const camps = forecastCandidates(forecastMonth, forecastProdState).sort(function (a, b) { return b.svc - a.svc; });
+      const months = selectedForecastMonths();
+      const camps = forecastCandidates(months, forecastProdState).sort(function (a, b) { return b.svc - a.svc; });
       fcCampaignListEl.innerHTML = '';
       camps.forEach(function (c) {
         const id = 'fccamp-' + c.id;
@@ -2900,20 +3294,52 @@
         label.appendChild(input); label.appendChild(span); label.appendChild(cnt);
         fcCampaignListEl.appendChild(label);
       });
+      fcCampaignSelectAllEl.disabled = camps.length === 0;
     }
+    rebuildForecastMonthOptions();
     rebuildForecastProdOptions();
     rebuildForecastCampaignOptions();
 
-    fcMonthEl.addEventListener('change', function () {
-      forecastMonth = fcMonthEl.value;
+    fcMonthSelectAllEl.addEventListener('click', function () {
+      (monthOptions.length ? monthOptions : [REPORT_MONTH]).forEach(function (m) { forecastMonthState.add(m); });
+      fcMonthResetEl.disabled = forecastMonthState.size === 0;
+      forecastProdState.clear();
+      forecastCampaignState.clear();
+      fcProdResetEl.disabled = true;
+      fcCampaignResetEl.disabled = true;
+      rebuildForecastMonthOptions();
+      rebuildForecastProdOptions();
+      rebuildForecastCampaignOptions();
+      renderForecastSection();
+    });
+    fcMonthResetEl.addEventListener('click', function () {
+      forecastMonthState.clear();
+      fcMonthResetEl.disabled = true;
       forecastProdState.clear(); forecastCampaignState.clear();
       fcProdResetEl.disabled = true; fcCampaignResetEl.disabled = true;
-      rebuildForecastProdOptions(); rebuildForecastCampaignOptions(); renderForecastSection();
+      rebuildForecastMonthOptions(); rebuildForecastProdOptions(); rebuildForecastCampaignOptions(); renderForecastSection();
+    });
+    fcProdSelectAllEl.addEventListener('click', function () {
+      const months = selectedForecastMonths();
+      forecastCandidates(months, null).forEach(function (r) { forecastProdState.add(r.prod); });
+      fcProdResetEl.disabled = forecastProdState.size === 0;
+      forecastCampaignState.clear();
+      fcCampaignResetEl.disabled = true;
+      rebuildForecastProdOptions();
+      rebuildForecastCampaignOptions();
+      renderForecastSection();
     });
     fcProdResetEl.addEventListener('click', function () {
       forecastProdState.clear(); forecastCampaignState.clear();
       fcProdResetEl.disabled = true; fcCampaignResetEl.disabled = true;
       rebuildForecastProdOptions(); rebuildForecastCampaignOptions(); renderForecastSection();
+    });
+    fcCampaignSelectAllEl.addEventListener('click', function () {
+      const months = selectedForecastMonths();
+      forecastCandidates(months, forecastProdState).forEach(function (r) { forecastCampaignState.add(r.id); });
+      fcCampaignResetEl.disabled = forecastCampaignState.size === 0;
+      rebuildForecastCampaignOptions();
+      renderForecastSection();
     });
     fcCampaignResetEl.addEventListener('click', function () {
       forecastCampaignState.clear(); fcCampaignResetEl.disabled = true;
@@ -2921,118 +3347,787 @@
     });
 
     function forecastValuesByProduct(channelKey) {
+      const months = selectedForecastMonths();
       const campaigns = forecastCampaignState.size > 0
         ? DATA.filter(function (r) { return forecastCampaignState.has(r.id); })
-        : forecastCandidates(forecastMonth, forecastProdState);
-      const daysInMonth = new Date(+forecastMonth.slice(0, 4), +forecastMonth.slice(4, 6), 0).getDate();
+        : forecastCandidates(months, forecastProdState);
+      if (!months.length) return [];
       const byProd = new Map();
       campaigns.forEach(function (r) {
-        let totals = byProd.get(r.prod);
-        if (!totals) { totals = new Array(daysInMonth).fill(0); byProd.set(r.prod, totals); }
-        monthValuesForCampaign(channelKey, r.id, forecastMonth).forEach(function (v, i) { totals[i] += v; });
+        months.forEach(function (month) {
+          const daysInMonth = new Date(+month.slice(0, 4), +month.slice(4, 6), 0).getDate();
+          let totals = byProd.get(r.prod);
+          if (!totals) {
+            totals = [];
+            byProd.set(r.prod, totals);
+          }
+          let bucket = totals.find(function (item) { return item.month === month; });
+          if (!bucket) {
+            bucket = { month: month, values: new Array(daysInMonth).fill(0), startDay: null };
+            totals.push(bucket);
+          }
+          if (r.staDt && r.staDt.slice(0, 6) === month) {
+            const startDay = parseInt(r.staDt.slice(6, 8), 10);
+            if (startDay >= 1 && startDay <= daysInMonth) {
+              bucket.startDay = bucket.startDay === null ? startDay : Math.min(bucket.startDay, startDay);
+            }
+          } else if (r.staDt && r.staDt.slice(0, 6) < month) {
+            bucket.startDay = bucket.startDay === null ? 1 : Math.min(bucket.startDay, 1);
+          }
+          monthValuesForCampaign(channelKey, r.id, month).forEach(function (v, i) { bucket.values[i] += v; });
+        });
       });
+      if (channelKey === 'copn' && couponOverrides.size) {
+        byProd.forEach(function (totals, prod) {
+          totals.forEach(function (bucket) {
+            bucket.values.forEach(function (v, i) {
+              const dateKey = bucket.month + String(i + 1).padStart(2, '0');
+              const overrideVal = couponOverrides.get(prod + '|' + dateKey);
+              if (overrideVal !== undefined) bucket.values[i] = overrideVal;
+            });
+          });
+        });
+      }
       return FORECAST_PRODUCT_ORDER
         .filter(function (p) { return byProd.has(p); })
-        .map(function (p) { return { prod: p, color: PRODUCT_COLOR[p], values: byProd.get(p) }; });
+        .map(function (p) {
+          return { prod: p, color: PRODUCT_COLOR[p], months: byProd.get(p) };
+        });
+    }
+
+    function movingAverage(values, windowSize) {
+      return values.map(function (_, idx) {
+        const from = Math.max(0, idx - windowSize + 1);
+        const slice = values.slice(from, idx + 1);
+        const sum = slice.reduce(function (a, b) { return a + b; }, 0);
+        return sum / slice.length;
+      });
+    }
+
+    function renderForecastInsight(ids, months, actualTotal, avgPace, forecastTotal, seriesStats) {
+      const summaryEl = document.getElementById(ids.summary);
+      const productsEl = document.getElementById(ids.products);
+      const active = seriesStats.filter(function (s) { return s.hasData; }).sort(function (a, b) { return b.total - a.total; });
+      if (!active.length) {
+        summaryEl.textContent = '월과 상품을 선택하면 AI 인사이트가 표시됩니다.';
+        productsEl.innerHTML = '';
+        return;
+      }
+      const monthText = months.length === 1 ? monthLabelYm(months[0]) : months.length + '개 월 구간';
+      summaryEl.innerHTML = monthText + ' 기준 쿠폰 반응은 현재까지 <b>' + fmtN(actualTotal) + '건</b> 누적됐습니다. 일평균 <b>' + fmtN(avgPace) + '건/일</b> 페이스가 이어지면 마감 시점에는 약 <b>' + fmtN(forecastTotal) + '건</b>으로 예상됩니다.';
+      productsEl.innerHTML = active.map(function (s) {
+        return '<div class="ai-insight-chip"><div class="chip-prod"><span class="chip-dot" style="background:' + s.color + '"></span>' + esc(s.prod) + '</div>' +
+          '<div class="chip-row"><span>누적</span><b>' + fmtN(s.actual) + '건</b></div>' +
+          '<div class="chip-row"><span>일평균</span><b>' + fmtN(s.avg) + '건/일</b></div>' +
+          '<div class="chip-row"><span>마감 예상</span><b>' + fmtN(s.total) + '건</b></div></div>';
+      }).join('');
     }
 
     function renderForecastMulti(seriesList, ids) {
-      const daysInMonth = new Date(+forecastMonth.slice(0, 4), +forecastMonth.slice(4, 6), 0).getDate();
-      const aggregate = new Array(daysInMonth).fill(0);
-      seriesList.forEach(function (s) { s.values.forEach(function (v, i) { aggregate[i] += v; }); });
-
-      let lastDayWithData = 0;
-      aggregate.forEach(function (v, i) { if (v > 0) lastDayWithData = i + 1; });
-      if (lastDayWithData === 0) lastDayWithData = Math.min(1, daysInMonth);
-
-      const aggCumulative = [];
-      let running = 0;
-      for (let d = 1; d <= daysInMonth; d++) { running += aggregate[d - 1]; aggCumulative.push(running); }
-      const actualTotal = aggCumulative[lastDayWithData - 1] || 0;
-      const avgPace = lastDayWithData > 0 ? actualTotal / lastDayWithData : 0;
-      const forecastTotal = avgPace * daysInMonth;
-
-      document.getElementById(ids.actual).textContent = fmtN(actualTotal) + '건';
-      document.getElementById(ids.avg).textContent = fmtN(avgPace) + '건/일';
-      document.getElementById(ids.total).textContent = fmtN(forecastTotal) + '건';
-
-      const W = Math.max(560, daysInMonth * 22), H = 200, padL = 46, padB = 24, padT = 12, padR = 10;
-      const plotW = W - padL - padR, plotH = H - padT - padB;
-      const maxY = Math.max.apply(null, [forecastTotal, actualTotal, 1]);
-      const xFor = function (d) { return padL + ((d - 1) / (daysInMonth - 1 || 1)) * plotW; };
-      const yFor = function (v) { return padT + plotH - (v / maxY) * plotH; };
-
-      const gridLines = [0, 0.5, 1].map(function (t) {
-        const y = padT + plotH * (1 - t);
-        return '<line x1="' + padL + '" y1="' + y + '" x2="' + (W - padR) + '" y2="' + y + '" stroke="var(--line)" stroke-width="1"/>' +
-          '<text x="' + (padL - 6) + '" y="' + (y + 4) + '" font-size="9" fill="var(--ink-mute)" text-anchor="end">' + fmtN(maxY * t) + '</text>';
-      }).join('');
-
-      const xTicks = [];
-      for (let d = 1; d <= daysInMonth; d++) {
-        xTicks.push('<text x="' + xFor(d) + '" y="' + (H - 6) + '" font-size="9" fill="var(--ink-mute)" text-anchor="middle">' + d + '</text>');
+      const months = selectedForecastMonths();
+      if (!months.length || !seriesList.length) {
+        document.getElementById(ids.summary).textContent = '월과 상품을 선택하면 AI 인사이트가 표시됩니다.';
+        document.getElementById(ids.products).innerHTML = '';
+        document.getElementById(ids.chart).innerHTML = '<div class="forecast-legend"><span>월과 상품을 선택하면 그래프가 표시됩니다</span></div>';
+        lastSeriesStats = [];
+        lastTimeline = [];
+        return;
       }
-
-      let seriesSvg = '';
-      let markerSvg = '';
-      const legendItems = [];
-      seriesList.forEach(function (s) {
-        let firstDay = 0, lastDay = 0;
-        s.values.forEach(function (v, i) { if (v > 0) { if (!firstDay) firstDay = i + 1; lastDay = i + 1; } });
-        if (!firstDay) return;
+      const timeline = [];
+      months.forEach(function (month) {
+        const daysInMonth = new Date(+month.slice(0, 4), +month.slice(4, 6), 0).getDate();
+        for (let day = 1; day <= daysInMonth; day++) {
+          timeline.push({ month: month, day: day, dateKey: month + String(day).padStart(2, '0'), label: month.slice(4, 6) + '/' + String(day).padStart(2, '0') });
+        }
+      });
+      const perSeries = seriesList.map(function (series) {
+        const totals = new Array(timeline.length).fill(0);
+        series.months.forEach(function (bucket) {
+          const startOffset = timeline.findIndex(function (item) { return item.month === bucket.month && item.day === 1; });
+          if (startOffset === -1) return;
+          bucket.values.forEach(function (v, i) { totals[startOffset + i] += v; });
+        });
         const cumulative = [];
-        let run = 0;
-        for (let d = 1; d <= daysInMonth; d++) { run += s.values[d - 1]; cumulative.push(run); }
-        const sActualTotal = cumulative[lastDay - 1];
-        const sAvgPace = sActualTotal / lastDay;
-        const actualPts = [];
-        for (let d = firstDay; d <= lastDay; d++) actualPts.push(xFor(d) + ',' + yFor(cumulative[d - 1]));
-        const forecastPts = [];
-        for (let d = lastDay; d <= daysInMonth; d++) forecastPts.push(xFor(d) + ',' + yFor(sActualTotal + sAvgPace * (d - lastDay)));
-        seriesSvg +=
-          '<polyline points="' + actualPts.join(' ') + '" fill="none" stroke="' + s.color + '" stroke-width="2.5"/>' +
-          '<polyline points="' + forecastPts.join(' ') + '" fill="none" stroke="' + s.color + '" stroke-width="2.5" stroke-dasharray="6 5" opacity="0.75"/>';
-
-        for (let d = firstDay; d <= lastDay; d++) {
-          const cx = xFor(d), cy = yFor(cumulative[d - 1]);
-          const tip = esc(s.prod) + ' · ' + d + '일 · 누적 ' + fmtN(cumulative[d - 1]) + '건 (당일 ' + fmtN(s.values[d - 1]) + '건)';
-          markerSvg +=
-            '<circle class="tip" data-tooltip="' + tip + '" cx="' + cx + '" cy="' + cy + '" r="8" fill="transparent"/>' +
-            '<circle cx="' + cx + '" cy="' + cy + '" r="3" fill="' + s.color + '"/>';
-        }
-        for (let d = lastDay + 1; d <= daysInMonth; d++) {
-          const v = sActualTotal + sAvgPace * (d - lastDay);
-          const cx = xFor(d), cy = yFor(v);
-          const tip = esc(s.prod) + ' · ' + d + '일 · 예상 누적 ' + fmtN(v) + '건 (일평균 페이스 ' + fmtN(sAvgPace) + '건/일)';
-          markerSvg +=
-            '<circle class="tip" data-tooltip="' + tip + '" cx="' + cx + '" cy="' + cy + '" r="8" fill="transparent"/>' +
-            '<circle cx="' + cx + '" cy="' + cy + '" r="3" fill="' + s.color + '" opacity="0.75"/>';
-        }
-        legendItems.push('<span><i style="background:' + s.color + '"></i>' + esc(s.prod) + '</span>');
+        let running = 0;
+        totals.forEach(function (v, i) {
+          running += v;
+          cumulative[i] = running;
+        });
+        return { prod: series.prod, color: series.color, daily: totals, cumulative: cumulative };
+      });
+      // Per-product actual/pace/forecast - same formula as the combined KPI below, computed per series
+      // so the AI-insight card can break the numbers out by product instead of one blended total.
+      const seriesStats = perSeries.map(function (series) {
+        let lastIndex = -1;
+        series.daily.forEach(function (v, i) { if (v > 0) lastIndex = i; });
+        const hasData = lastIndex >= 0;
+        const activeDays = Math.max(1, lastIndex + 1);
+        const actual = hasData ? (series.cumulative[lastIndex] || 0) : 0;
+        const avg = hasData ? actual / activeDays : 0;
+        const total = hasData ? avg * series.cumulative.length : 0;
+        return { prod: series.prod, color: series.color, lastIndex: lastIndex, actual: actual, avg: avg, total: total, hasData: hasData };
+      });
+      const totalsByIndex = new Array(timeline.length).fill(0);
+      const cumulativeByIndex = new Array(timeline.length).fill(0);
+      perSeries.forEach(function (series) {
+        series.daily.forEach(function (v, i) { totalsByIndex[i] += v; });
+        series.cumulative.forEach(function (v, i) { cumulativeByIndex[i] += v; });
+      });
+      let running = 0;
+      let lastIndexWithData = -1;
+      totalsByIndex.forEach(function (v, i) {
+        if (v > 0) lastIndexWithData = i;
+        running += v;
+        cumulativeByIndex[i] = running;
+      });
+      if (lastIndexWithData < 0) lastIndexWithData = 0;
+      const actualTotal = cumulativeByIndex[lastIndexWithData] || 0;
+      const activeDays = Math.max(1, lastIndexWithData + 1);
+      const avgPace = actualTotal / activeDays;
+      const forecastTotal = avgPace * timeline.length;
+      const trendBySeries = perSeries.map(function (series) {
+        return { prod: series.prod, color: series.color, values: movingAverage(series.daily, 5) };
       });
 
-      const svg =
-        '<svg viewBox="0 0 ' + W + ' ' + H + '" width="' + W + '" height="' + H + '">' +
-        gridLines + seriesSvg + xTicks.join('') + markerSvg +
-        '</svg>';
+      renderForecastInsight(ids, months, actualTotal, avgPace, forecastTotal, seriesStats);
+      lastSeriesStats = seriesStats;
+      lastTimeline = timeline;
 
+      const W = Math.max(420, timeline.length * 11), H = 190, padL = 42, padB = 28, padT = 12, padR = 8;
+      const plotW = W - padL - padR, plotH = H - padT - padB;
+      const maxDaily = Math.max.apply(null, totalsByIndex.concat([].concat.apply([], trendBySeries.map(function (s) { return s.values; }))).concat([1]));
+      const maxCumulative = Math.max.apply(null, [forecastTotal].concat(cumulativeByIndex).concat([1]));
+      const xFor = function (d) { return padL + (d / Math.max(1, timeline.length - 1)) * plotW; };
+
+      function renderWeekendTicks(maxY, yFor, suffixMode) {
+        const xTicks = [];
+        timeline.forEach(function (item, idx) {
+          const date = new Date(+item.month.slice(0, 4), +item.month.slice(4, 6) - 1, item.day);
+          const weekend = date.getDay() === 0 || date.getDay() === 6;
+          xTicks.push('<text x="' + xFor(idx) + '" y="' + (H - 6) + '" font-size="8" fill="' + (weekend ? 'var(--neg)' : 'var(--ink-mute)') + '" text-anchor="middle">' + item.day + '</text>');
+        });
+        const gridLines = [0, 0.5, 1].map(function (t) {
+          const y = yFor(maxY * t);
+          return '<line x1="' + padL + '" y1="' + y + '" x2="' + (W - padR) + '" y2="' + y + '" stroke="var(--line)" stroke-width="1"/>' +
+            '<text x="' + (padL - 6) + '" y="' + (y + 4) + '" font-size="8.5" fill="var(--ink-mute)" text-anchor="end">' + fmtN(maxY * t) + (suffixMode || '') + '</text>';
+        }).join('');
+        return { xTicks: xTicks.join(''), gridLines: gridLines };
+      }
+
+      const dailyMaxY = Math.max(maxDaily, 1);
+      const dailyYFor = function (v) { return padT + plotH - (v / dailyMaxY) * plotH; };
+      const dailyAxis = renderWeekendTicks(dailyMaxY, dailyYFor, '');
+      let dailyBarsSvg = '';
+      let dailyTrendSvg = '';
+      let dailyMarkerSvg = '';
+      const groupWidth = Math.max(3, Math.min(12, plotW / timeline.length - 1));
+      const singleBarW = Math.max(2, groupWidth / Math.max(1, perSeries.length));
+      perSeries.forEach(function (series, seriesIndex) {
+        series.daily.forEach(function (v, i) {
+          const x = xFor(i) - (groupWidth / 2) + seriesIndex * singleBarW;
+          const y = dailyYFor(v);
+          const h = padT + plotH - y;
+          const tip = series.prod + ' · ' + timeline[i].label + ' · 반응건수 ' + fmtN(v) + ' 건';
+          dailyBarsSvg += '<rect x="' + x + '" y="' + y + '" width="' + Math.max(1.6, singleBarW - 0.8) + '" height="' + h + '" fill="' + series.color + '" opacity="0.22"></rect>' +
+            '<rect class="tip" data-tooltip="' + tip + '" x="' + x + '" y="' + y + '" width="' + Math.max(6, singleBarW) + '" height="' + Math.max(h, 8) + '" fill="transparent"></rect>';
+        });
+      });
+      if (!hideDailyTrend) {
+        trendBySeries.forEach(function (series) {
+          const trendPts = [];
+          series.values.forEach(function (v, i) {
+            trendPts.push(xFor(i) + ',' + dailyYFor(v));
+            dailyMarkerSvg += '<circle cx="' + xFor(i) + '" cy="' + dailyYFor(v) + '" r="1.4" fill="' + series.color + '" opacity="0.36"></circle>';
+          });
+          dailyTrendSvg += '<polyline points="' + trendPts.join(' ') + '" fill="none" stroke="' + series.color + '" stroke-width="1.4" opacity="0.5" stroke-dasharray="4 4"></polyline>';
+        });
+      }
+      const dailySvg = '<svg viewBox="0 0 ' + W + ' ' + H + '" width="' + W + '" height="' + H + '">' +
+        dailyAxis.gridLines + dailyBarsSvg + dailyTrendSvg + dailyAxis.xTicks + dailyMarkerSvg + '</svg>';
+
+      const cumulativeMaxY = Math.max(maxCumulative, 1);
+      const cumulativeYFor = function (v) { return padT + plotH - (v / cumulativeMaxY) * plotH; };
+      const cumulativeAxis = renderWeekendTicks(cumulativeMaxY, cumulativeYFor, '');
+      let cumulativeLineSvg = '';
+      let cumulativeMarkerSvg = '';
+      perSeries.forEach(function (series) {
+        const actualPts = [];
+        let seriesLastIndex = -1;
+        series.daily.forEach(function (v, i) { if (v > 0) seriesLastIndex = i; });
+        if (seriesLastIndex < 0) return;
+        for (let i = 0; i <= seriesLastIndex; i++) {
+          actualPts.push(xFor(i) + ',' + cumulativeYFor(series.cumulative[i]));
+          const tip = series.prod + ' · ' + timeline[i].label + ' · 실제 누적 ' + fmtN(series.cumulative[i]) + ' 건';
+          cumulativeMarkerSvg += '<circle class="tip" data-tooltip="' + tip + '" cx="' + xFor(i) + '" cy="' + cumulativeYFor(series.cumulative[i]) + '" r="8" fill="transparent"></circle>' +
+            '<circle cx="' + xFor(i) + '" cy="' + cumulativeYFor(series.cumulative[i]) + '" r="1.6" fill="' + series.color + '" opacity="0.68"></circle>';
+        }
+        const startedDays = Math.max(1, seriesLastIndex + 1);
+        const seriesActualTotal = series.cumulative[seriesLastIndex] || 0;
+        const seriesAvgPace = seriesActualTotal / startedDays;
+        const forecastPts = [];
+        for (let i = seriesLastIndex; i < timeline.length; i++) {
+          forecastPts.push(xFor(i) + ',' + cumulativeYFor(seriesActualTotal + seriesAvgPace * (i - seriesLastIndex)));
+        }
+        cumulativeLineSvg += '<polyline points="' + actualPts.join(' ') + '" fill="none" stroke="' + series.color + '" stroke-width="1.5" opacity="0.72"></polyline>';
+        cumulativeLineSvg += '<polyline points="' + forecastPts.join(' ') + '" fill="none" stroke="' + series.color + '" stroke-width="1.5" opacity="0.42" stroke-dasharray="5 5"></polyline>';
+      });
+      const cumulativeSvg = '<svg viewBox="0 0 ' + W + ' ' + H + '" width="' + W + '" height="' + H + '">' +
+        cumulativeAxis.gridLines + cumulativeLineSvg + cumulativeAxis.xTicks + cumulativeMarkerSvg + '</svg>';
+
+      const dailyLegend = perSeries.map(function (series) {
+        return '<span><i style="background:' + series.color + '; height:10px; opacity:0.22;"></i>' + esc(series.prod) + '</span>';
+      }).join('');
+      const cumulativeLegend = perSeries.map(function (series) {
+        return '<span><i style="background:' + series.color + ';"></i>' + esc(series.prod) + '</span>';
+      }).join('');
+
+      const dailyTrendLegend = hideDailyTrend ? '' : '<span><i style="background:var(--ink-mute); opacity:0.45;"></i>일자별 추세선</span>';
       document.getElementById(ids.chart).innerHTML =
-        '<div class="forecast-chart-wrap">' + svg + '</div>' +
-        '<div class="forecast-legend">' +
-        (legendItems.length ? legendItems.join('') : '<span>표시할 상품 데이터가 없습니다</span>') +
-        '<span style="margin-left:auto;">— 실선: 실제 누적 · 점선: 예측 누적</span>' +
+        '<div class="forecast-dual">' +
+        '<div class="forecast-chart-card"><div class="forecast-chart-title"><span>일자별 쿠폰 반응</span><label class="trend-toggle"><input type="checkbox" id="dailyTrendToggle"' + (hideDailyTrend ? ' checked' : '') + '>추세선 빼고 보기</label></div><div class="forecast-chart-wrap">' + dailySvg + '</div><div class="forecast-chart-footnote">' + dailyLegend + dailyTrendLegend + '</div></div>' +
+        '<div class="forecast-chart-card"><div class="forecast-chart-title"><span>누적 쿠폰 반응</span></div><div class="forecast-chart-wrap">' + cumulativeSvg + '</div><div class="forecast-chart-footnote">' + cumulativeLegend + '<span><i style="background:var(--ink-mute); opacity:0.42;"></i>점선: 마감 예측 누적</span></div></div>' +
         '</div>';
+      const trendToggleEl = document.getElementById('dailyTrendToggle');
+      if (trendToggleEl) {
+        trendToggleEl.addEventListener('change', function () {
+          hideDailyTrend = trendToggleEl.checked;
+          renderForecastSection();
+        });
+      }
     }
 
     function renderForecastSection() {
-      renderForecastMulti(forecastValuesByProduct('toast'),
-        { actual: 'fcToastActual', avg: 'fcToastAvg', total: 'fcToastTotal', chart: 'fcToastChart' });
+      const monthText = forecastMonthState.size
+        ? Array.from(forecastMonthState).sort().map(monthLabelYm).join(', ')
+        : '없음';
+      const prodText = forecastProdState.size
+        ? Array.from(forecastProdState).join(', ')
+        : '없음';
+      const campaignText = forecastCampaignState.size
+        ? ' · 선택 캠페인 ' + forecastCampaignState.size + '건'
+        : '';
+      forecastFilterStatusEl.textContent = '선택 월: ' + monthText + ' · 선택 상품: ' + prodText + campaignText + ' · 쿠폰 가입자수는 현재 일자별 distinct 집계값 기준';
       renderForecastMulti(forecastValuesByProduct('copn'),
-        { actual: 'fcCopnActual', avg: 'fcCopnAvg', total: 'fcCopnTotal', chart: 'fcCopnChart' });
+        { summary: 'fcInsightSummary', products: 'fcInsightProducts', chart: 'fcCopnChart' });
+      populateGoalProdSelect();
+      renderGoalGap();
+      if (!couponDetailWrapEl.hidden) renderCouponDetailTable();
     }
+
+    // ============ Editable "실제 쿠폰 반응 수" detail table (상품 -> 캠페인 -> 날짜) ============
+    // Product rows are editable and feed straight back into forecastValuesByProduct('copn') via
+    // couponOverrides; campaign rows underneath are read-only reference data. Days beyond the last
+    // day with real data are marked as forecast columns and pre-filled with the product's current
+    // average daily pace as an editable starting suggestion.
+    const couponDetailToggleEl = document.getElementById('couponDetailToggle');
+    const couponDetailWrapEl = document.getElementById('couponDetailWrap');
+    const couponOverrideResetEl = document.getElementById('couponOverrideReset');
+
+    function buildCouponTableModel() {
+      const months = selectedForecastMonths();
+      const campaigns = forecastCampaignState.size > 0
+        ? DATA.filter(function (r) { return forecastCampaignState.has(r.id); })
+        : forecastCandidates(months, forecastProdState);
+      if (!months.length || !campaigns.length) return null;
+
+      const timeline = [];
+      months.forEach(function (month) {
+        const daysInMonth = new Date(+month.slice(0, 4), +month.slice(4, 6), 0).getDate();
+        for (let day = 1; day <= daysInMonth; day++) {
+          timeline.push({ month: month, day: day, dateKey: month + String(day).padStart(2, '0'), label: month.slice(4, 6) + '/' + String(day).padStart(2, '0') });
+        }
+      });
+
+      const campaignRows = campaigns.map(function (r) {
+        const values = new Array(timeline.length).fill(0);
+        months.forEach(function (month) {
+          const startOffset = timeline.findIndex(function (t) { return t.month === month && t.day === 1; });
+          if (startOffset === -1) return;
+          monthValuesForCampaign('copn', r.id, month).forEach(function (v, i) { values[startOffset + i] += v; });
+        });
+        return { id: r.id, nm: r.nm, prod: r.prod, values: values };
+      });
+
+      const byProd = new Map();
+      campaignRows.forEach(function (c) {
+        if (!byProd.has(c.prod)) byProd.set(c.prod, []);
+        byProd.get(c.prod).push(c);
+      });
+
+      let lastActualIdx = -1;
+      const productRows = FORECAST_PRODUCT_ORDER.filter(function (p) { return byProd.has(p); }).map(function (p) {
+        const camps = byProd.get(p);
+        const rawValues = new Array(timeline.length).fill(0);
+        camps.forEach(function (c) { c.values.forEach(function (v, i) { rawValues[i] += v; }); });
+        let lastIdx = -1;
+        rawValues.forEach(function (v, i) { if (v > 0) lastIdx = i; });
+        if (lastIdx > lastActualIdx) lastActualIdx = lastIdx;
+        const activeDays = Math.max(1, lastIdx + 1);
+        const actualSum = lastIdx >= 0 ? rawValues.slice(0, lastIdx + 1).reduce(function (a, b) { return a + b; }, 0) : 0;
+        const avgPace = actualSum / activeDays;
+        return { prod: p, color: PRODUCT_COLOR[p], campaigns: camps, rawValues: rawValues, avgPace: avgPace };
+      });
+
+      return { timeline: timeline, lastActualIdx: lastActualIdx, productRows: productRows };
+    }
+
+    function renderCouponDetailTable() {
+      const model = buildCouponTableModel();
+      if (!model || !model.productRows.length) {
+        couponDetailWrapEl.innerHTML = '<div class="empty-state">월과 상품을 선택하면 표가 표시됩니다</div>';
+        return;
+      }
+      const timeline = model.timeline, lastActualIdx = model.lastActualIdx, productRows = model.productRows;
+      const headCells = timeline.map(function (t, i) {
+        return '<th class="' + (i > lastActualIdx ? 'col-forecast' : '') + '">' + t.label + '</th>';
+      }).join('');
+
+      let bodyHtml = '';
+      productRows.forEach(function (p) {
+        const cellsHtml = p.rawValues.map(function (raw, i) {
+          const dateKey = timeline[i].dateKey;
+          const overrideKey = p.prod + '|' + dateKey;
+          const isForecastCol = i > lastActualIdx;
+          const overridden = couponOverrides.has(overrideKey);
+          const displayVal = overridden ? couponOverrides.get(overrideKey) : (isForecastCol ? Math.round(p.avgPace) : raw);
+          return '<td class="' + (isForecastCol ? 'col-forecast' : '') + (overridden ? ' cell-overridden' : '') + '">' +
+            '<input type="number" min="0" step="1" class="cell-input" data-prod="' + esc(p.prod) + '" data-date="' + dateKey + '" value="' + displayVal + '">' +
+            '</td>';
+        }).join('');
+        bodyHtml += '<tr class="detail-prod-row"><td class="row-label"><span class="chip-dot" style="background:' + p.color + '"></span>' + esc(p.prod) + '</td>' + cellsHtml + '</tr>';
+        p.campaigns.forEach(function (c) {
+          const campCells = c.values.map(function (v, i) {
+            const isForecastCol = i > lastActualIdx;
+            return '<td class="' + (isForecastCol ? 'col-forecast' : '') + '">' + (v > 0 ? fmtN(v) : (isForecastCol ? '<span class="dash">-</span>' : '0')) + '</td>';
+          }).join('');
+          bodyHtml += '<tr class="detail-camp-row"><td class="row-label camp" title="' + esc(c.nm) + '">' + esc(c.nm) + '</td>' + campCells + '</tr>';
+        });
+      });
+
+      couponDetailWrapEl.innerHTML =
+        '<div class="detail-table-note">진한 배경 열은 실측 데이터가 없는 잔여(예측) 일자입니다 · 상품 행 셀은 직접 수정할 수 있고, 캠페인 행은 참고용입니다. 상품 행을 수정하면 아래 그래프·AI 인사이트·목표 계산기에 바로 반영됩니다.</div>' +
+        '<div class="detail-table-scroll"><table class="detail-coupon-table">' +
+        '<thead><tr><th class="row-label-head">구분</th>' + headCells + '</tr></thead>' +
+        '<tbody>' + bodyHtml + '</tbody></table></div>';
+
+      couponDetailWrapEl.querySelectorAll('.cell-input').forEach(function (input) {
+        input.addEventListener('change', function () {
+          const key = input.getAttribute('data-prod') + '|' + input.getAttribute('data-date');
+          const raw = input.value.trim();
+          if (raw === '') {
+            couponOverrides.delete(key);
+          } else {
+            const num = Math.max(0, Math.round(Number(raw)));
+            couponOverrides.set(key, num);
+            input.value = num;
+          }
+          couponOverrideResetEl.disabled = couponOverrides.size === 0;
+          renderForecastSection();
+        });
+      });
+      couponOverrideResetEl.disabled = couponOverrides.size === 0;
+    }
+
+    couponDetailToggleEl.addEventListener('click', function () {
+      const opening = couponDetailWrapEl.hidden;
+      couponDetailWrapEl.hidden = !opening;
+      couponDetailToggleEl.classList.toggle('open', opening);
+      if (opening) renderCouponDetailTable();
+    });
+    couponOverrideResetEl.addEventListener('click', function () {
+      couponOverrides.clear();
+      couponOverrideResetEl.disabled = true;
+      if (!couponDetailWrapEl.hidden) renderCouponDetailTable();
+      renderForecastSection();
+    });
+
+    // ============ Goal / gap calculator ============
+    // Answers two questions from the same per-product stats the AI-insight card already computes:
+    // "how far am I from my target right now / at the current pace", and "given a deadline, how much
+    // higher does the daily pace need to be to close that gap".
+    const goalProdSelectEl = document.getElementById('goalProdSelect');
+    const goalTargetInputEl = document.getElementById('goalTargetInput');
+    const goalDeadlineInputEl = document.getElementById('goalDeadlineInput');
+    const goalGapResultEl = document.getElementById('goalGapResult');
+
+    function populateGoalProdSelect() {
+      const prevValue = goalProdSelectEl.value;
+      const active = lastSeriesStats.filter(function (s) { return s.hasData; });
+      if (!active.length) {
+        goalProdSelectEl.innerHTML = '<option value="">선택 가능한 상품 없음</option>';
+        goalProdSelectEl.disabled = true;
+        return;
+      }
+      goalProdSelectEl.disabled = false;
+      goalProdSelectEl.innerHTML = active.map(function (s) { return '<option value="' + esc(s.prod) + '">' + esc(s.prod) + '</option>'; }).join('');
+      if (active.some(function (s) { return s.prod === prevValue; })) goalProdSelectEl.value = prevValue;
+    }
+
+    function renderGoalGap() {
+      const prod = goalProdSelectEl.value;
+      const stat = lastSeriesStats.find(function (s) { return s.prod === prod && s.hasData; });
+      if (!stat) {
+        goalGapResultEl.textContent = '상품과 목표 건수를 입력하면 현재 갭과 필요한 일평균 페이스를 계산해드립니다.';
+        return;
+      }
+      const lines = [];
+      lines.push(esc(stat.prod) + ' · 현재 누적 <b>' + fmtN(stat.actual) + '건</b> · 일평균 <b>' + fmtN(stat.avg) + '건/일</b> · 이 페이스면 마감 예상 <b>' + fmtN(stat.total) + '건</b>');
+
+      const targetRaw = goalTargetInputEl.value.trim();
+      const target = targetRaw === '' ? null : Number(targetRaw);
+      if (target !== null && !isNaN(target)) {
+        const gapVsActual = target - stat.actual;
+        const gapVsForecast = target - stat.total;
+        lines.push('목표 ' + fmtN(target) + '건 대비 현재까지 ' +
+          (gapVsActual > 0 ? '<b>' + fmtN(gapVsActual) + '건 부족</b>' : '<b>' + fmtN(-gapVsActual) + '건 초과</b> 달성'));
+        lines.push('현재 페이스를 유지하면 마감 시점 예상치는 목표 대비 ' +
+          (gapVsForecast > 0 ? '<b>' + fmtN(gapVsForecast) + '건 부족</b>할 것으로' : '<b>' + fmtN(-gapVsForecast) + '건 초과</b>할 것으로') + ' 예상됩니다.');
+
+        const deadlineRaw = goalDeadlineInputEl.value;
+        if (deadlineRaw) {
+          const deadlineKey = deadlineRaw.replace(/-/g, '');
+          const lastDateKey = stat.lastIndex >= 0 && lastTimeline[stat.lastIndex] ? lastTimeline[stat.lastIndex].dateKey : null;
+          if (!lastDateKey) {
+            lines.push('선택한 상품의 실측 데이터가 없어 남은 기간을 계산할 수 없습니다.');
+          } else if (deadlineKey <= lastDateKey) {
+            lines.push('입력한 기한이 이미 지났거나 최근 데이터 기준일보다 이전입니다.');
+          } else {
+            const d1 = new Date(+lastDateKey.slice(0, 4), +lastDateKey.slice(4, 6) - 1, +lastDateKey.slice(6, 8));
+            const d2 = new Date(+deadlineKey.slice(0, 4), +deadlineKey.slice(4, 6) - 1, +deadlineKey.slice(6, 8));
+            const remainDays = Math.round((d2 - d1) / 86400000);
+            const neededAvg = Math.max(0, gapVsActual) / remainDays;
+            const diff = neededAvg - stat.avg;
+            lines.push('목표 기한까지 <b>' + remainDays + '일</b> 남음 · 목표 달성에 필요한 일평균 <b>' + fmtN(neededAvg) + '건/일</b> (현재 일평균 ' + fmtN(stat.avg) + '건/일)');
+            lines.push(diff > 0
+              ? '현재 페이스보다 일평균 <b>' + fmtN(diff) + '건</b> 더 필요합니다.'
+              : '현재 페이스로도 목표 달성이 가능할 것으로 예상됩니다 (여유 일평균 ' + fmtN(-diff) + '건).');
+          }
+        }
+      }
+      goalGapResultEl.innerHTML = lines.map(function (l) { return '<div class="goal-gap-line">' + l + '</div>'; }).join('');
+    }
+
+    goalProdSelectEl.addEventListener('change', renderGoalGap);
+    goalTargetInputEl.addEventListener('input', renderGoalGap);
+    goalDeadlineInputEl.addEventListener('change', renderGoalGap);
 
     renderHeatPanels();
     renderForecastSection();
+  })();
+
+  // ---- Campaign detail analysis (4th tab): search one campaign, compare it against
+  // period peers (same start month) and same-product history, and surface rule-based
+  // feature/next-action insights. All comparisons are transparent averages/percentiles
+  // over the same DATA rows used elsewhere - not a black-box prediction. ----
+  (function () {
+    const searchEl = document.getElementById('detailSearch');
+    const resultsEl = document.getElementById('detailSearchResults');
+    const emptyEl = document.getElementById('detailEmptyState');
+    const analysisEl = document.getElementById('detailAnalysis');
+    const titleEl = document.getElementById('detailCampaignTitle');
+    const metaEl = document.getElementById('detailCampaignMeta');
+    const kpiNoteEl = document.getElementById('detailKpiNote');
+    const kpiGridEl = document.getElementById('detailKpiGrid');
+    const peerNoteEl = document.getElementById('detailPeerNote');
+    const peerBodyEl = document.getElementById('detailPeerBody');
+    const historyNoteEl = document.getElementById('detailHistoryNote');
+    const historyBodyEl = document.getElementById('detailHistoryBody');
+    const insightListEl = document.getElementById('detailInsightList');
+
+    const byId = {};
+    DATA.forEach(function (r) { byId[r.id] = r; });
+
+    let selectedId = null;
+
+    // Some rows (mostly untagged "PPV 등" campaigns) have click counts that exceed
+    // show counts due to distinct-count aggregation quirks noted in the summary tab's
+    // footer. A "반응률" over 100% isn't meaningful, so treat those as missing rather
+    // than let one bad row skew a peer average or win the "최고 반응" comparison.
+    function safeRatio(a, b) {
+      const v = div(a, b);
+      return v !== null && v > 1.0001 ? null : v;
+    }
+
+    function rates(r) {
+      return {
+        toastExpo: safeRatio(r.tShow, r.tPop),
+        toastClick: safeRatio(r.tClick, r.tShow),
+        smartClick: safeRatio(r.sClick, r.sShow),
+        copnRate: r.copnYn ? safeRatio(r.copnUse, r.svc) : null,
+      };
+    }
+
+    function avg(list) {
+      const vals = list.filter(function (v) { return v !== null && v !== undefined && !isNaN(v); });
+      if (!vals.length) return null;
+      return vals.reduce(function (a, b) { return a + b; }, 0) / vals.length;
+    }
+
+    function percentileRank(value, pool) {
+      const vals = pool.filter(function (v) { return v !== null && v !== undefined && !isNaN(v); });
+      if (value === null || value === undefined || !vals.length) return null;
+      const le = vals.filter(function (v) { return v <= value; }).length;
+      return Math.round((le / vals.length) * 100);
+    }
+
+    function peerGapBadge(cur, peerAvg, decimals) {
+      if (cur === null || peerAvg === null || peerAvg === undefined) return '';
+      const diff = (cur - peerAvg) * 100;
+      const cls = diff > 0.0000001 ? 'up' : diff < -0.0000001 ? 'down' : 'flat';
+      const sign = diff > 0 ? '+' : '';
+      return '<span class="kpi-gap ' + cls + '">' + sign + diff.toFixed(decimals) + 'p<span style="color:var(--ink-mute); font-weight:500;"> 동기간 평균대비</span></span>';
+    }
+
+    function peerGapBadgeAbs(cur, peerAvg) {
+      if (peerAvg === null || peerAvg === undefined) return '';
+      const diff = cur - peerAvg;
+      const cls = diff > 0.0000001 ? 'up' : diff < -0.0000001 ? 'down' : 'flat';
+      const sign = diff > 0 ? '+' : '';
+      return '<span class="kpi-gap ' + cls + '">' + sign + fmt(diff) + '명<span style="color:var(--ink-mute); font-weight:500;"> 동기간 평균대비</span></span>';
+    }
+
+    function dateLabel(staDt) {
+      return staDt ? (staDt.slice(0, 4) + '.' + staDt.slice(4, 6) + '.' + staDt.slice(6, 8)) : '-';
+    }
+
+    function addInsight(list, tone, icon, html) { list.push({ tone: tone, icon: icon, html: html }); }
+
+    function renderSearch() {
+      const q = searchEl.value.trim().toLowerCase();
+      if (!q) { resultsEl.innerHTML = ''; return; }
+      const matches = DATA.filter(function (r) {
+        return r.nm.toLowerCase().indexOf(q) !== -1 || r.id.toLowerCase().indexOf(q) !== -1;
+      }).slice(0, 30);
+      if (!matches.length) {
+        resultsEl.innerHTML = '<div class="empty-state" style="padding:16px 0;">검색 결과가 없습니다</div>';
+        return;
+      }
+      resultsEl.innerHTML = matches.map(function (r) {
+        const active = r.id === selectedId ? ' active' : '';
+        return '<button type="button" class="search-result-item' + active + '" data-id="' + esc(r.id) + '">' +
+          '<strong>' + esc(r.nm) + '</strong>' +
+          '<div class="search-result-meta"><span>' + esc(r.prod) + '</span><span>' + (r.ym ? monthLabel(r.ym) : '월 미상') + '</span><span>모수 ' + fmt(r.svc) + '명</span></div>' +
+          '</button>';
+      }).join('');
+      resultsEl.querySelectorAll('.search-result-item').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          selectedId = btn.getAttribute('data-id');
+          renderSearch();
+          renderAnalysis();
+        });
+      });
+    }
+    searchEl.addEventListener('input', renderSearch);
+
+    function renderAnalysis() {
+      const sel = byId[selectedId];
+      if (!sel) { analysisEl.hidden = true; emptyEl.hidden = false; return; }
+      emptyEl.hidden = true;
+      analysisEl.hidden = false;
+
+      const selRates = rates(sel);
+
+      titleEl.textContent = sel.nm;
+      const tags = [
+        sel.prod,
+        sel.ym ? monthLabel(sel.ym) : '시작월 미상',
+        (sel.staDt ? dateLabel(sel.staDt) + ' 시작' : '시작일 미상'),
+        '서비스 모수 ' + fmt(sel.svc) + '명',
+        sel.copnYn ? ('쿠폰: ' + (sel.copnNm || '연계')) : '쿠폰 미연계',
+      ];
+      metaEl.innerHTML = tags.map(function (t) { return '<span class="detail-tag">' + esc(t) + '</span>'; }).join('');
+
+      // ---- Period peers: other campaigns that started in the same month ----
+      const periodPeers = sel.ym ? DATA.filter(function (r) { return r.id !== sel.id && r.ym === sel.ym; }) : [];
+      const periodRates = periodPeers.map(rates);
+      const peerAvgToastClick = avg(periodRates.map(function (x) { return x.toastClick; }));
+      const peerAvgSmartClick = avg(periodRates.map(function (x) { return x.smartClick; }));
+      const peerAvgCopn = avg(periodRates.map(function (x) { return x.copnRate; }));
+      const peerAvgSvc = avg(periodPeers.map(function (r) { return r.svc; }));
+
+      kpiNoteEl.textContent = sel.ym
+        ? (monthLabel(sel.ym) + '에 시작된 캠페인 ' + periodPeers.length + '건과 비교')
+        : '시작월 정보가 없어 동기간 비교를 제공할 수 없습니다';
+
+      const kpiTiles = [
+        {
+          label: '서비스 모수', color: 'var(--accent)', value: fmt(sel.svc) + '<small>명</small>',
+          gap: peerGapBadgeAbs(sel.svc, peerAvgSvc),
+          barPct: peerAvgSvc ? Math.min((sel.svc / (peerAvgSvc * 2)) * 100, 100) : (sel.svc > 0 ? 100 : 0),
+        },
+        {
+          label: '토스트팝업 반응률(클릭/노출)', color: 'var(--series-toast)',
+          value: selRates.toastClick === null ? '-' : pct(selRates.toastClick, 1),
+          gap: peerGapBadge(selRates.toastClick, peerAvgToastClick, 1),
+          barPct: selRates.toastClick === null ? 0 : Math.min(selRates.toastClick * 100, 100),
+        },
+        {
+          label: '스마트알림 반응률(클릭/노출)', color: 'var(--series-smart)',
+          value: selRates.smartClick === null ? '-' : pct(selRates.smartClick, 1),
+          gap: peerGapBadge(selRates.smartClick, peerAvgSmartClick, 1),
+          barPct: selRates.smartClick === null ? 0 : Math.min(selRates.smartClick * 100, 100),
+        },
+        {
+          label: '쿠폰 반응률(사용/모수)', color: 'var(--series-copn)',
+          value: selRates.copnRate === null ? '-' : pct(selRates.copnRate, 2),
+          gap: peerGapBadge(selRates.copnRate, peerAvgCopn, 2),
+          barPct: selRates.copnRate === null ? 0 : Math.min(selRates.copnRate * 100, 100),
+        },
+      ];
+      kpiGridEl.innerHTML = '<div class="kpi-visual-group">' + kpiTiles.map(function (t) {
+        return '<div class="kpi-visual"><div class="kpi-label">' + t.label + '</div>' +
+          '<div class="kpi-value-row"><span class="kpi-value">' + t.value + '</span>' + t.gap + '</div>' +
+          '<div class="kpi-bar-track"><div class="kpi-bar-fill" style="width:' + t.barPct + '%; background:' + t.color + '"></div></div>' +
+          '</div>';
+      }).join('') + '</div>';
+
+      // ---- Peer comparison table ----
+      peerNoteEl.textContent = sel.ym ? (monthLabel(sel.ym) + ' 시작 캠페인 ' + periodPeers.length + '건 기준') : '';
+      if (!periodPeers.length) {
+        peerBodyEl.innerHTML = '<tr><td colspan="5"><div class="empty-state">비교할 동기간 캠페인이 없습니다</div></td></tr>';
+      } else {
+        let topPeer = null, topScore = -1;
+        periodPeers.forEach(function (r, i) {
+          const score = (periodRates[i].toastClick || 0) + (periodRates[i].smartClick || 0);
+          if (score > topScore) { topScore = score; topPeer = r; }
+        });
+        const topPeerRates = topPeer ? rates(topPeer) : null;
+        const rows = [
+          { label: '★ 이 캠페인', svc: sel.svc, t: selRates.toastClick, s: selRates.smartClick, c: selRates.copnRate, self: true },
+          { label: '동기간 평균 (' + periodPeers.length + '건)', svc: peerAvgSvc, t: peerAvgToastClick, s: peerAvgSmartClick, c: peerAvgCopn },
+        ];
+        if (topPeer) rows.push({ label: '동기간 최고 반응 · ' + topPeer.nm, svc: topPeer.svc, t: topPeerRates.toastClick, s: topPeerRates.smartClick, c: topPeerRates.copnRate });
+        const maxT = Math.max.apply(null, rows.map(function (x) { return x.t || 0; })) || 0;
+        const maxS = Math.max.apply(null, rows.map(function (x) { return x.s || 0; })) || 0;
+        const maxC = Math.max.apply(null, rows.map(function (x) { return x.c || 0; })) || 0;
+        peerBodyEl.innerHTML = rows.map(function (row) {
+          return '<tr' + (row.self ? ' class="detail-self-row"' : '') + '><td class="cell-name"><span class="nm">' + esc(row.label) + '</span></td>' +
+            '<td>' + (row.svc === null || row.svc === undefined ? '<span class="dash">-</span>' : fmt(row.svc)) + '</td>' +
+            '<td>' + relBar(row.t, maxT, 'toast', 1) + '</td>' +
+            '<td>' + relBar(row.s, maxS, 'smart', 1) + '</td>' +
+            '<td>' + relBar(row.c, maxC, 'copn', 2) + '</td></tr>';
+        }).join('');
+      }
+
+      // ---- Same-product history: earlier campaigns of the same product only ----
+      const history = DATA.filter(function (r) {
+        return r.id !== sel.id && r.prod === sel.prod && r.staDt && sel.staDt && r.staDt < sel.staDt;
+      }).sort(function (a, b) { return b.staDt.localeCompare(a.staDt); }).slice(0, 8);
+      const histRatesList = history.map(rates);
+      historyNoteEl.textContent = sel.prod + ' 상품의 과거 캠페인 ' + history.length + '건' +
+        (sel.prod === 'PPV 등' ? ' · "PPV 등"은 상품 태그가 없는 캠페인의 합산 그룹입니다' : '');
+      if (!history.length) {
+        historyBodyEl.innerHTML = '<tr><td colspan="6"><div class="empty-state">비교할 동일 상품의 과거 캠페인이 없습니다</div></td></tr>';
+      } else {
+        const maxHT = Math.max.apply(null, histRatesList.map(function (x) { return x.toastClick || 0; }).concat([selRates.toastClick || 0])) || 0;
+        const maxHS = Math.max.apply(null, histRatesList.map(function (x) { return x.smartClick || 0; }).concat([selRates.smartClick || 0])) || 0;
+        const maxHC = Math.max.apply(null, histRatesList.map(function (x) { return x.copnRate || 0; }).concat([selRates.copnRate || 0])) || 0;
+        const selRow = '<tr class="detail-self-row"><td class="cell-name"><span class="nm">★ ' + esc(sel.nm) + '</span></td>' +
+          '<td>' + dateLabel(sel.staDt) + '</td>' +
+          '<td>' + fmt(sel.svc) + '</td>' +
+          '<td>' + relBar(selRates.toastClick, maxHT, 'toast', 1) + '</td>' +
+          '<td>' + relBar(selRates.smartClick, maxHS, 'smart', 1) + '</td>' +
+          '<td>' + relBar(selRates.copnRate, maxHC, 'copn', 2) + '</td></tr>';
+        const histRows = history.map(function (r, i) {
+          const rr = histRatesList[i];
+          return '<tr><td class="cell-name"><span class="nm">' + esc(r.nm) + '</span></td>' +
+            '<td>' + dateLabel(r.staDt) + '</td>' +
+            '<td>' + fmt(r.svc) + '</td>' +
+            '<td>' + relBar(rr.toastClick, maxHT, 'toast', 1) + '</td>' +
+            '<td>' + relBar(rr.smartClick, maxHS, 'smart', 1) + '</td>' +
+            '<td>' + relBar(rr.copnRate, maxHC, 'copn', 2) + '</td></tr>';
+        }).join('');
+        historyBodyEl.innerHTML = selRow + histRows;
+      }
+
+      // ---- Rule-based insights & next-action suggestions ----
+      const insights = [];
+
+      const channelsUsed = [];
+      if (sel.tPop > 0) channelsUsed.push('토스트팝업');
+      if (sel.sPop > 0) channelsUsed.push('스마트알림');
+      if (sel.copnYn) channelsUsed.push('쿠폰');
+      addInsight(insights, 'info', '🧩', '이 캠페인은 <b>' + (channelsUsed.length ? channelsUsed.join(' · ') : '별도 반응 채널 없음') + '</b>을 사용했습니다.');
+
+      if (sel.tPop > 0 && sel.sPop === 0) {
+        addInsight(insights, 'warn', '💡', '스마트알림 없이 토스트팝업만 사용했습니다. 동기간 캠페인 중 두 채널을 함께 사용한 경우와 비교해 <b>스마트알림 병행</b>을 검토해보세요.');
+      } else if (sel.sPop > 0 && sel.tPop === 0) {
+        addInsight(insights, 'warn', '💡', '토스트팝업 없이 스마트알림만 사용했습니다. <b>토스트팝업 병행</b> 시 추가 반응을 확보할 수 있는지 검토해보세요.');
+      }
+
+      const gapCandidates = [];
+      if (selRates.toastClick !== null && peerAvgToastClick !== null) {
+        gapCandidates.push({
+          name: '토스트 반응률', cur: selRates.toastClick, peer: peerAvgToastClick,
+          pr: percentileRank(selRates.toastClick, periodRates.map(function (x) { return x.toastClick; }).concat([selRates.toastClick])),
+        });
+      }
+      if (selRates.smartClick !== null && peerAvgSmartClick !== null) {
+        gapCandidates.push({
+          name: '스마트알림 반응률', cur: selRates.smartClick, peer: peerAvgSmartClick,
+          pr: percentileRank(selRates.smartClick, periodRates.map(function (x) { return x.smartClick; }).concat([selRates.smartClick])),
+        });
+      }
+      if (selRates.copnRate !== null && peerAvgCopn !== null) {
+        gapCandidates.push({
+          name: '쿠폰 반응률', cur: selRates.copnRate, peer: peerAvgCopn,
+          pr: percentileRank(selRates.copnRate, periodRates.map(function (x) { return x.copnRate; }).concat([selRates.copnRate])),
+        });
+      }
+      gapCandidates.sort(function (a, b) { return Math.abs(b.cur - b.peer) - Math.abs(a.cur - a.peer); });
+      gapCandidates.slice(0, 2).forEach(function (g) {
+        const decimals = g.name === '쿠폰 반응률' ? 2 : 1;
+        const diffP = ((g.cur - g.peer) * 100).toFixed(decimals);
+        const better = g.cur >= g.peer;
+        addInsight(insights, better ? 'good' : 'warn', better ? '✅' : '⚠️',
+          g.name + '이 동기간 평균(' + pct(g.peer, decimals) + ') 대비 <b>' + (better ? '+' : '') + diffP + 'p ' + (better ? '높습니다' : '낮습니다') + '</b>' +
+          (g.pr !== null ? ' (동기간 ' + (periodPeers.length + 1) + '건 중 상위 ' + (100 - g.pr) + '%)' : '') + '.' +
+          (better ? '' : ' 소재·타겟·발송 타이밍을 동기간 상위 캠페인과 비교해보는 것을 추천합니다.'));
+      });
+
+      if (!sel.copnYn && periodPeers.length) {
+        const withCopn = periodPeers.filter(function (r) { return r.copnYn; });
+        const withoutCopn = periodPeers.filter(function (r) { return !r.copnYn; });
+        const rWithCopn = avg(withCopn.map(function (r) { return rates(r).toastClick; }).concat(withCopn.map(function (r) { return rates(r).smartClick; })));
+        const rWithoutCopn = avg(withoutCopn.map(function (r) { return rates(r).toastClick; }).concat(withoutCopn.map(function (r) { return rates(r).smartClick; })));
+        if (withCopn.length >= 2 && rWithCopn !== null && rWithoutCopn !== null && rWithCopn - rWithoutCopn > 0.02) {
+          addInsight(insights, 'info', '🎟️', '이 캠페인은 쿠폰이 연계되지 않았습니다. 동기간 쿠폰 연계 캠페인(' + withCopn.length + '건)의 평균 반응률이 미연계 캠페인보다 ' +
+            ((rWithCopn - rWithoutCopn) * 100).toFixed(1) + 'p 높았습니다. <b>쿠폰 연계 추가</b>를 검토해보세요.');
+        }
+      }
+
+      if (history.length >= 2) {
+        const histAvgToast = avg(histRatesList.map(function (x) { return x.toastClick; }));
+        const histAvgSmart = avg(histRatesList.map(function (x) { return x.smartClick; }));
+        const parts = [];
+        if (selRates.toastClick !== null && histAvgToast !== null) {
+          parts.push('토스트 ' + (selRates.toastClick >= histAvgToast ? '+' : '') + ((selRates.toastClick - histAvgToast) * 100).toFixed(1) + 'p');
+        }
+        if (selRates.smartClick !== null && histAvgSmart !== null) {
+          parts.push('스마트 ' + (selRates.smartClick >= histAvgSmart ? '+' : '') + ((selRates.smartClick - histAvgSmart) * 100).toFixed(1) + 'p');
+        }
+        if (parts.length) {
+          addInsight(insights, 'info', '📈', '동일 상품 과거 ' + history.length + '건 평균 대비 ' + parts.join(', ') + '입니다. 최근 흐름과 비교해 이번 캠페인의 소재·타겟이 어떻게 달랐는지 함께 검토해보세요.');
+        }
+      } else {
+        addInsight(insights, 'info', 'ℹ️', '동일 상품으로 진행된 과거 캠페인 데이터가 충분하지 않아(' + history.length + '건) 상품 히스토리 비교는 참고용으로만 활용하세요.');
+      }
+
+      if (peerAvgSvc !== null && peerAvgSvc > 0) {
+        const svcRatio = sel.svc / peerAvgSvc;
+        if (svcRatio < 0.4) {
+          addInsight(insights, 'warn', '📊', '서비스 모수가 동기간 평균(' + fmt(peerAvgSvc) + '명)의 ' + (svcRatio * 100).toFixed(0) + '% 수준으로 작습니다. 반응률이 좋다면 <b>타겟 확장</b>을 검토해볼 수 있습니다.');
+        } else if (svcRatio > 2.5) {
+          addInsight(insights, 'info', '📊', '서비스 모수가 동기간 평균 대비 ' + svcRatio.toFixed(1) + '배로 큰 캠페인입니다. 대규모 발송인 만큼 반응률 변화를 별도로 모니터링하는 것을 추천합니다.');
+        }
+      }
+
+      insightListEl.innerHTML = insights.map(function (ins) {
+        return '<div class="insight-item tone-' + ins.tone + '"><span class="insight-icon">' + ins.icon + '</span><div class="insight-body">' + ins.html + '</div></div>';
+      }).join('');
+    }
+
+    renderSearch();
   })();
 })();
 </script>
