@@ -1,0 +1,36 @@
+[
+  {
+    "applicationId": "APP-001",
+    "cmpgnId": "CMP-001",
+    "cmpgnNm": "Back to School Bundle",
+    "owner": "김하늘",
+    "channel": "TOAST",
+    "category": "프로모션",
+    "coupon": "신규가입 10% 할인",
+    "target": 4200,
+    "department": "마케팅1팀",
+    "campaignMonth": "2026-08",
+    "startDate": "2026-08-29",
+    "endDate": "2026-09-02",
+    "expectedVolume": 4200,
+    "budget": 1800000,
+    "memo": "개강 시즌 타겟 집중 운영"
+  },
+  {
+    "applicationId": "APP-002",
+    "cmpgnId": "CMP-002",
+    "cmpgnNm": "Family Streaming Boost",
+    "owner": "박준호",
+    "channel": "SMART",
+    "category": "리텐션",
+    "coupon": "셋톱박스 업그레이드 쿠폰",
+    "target": 2600,
+    "department": "CRM팀",
+    "campaignMonth": "2026-09",
+    "startDate": "2026-09-03",
+    "endDate": "2026-09-05",
+    "expectedVolume": 2600,
+    "budget": 950000,
+    "memo": "주말 번들 전환 유도"
+  }
+]
