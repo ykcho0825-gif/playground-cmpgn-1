@@ -248,6 +248,12 @@
   .filter-status b { color: var(--ink); font-weight: 600; }
 
   /* KPI band */
+  .kpi-section-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
+  .kpi-section-title { font-size: 18px; font-weight: 750; letter-spacing: -0.02em; color: var(--ink); }
+  .kpi-head-right { display: flex; align-items: center; gap: 10px; }
+  .kpi-channel-toggle { display: inline-flex; padding: 2px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface-soft); }
+  .kpi-channel-btn { border: 0; border-radius: 6px; padding: 4px 8px; background: transparent; color: var(--ink-mute); font: inherit; font-size: 10.5px; font-weight: 700; cursor: pointer; }
+  .kpi-channel-btn.active { color: var(--accent); background: var(--surface); box-shadow: 0 1px 3px rgba(20, 33, 61, 0.12); }
   .kpi-split {
     display: flex;
     gap: 1px;
@@ -258,8 +264,35 @@
     box-shadow: var(--shadow);
   }
   .kpi-visual-group { display: flex; flex: 1 1 auto; gap: 1px; }
-  .kpi-visual { flex: 1; background: var(--surface); padding: 22px 20px; min-width: 0; }
-  .kpi-label { font-size: 12.5px; color: var(--ink-mute); font-weight: 500; margin-bottom: 11px; }
+  .kpi-metric-cluster { display: flex; flex-direction: column; min-width: 0; background: var(--surface); }
+  .kpi-metric-cluster.channel { flex: 3 1 0; }
+  .kpi-metric-cluster.coupon { flex: 1 1 0; }
+  .kpi-cluster-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    border-bottom: 2px solid color-mix(in srgb, var(--kpi-cluster-color) 46%, var(--line));
+    background: linear-gradient(90deg, color-mix(in srgb, var(--kpi-cluster-color) 14%, var(--surface)), var(--surface-soft));
+    color: var(--ink);
+    font-size: 13.5px;
+    font-weight: 850;
+    letter-spacing: 0;
+  }
+  .kpi-cluster-title::before {
+    content: '';
+    width: 7px;
+    height: 18px;
+    border-radius: 4px;
+    background: var(--kpi-cluster-color);
+  }
+  .kpi-cluster-tiles { display: flex; flex: 1; }
+  .kpi-visual { flex: 1; background: var(--surface); padding: 15px 16px 16px; min-width: 0; }
+  .kpi-cluster-tiles .kpi-visual + .kpi-visual { border-left: 1px solid var(--line); }
+  .kpi-visual.channel-start { box-shadow: inset 3px 0 0 var(--kpi-channel-color); }
+  .kpi-group-name { min-height: 15px; margin-bottom: 7px; font-size: 10.5px; font-weight: 800; letter-spacing: .05em; color: var(--kpi-channel-color, var(--ink-mute)); }
+  .kpi-group-name.coupon { color: var(--series-copn); }
+  .kpi-label { font-size: 12.5px; color: var(--ink-soft); font-weight: 750; margin-bottom: 10px; }
   .kpi-value-row { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
   .kpi-value { font-size: 30px; font-weight: 700; letter-spacing: -0.01em; color: var(--ink); }
   .kpi-value small { font-size: 15px; font-weight: 600; color: var(--ink-mute); }
@@ -270,19 +303,53 @@
   .kpi-bar-track { height: 6px; border-radius: 3px; background: var(--track); overflow: hidden; margin: 10px 0 8px; }
   .kpi-bar-fill { height: 100%; border-radius: 3px; }
   .kpi-sub { font-size: 12px; color: var(--ink-soft); font-weight: 500; font-variant-numeric: tabular-nums; line-height: 1.5; }
+  .kpi-top-list { margin-top: 11px; padding-top: 10px; border-top: 1px dashed var(--line); display: flex; flex-direction: column; gap: 5px; }
+  .kpi-top-title { color: var(--ink-mute); font-size: 10px; font-weight: 800; letter-spacing: .04em; }
+  .kpi-top-row { display: grid; grid-template-columns: 16px minmax(0, 1fr) auto; align-items: center; gap: 6px; color: var(--ink-soft); font-size: 10.5px; line-height: 1.25; }
+  .kpi-top-rank { display: grid; place-items: center; width: 16px; height: 16px; border-radius: 4px; background: var(--surface-soft); color: var(--ink-mute); font-size: 9px; font-weight: 800; }
+  .kpi-top-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .kpi-top-value { color: var(--ink); font-weight: 800; font-variant-numeric: tabular-nums; }
 
   .kpi-text-group { width: 260px; flex-shrink: 0; background: var(--surface); display: flex; flex-direction: column; }
-  .kpi-text-item { padding: 18px 20px; flex: 1; display: flex; flex-direction: column; justify-content: center; }
-  .kpi-text-item:first-child { border-bottom: 1px solid var(--line); }
+  .kpi-text-group-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border-bottom: 2px solid color-mix(in srgb, var(--accent) 40%, var(--line));
+    background: linear-gradient(90deg, var(--accent-soft), var(--surface-soft));
+    color: var(--ink);
+    font-size: 13.5px;
+    font-weight: 850;
+    letter-spacing: 0;
+  }
+  .kpi-text-group-title::before { content: ''; width: 7px; height: 18px; border-radius: 4px; background: var(--accent); }
+  .kpi-text-item { padding: 13px 20px; flex: 1; display: flex; flex-direction: column; justify-content: center; }
+  .kpi-text-item:not(:last-child) { border-bottom: 1px solid var(--line); }
   .kpi-text-value { font-size: 20px; font-weight: 700; color: var(--ink); }
   .kpi-text-value small { font-size: 13px; font-weight: 600; color: var(--ink-mute); }
+  #kpiGrid .kpi-value { font-size: 24px; }
+  #kpiGrid .kpi-text-value { font-size: 18px; }
+  .summary-one-line { margin-top: 9px; color: var(--ink-mute); font-size: 11.5px; line-height: 1.5; text-align: right; }
 
   @media (max-width: 1180px) {
     .kpi-split { flex-direction: column; }
     .kpi-visual-group { flex-wrap: wrap; }
+    .kpi-metric-cluster.channel { flex-basis: 68%; }
+    .kpi-metric-cluster.coupon { flex-basis: 30%; }
     .kpi-visual { flex: 1 1 45%; }
-    .kpi-text-group { width: 100%; flex-direction: row; }
-    .kpi-text-item:first-child { border-bottom: none; border-right: 1px solid var(--line); }
+    .kpi-text-group { width: 100%; flex-direction: row; flex-wrap: wrap; }
+    .kpi-text-group-title { display: block; flex: 0 0 100%; }
+    .kpi-text-item { min-width: 0; }
+    .kpi-text-item:not(:last-child) { border-bottom: none; border-right: 1px solid var(--line); }
+  }
+  @media (max-width: 680px) {
+    .kpi-section-head { align-items: flex-start; flex-direction: column; }
+    .kpi-head-right { width: 100%; align-items: flex-start; justify-content: space-between; }
+    .kpi-visual { flex-basis: 100%; }
+    .kpi-metric-cluster.channel, .kpi-metric-cluster.coupon { flex-basis: 100%; }
+    .kpi-cluster-tiles { flex-direction: column; }
+    .kpi-cluster-tiles .kpi-visual + .kpi-visual { border-left: 0; border-top: 1px solid var(--line); }
   }
 
   /* Funnel */
@@ -304,13 +371,60 @@
   .funnel-fill.smart { background: var(--series-smart); }
   .funnel-fill.muted { background: var(--series-gray); }
 
-  .funnel-rate { display: flex; gap: 18px; margin-top: 16px; padding-top: 14px; border-top: 1px dashed var(--line); }
-  .funnel-rate div { font-size: 12px; color: var(--ink-mute); }
+  .funnel-rate { display: flex; gap: 12px; margin-top: 16px; padding-top: 14px; border-top: 1px dashed var(--line); }
+  .funnel-rate div { flex: 1; min-width: 0; font-size: 11.5px; color: var(--ink-mute); }
   .funnel-rate b { display: block; font-size: 17px; color: var(--ink); font-weight: 700; margin-top: 2px; }
   .funnel-rate b.muted { color: var(--ink-mute); }
 
   /* Tables */
   .table-scroll { overflow-x: auto; }
+  .product-analysis-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(520px, 1.08fr);
+    gap: 16px;
+    align-items: stretch;
+  }
+  .product-analysis-grid > .card { min-width: 0; }
+  .product-analysis-grid table { font-size: 11.5px; }
+  .product-analysis-grid table th,
+  .product-analysis-grid table td { padding: 10px 8px; }
+  .product-analysis-grid table th { padding: 10px 8px; font-size: 9.5px; letter-spacing: 0.02em; }
+  .product-analysis-grid .rate-track { width: 34px; }
+  .product-analysis-grid .rate-cell { gap: 5px; }
+  .product-analysis-grid .rate-num { min-width: 36px; font-size: 10.5px; }
+  .product-analysis-grid .coupon-use-cell { text-align: right; font-weight: 650; color: var(--ink); }
+  .product-table-toolbar { display: flex; align-items: center; justify-content: flex-end; padding: 14px 16px 0; }
+  .product-cross-card { padding: 17px 18px 14px; display: flex; flex-direction: column; min-height: 430px; }
+  .product-cross-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; margin-bottom: 8px; }
+  .product-cross-title { font-size: 14px; font-weight: 700; color: var(--ink); }
+  .product-cross-desc { margin-top: 4px; font-size: 11.5px; line-height: 1.45; color: var(--ink-mute); }
+  .product-cross-controls { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; justify-content: flex-end; }
+  .cross-channel-toggle { display: inline-flex; padding: 3px; border-radius: 9px; background: var(--surface-soft); border: 1px solid var(--line); }
+  .cross-channel-btn { border: 0; border-radius: 6px; padding: 6px 9px; background: transparent; color: var(--ink-mute); font: inherit; font-size: 11.5px; font-weight: 700; cursor: pointer; }
+  .cross-channel-btn.active { color: var(--accent); background: var(--surface); box-shadow: 0 1px 4px rgba(20, 33, 61, 0.12); }
+  .cross-exclude-label { display: inline-flex; align-items: center; gap: 6px; padding: 6px 9px; border: 1px solid var(--line); border-radius: 8px; color: var(--ink-soft); font-size: 11.5px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+  .cross-exclude-label:has(input:checked) { border-color: var(--series-copn); background: color-mix(in srgb, var(--series-copn) 9%, var(--surface)); color: var(--ink); }
+  .cross-exclude-label input { accent-color: var(--series-copn); margin: 0; }
+  .product-cross-chart { flex: 1; min-height: 330px; }
+  .product-cross-chart svg { display: block; width: 100%; height: 100%; min-height: 330px; overflow: visible; }
+  .cross-grid-line { stroke: var(--line); stroke-width: 1; stroke-dasharray: 3 4; }
+  .cross-axis-line { stroke: var(--ink-mute); stroke-width: 1; }
+  .cross-axis-text { fill: var(--ink-mute); font-size: 10.5px; }
+  .cross-axis-title { fill: var(--ink-soft); font-size: 11px; font-weight: 700; }
+  .cross-bubble { stroke: var(--surface); stroke-width: 2; opacity: 0.82; transition: opacity .15s ease, stroke-width .15s ease; cursor: help; }
+  .cross-bubble[data-product] { cursor: pointer; }
+  .cross-bubble:hover { opacity: 1; stroke-width: 3; }
+  .cross-label { fill: var(--ink-soft); font-size: 10px; font-weight: 600; pointer-events: none; paint-order: stroke; stroke: var(--surface); stroke-width: 3px; stroke-linejoin: round; }
+  .product-cross-foot { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding-top: 6px; font-size: 10.5px; color: var(--ink-mute); }
+  .cross-size-legend { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+  .cross-size-dot { display: inline-block; border-radius: 50%; background: color-mix(in srgb, var(--series-copn) 62%, transparent); border: 1px solid var(--series-copn); }
+  .cross-empty { min-height: 330px; display: grid; place-items: center; text-align: center; color: var(--ink-mute); font-size: 12.5px; line-height: 1.6; }
+  @media (max-width: 1220px) { .product-analysis-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 680px) {
+    .product-cross-head { flex-direction: column; }
+    .product-cross-controls { justify-content: flex-start; }
+    .product-cross-card { padding: 14px 12px 10px; }
+  }
   table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
   th, td { padding: 12px 16px; text-align: left; white-space: nowrap; border-bottom: 1px solid var(--line); }
   th { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--ink-mute); }
@@ -337,6 +451,21 @@
   .rate-fill.copn { background: var(--series-copn); }
   .rate-num { min-width: 42px; font-weight: 600; color: var(--ink); }
   .dash { color: var(--ink-mute); }
+  .product-main-row td { background: var(--surface); }
+  .product-main-row.expanded td { border-bottom-color: color-mix(in srgb, var(--accent) 25%, var(--line)); }
+  .product-name-wrap { display: flex; align-items: center; gap: 7px; min-width: 0; }
+  .product-name-text { overflow: hidden; text-overflow: ellipsis; }
+  .product-expand-btn { display: inline-grid; place-items: center; width: 19px; height: 19px; flex: 0 0 19px; border: 1px solid var(--line); border-radius: 5px; padding: 0; background: var(--surface); color: var(--ink-soft); font: inherit; font-size: 13px; font-weight: 700; line-height: 1; cursor: pointer; }
+  .product-expand-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+  .product-main-row.expanded .product-expand-btn { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+  .product-count-badge { flex: 0 0 auto; padding: 2px 5px; border-radius: 5px; background: var(--surface-soft); color: var(--ink-mute); font-size: 9.5px; font-weight: 650; }
+  .product-campaign-row td { padding-top: 9px; padding-bottom: 9px; background: color-mix(in srgb, var(--surface-soft) 72%, var(--surface)); border-bottom-color: color-mix(in srgb, var(--line) 78%, transparent); font-size: 11.5px; }
+  .product-campaign-row td:first-child { padding-left: 35px; border-left: 2px solid color-mix(in srgb, var(--accent) 35%, var(--line)); }
+  .product-campaign-row:hover td { background: var(--surface-soft); }
+  .product-campaign-name { max-width: 250px; overflow: hidden; text-overflow: ellipsis; color: var(--ink-soft); font-weight: 600; }
+  .product-campaign-name span { display: block; margin-top: 2px; color: var(--ink-mute); font-size: 10px; }
+  .product-campaign-row .rate-track { width: 34px; height: 5px; }
+  .product-campaign-row .rate-num { min-width: 38px; font-size: 11px; }
 
   .tip { cursor: help; }
   .global-tooltip {
@@ -420,6 +549,15 @@
   }
   .link-btn:hover { text-decoration: underline; }
 
+  .campaign-detail { border: 1px solid var(--line); border-radius: 14px; background: var(--surface); box-shadow: var(--shadow); overflow: hidden; }
+  .campaign-detail > summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 17px 20px; cursor: pointer; list-style: none; color: var(--ink); font-size: 14px; font-weight: 700; }
+  .campaign-detail > summary::-webkit-details-marker { display: none; }
+  .campaign-detail > summary::after { content: '+'; display: grid; place-items: center; width: 21px; height: 21px; border: 1px solid var(--line); border-radius: 6px; color: var(--ink-soft); font-size: 14px; line-height: 1; }
+  .campaign-detail[open] > summary { border-bottom: 1px solid var(--line); }
+  .campaign-detail[open] > summary::after { content: '−'; color: var(--accent); border-color: var(--accent); background: var(--accent-soft); }
+  .campaign-detail-summary-note { margin-left: auto; color: var(--ink-mute); font-size: 11.5px; font-weight: 500; }
+  .campaign-detail-body { padding-bottom: 16px; }
+
   .empty-state { padding: 36px 0; text-align: center; color: var(--ink-mute); font-size: 13px; }
 
   footer {
@@ -494,6 +632,27 @@
     border: 1px solid var(--line);
     border-radius: 999px;
     background: var(--surface-soft);
+  }
+  .calendar-head-actions { display: flex; align-items: center; gap: 9px; }
+  .owner-mode-btn { display: inline-flex; align-items: center; gap: 7px; padding: 9px 14px; border: 1px solid var(--accent); border-radius: 999px; background: var(--accent); color: #fff; font: inherit; font-size: 12px; font-weight: 750; cursor: pointer; }
+  .owner-mode-btn:hover { filter: brightness(.96); }
+  .owner-mode-box { width: min(920px, 100%); max-height: 86vh; overflow: auto; background: var(--surface); border-radius: 16px; box-shadow: var(--shadow); }
+  .owner-mode-intro { padding: 14px 20px; border-bottom: 1px solid var(--line); background: var(--surface-soft); color: var(--ink-soft); font-size: 12.5px; line-height: 1.6; }
+  .owner-mode-summary { display: flex; gap: 10px; padding: 16px 20px 4px; }
+  .owner-stat { padding: 9px 12px; border: 1px solid var(--line); border-radius: 9px; color: var(--ink-mute); font-size: 11px; }
+  .owner-stat b { margin-left: 5px; color: var(--ink); font-size: 15px; }
+  .owner-mode-list { display: flex; flex-direction: column; gap: 9px; padding: 14px 20px 20px; }
+  .owner-pending-item { display: grid; grid-template-columns: minmax(220px, 1.5fr) minmax(110px, .7fr) 140px 100px auto; align-items: center; gap: 10px; padding: 13px 14px; border: 1px solid var(--line); border-radius: 11px; }
+  .owner-pending-item.assigned { border-color: color-mix(in srgb, var(--pos) 45%, var(--line)); background: color-mix(in srgb, var(--pos) 6%, var(--surface)); }
+  .owner-campaign-name { min-width: 0; color: var(--ink); font-size: 12.5px; font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .owner-campaign-meta { margin-top: 4px; color: var(--ink-mute); font-size: 10.5px; font-weight: 500; }
+  .owner-assign-input { width: 100%; padding: 7px 8px; border: 1px solid var(--line); border-radius: 7px; background: var(--surface); color: var(--ink); font: inherit; font-size: 11.5px; }
+  .owner-assign-btn { padding: 8px 10px; border: 0; border-radius: 7px; background: var(--accent); color: #fff; font: inherit; font-size: 11.5px; font-weight: 700; cursor: pointer; white-space: nowrap; }
+  .owner-assigned-label { color: var(--pos); font-size: 11.5px; font-weight: 750; text-align: center; }
+  @media (max-width: 760px) {
+    .calendar-toolbar-head, .calendar-head-actions { align-items: stretch; flex-direction: column; }
+    .owner-pending-item { grid-template-columns: 1fr 1fr; }
+    .owner-pending-item > :first-child { grid-column: 1 / -1; }
   }
   .calendar-quick-btn {
     border: none;
@@ -757,19 +916,19 @@
   .heat-cell-sm.empty { background: transparent; }
   .daily-more-note { text-align: center; color: var(--ink-mute); font-size: 12px; padding: 10px 0; }
 
-  /* Matrix heatmap (rows = entities, columns = day-of-month) */
-  .heat-panels { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 20px; }
-  .heat-panel-card { padding: 20px; }
-  .matrix-heat-scroll { max-height: 460px; overflow: auto; border: 1px solid var(--line); border-radius: 10px; }
+  /* Matrix heatmap (rows = entities, columns = date timeline) */
+  .heat-panels { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 14px; margin-bottom: 20px; align-items: start; }
+  .heat-panel-card { padding: 16px; min-width: 0; }
+  .matrix-heat-scroll { max-height: 520px; overflow: auto; border: 1px solid var(--line); border-radius: 10px; }
   .matrix-row { display: flex; align-items: stretch; }
   .matrix-row[data-cmpgn-id] { cursor: pointer; }
   .matrix-row.row-highlight { outline: 2px solid var(--accent); outline-offset: -2px; }
   .matrix-row.row-highlight .matrix-row-label { background: var(--accent-soft); color: var(--accent); font-weight: 700; }
   .matrix-row-label {
-    flex: 0 0 168px;
-    width: 168px;
-    padding: 6px 10px;
-    font-size: 11.5px;
+    flex: 0 0 144px;
+    width: 144px;
+    padding: 6px 8px;
+    font-size: 11px;
     color: var(--ink-soft);
     white-space: nowrap;
     overflow: hidden;
@@ -781,29 +940,88 @@
     display: flex;
     align-items: center;
   }
-  .matrix-days { flex: 1; display: grid; }
-  .matrix-day-head {
-    font-size: 9px;
-    color: var(--ink-mute);
+  .matrix-days { flex: 1; display: grid; background: #fff; }
+  .matrix-month-head {
+    font-size: 10px;
+    font-weight: 800;
+    color: #2f3a52;
     text-align: center;
-    padding: 6px 0;
-    background: var(--surface);
+    padding: 6px 0 5px;
+    background: #dbe6f7;
     position: sticky;
     top: 0;
-    z-index: 2;
+    z-index: 3;
+    border-bottom: 2px solid #9fb5d8;
+    box-shadow: inset -1px 0 0 #b6c7e2;
   }
-  .matrix-row-label.head { position: sticky; top: 0; left: 0; z-index: 3; font-size: 10px; font-weight: 600; color: var(--ink-mute); }
-  .matrix-cell { aspect-ratio: 1; margin: 1px; border-radius: 2px; cursor: pointer; }
+  .matrix-day-head {
+    font-size: 10px;
+    font-weight: 700;
+    color: #51607d;
+    text-align: center;
+    padding: 7px 0;
+    background: #f7f9fd;
+    position: sticky;
+    top: 28px;
+    z-index: 3;
+    border-bottom: 1px solid #d6dfef;
+    box-shadow: inset -1px 0 0 #e2e8f3;
+  }
+  .matrix-row-label.head {
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 5;
+    font-size: 10px;
+    font-weight: 800;
+    color: #40506c;
+    align-items: flex-start;
+    padding-top: 10px;
+    background: #dbe6f7;
+    border-bottom: 2px solid #9fb5d8;
+  }
+  .matrix-row-label.subhead {
+    position: sticky;
+    top: 28px;
+    left: 0;
+    z-index: 5;
+    font-size: 10px;
+    font-weight: 800;
+    color: #51607d;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    background: #f7f9fd;
+    border-bottom: 1px solid #d6dfef;
+  }
+  .matrix-cell {
+    aspect-ratio: 1;
+    margin: 0;
+    border-radius: 0;
+    cursor: pointer;
+    border-right: 1px solid rgba(214, 223, 239, 0.95);
+    border-bottom: 1px solid rgba(214, 223, 239, 0.95);
+    min-width: 22px;
+  }
+  .matrix-cell.month-start,
+  .matrix-day-head.month-start,
+  .matrix-month-head.month-start { box-shadow: inset 2px 0 0 #7f97bf; }
   .matrix-row:nth-child(odd) .matrix-row-label { background: var(--surface-soft); }
   .matrix-hover-info { margin-top: 10px; font-size: 12.5px; color: var(--ink-soft); min-height: 18px; }
   .matrix-hover-info b { color: var(--ink); }
   .matrix-empty { padding: 30px 0; text-align: center; color: var(--ink-mute); font-size: 13px; }
   .matrix-more-note { padding: 8px 10px; font-size: 11px; color: var(--ink-mute); text-align: center; }
-
   @media (max-width: 1100px) {
     .heat-panels { grid-template-columns: 1fr; }
     .forecast-split { grid-template-columns: 1fr !important; }
     .forecast-dual { grid-template-columns: 1fr; }
+  }
+  @media (min-width: 1101px) and (max-width: 1360px) {
+    .heat-panels { gap: 12px; }
+    .heat-panel-card { padding: 14px; }
+    .matrix-row-label { flex-basis: 128px; width: 128px; font-size: 10.5px; }
+    .matrix-month-head, .matrix-day-head { font-size: 9px; }
+    .matrix-cell { min-width: 18px; }
+    .section-title { font-size: 15px; }
   }
 
   .matrix-day-head.weekend { color: var(--neg); font-weight: 700; }
@@ -1094,7 +1312,6 @@
     <nav class="side-nav">
       <button type="button" class="side-link active" data-view="calendar"><span class="ic">📅</span>캠페인 신청 및 캘린더</button>
       <button type="button" class="side-link" data-view="summary"><span class="ic">📊</span>캠페인 실적 요약</button>
-      <button type="button" class="side-link" data-view="daily"><span class="ic">📈</span>일별 실적</button>
       <button type="button" class="side-link" data-view="detail"><span class="ic">🔎</span>캠페인 상세 분석</button>
     </nav>
   </aside>
@@ -1110,9 +1327,12 @@
         </div>
         <div class="calendar-toolbar-head" style="margin-bottom:20px;">
           <div></div>
-          <div class="calendar-quick-nav">
-            <button type="button" class="calendar-quick-btn active" id="jumpRequestPanel">캠페인 신청</button>
-            <button type="button" class="calendar-quick-btn" id="jumpCalendarPanel">캠페인 캘린더</button>
+          <div class="calendar-head-actions">
+            <div class="calendar-quick-nav">
+              <button type="button" class="calendar-quick-btn active" id="jumpRequestPanel">캠페인 신청</button>
+              <button type="button" class="calendar-quick-btn" id="jumpCalendarPanel">캠페인 캘린더</button>
+            </div>
+            <button type="button" class="owner-mode-btn" id="ownerModeOpen">담당자 모드</button>
           </div>
         </div>
         <div class="card calendar-toolbar" id="requestPanel">
@@ -1264,6 +1484,15 @@
       </div>
     </div>
 
+    <div class="modal-overlay" id="ownerModeModal" hidden>
+      <div class="owner-mode-box" role="dialog" aria-modal="true" aria-labelledby="ownerModeTitle">
+        <div class="modal-head"><span id="ownerModeTitle">담당자 모드 · 일정 배정</span><button type="button" class="modal-close" id="ownerModeClose">✕</button></div>
+        <div class="owner-mode-intro">캠페인 신청은 완료됐지만 발송 시간이 확정되지 않은 항목입니다. 날짜와 시간을 선택한 뒤 배정하면 담당자 검토 상태로 표시됩니다.</div>
+        <div class="owner-mode-summary" id="ownerModeSummary"></div>
+        <div class="owner-mode-list" id="ownerModeList"></div>
+      </div>
+    </div>
+
     <section id="view-summary" class="view active">
       <div class="sheet">
 
@@ -1271,11 +1500,6 @@
     <div class="eyebrow">Marketing Performance Report</div>
     <h1>캠페인 실적 요약</h1>
     <p class="subtitle">타겟 마케팅 캠페인의 채널별 반응과 쿠폰 성과를 한눈에 확인하는 실적 대시보드입니다.</p>
-    <div class="meta-row">
-      <div class="meta-item">데이터 기준일 <b>2026-08-27</b></div>
-      <div class="meta-item">집계 대상 <b>전체 캠페인 1,132건</b></div>
-      <div class="meta-item">소스 테이블 <b>skb_3984.yk_cmpgn_tmp_0730</b></div>
-    </div>
   </div>
 
   <section>
@@ -1319,8 +1543,18 @@
   </section>
 
   <section>
-    <div class="section-note" id="kpiMonthNote" style="margin-bottom: 10px;"></div>
+    <div class="kpi-section-head">
+      <div class="kpi-section-title">Summary</div>
+      <div class="kpi-head-right">
+        <div class="section-note" id="kpiMonthNote"></div>
+        <div class="kpi-channel-toggle" aria-label="요약 채널 선택">
+          <button type="button" class="kpi-channel-btn active" data-kpi-channel="toast">토스트</button>
+          <button type="button" class="kpi-channel-btn" data-kpi-channel="smart">스마트</button>
+        </div>
+      </div>
+    </div>
     <div class="kpi-split" id="kpiGrid"></div>
+    <div class="summary-one-line" id="summaryOneLine"></div>
   </section>
 
   <section>
@@ -1333,41 +1567,75 @@
 
   <section>
     <div class="section-head">
-      <div class="section-title">상품별 채널 반응률</div>
-      <div class="section-note" id="productNote">서비스 모수 상위 상품</div>
+      <div class="section-title">상품별 반응률 비교</div>
+      <div class="section-note" id="productNote">상단 필터 기준 · 반응률 막대는 상품 간 상대 비교 · 쿠폰 반응률에 마우스를 올리면 정책별 상세가 보입니다</div>
     </div>
-    <div class="card table-scroll">
-      <table>
-        <thead>
-          <tr><th>상품</th><th>캠페인 수</th><th>서비스 모수</th><th>토스트 반응률</th><th>스마트 반응률</th><th>쿠폰 반응률</th></tr>
-        </thead>
-        <tbody id="productBody"></tbody>
-      </table>
+    <div class="product-analysis-grid">
+      <div class="card table-scroll">
+        <div class="product-table-toolbar">
+          <label class="cross-exclude-label"><input type="checkbox" id="crossExcludeExtension">연장 쿠폰 제외</label>
+        </div>
+        <table>
+          <thead>
+            <tr><th>상품</th><th>캠페인 모수</th><th>토스트 반응률</th><th>스마트 반응률</th><th>쿠폰 반응률</th><th style="text-align:right">쿠폰 사용수</th></tr>
+          </thead>
+          <tbody id="productBody"></tbody>
+        </table>
+      </div>
+      <div class="card product-cross-card">
+        <div class="product-cross-head">
+          <div>
+            <div class="product-cross-title">상품별 교차 분석</div>
+            <div class="product-cross-desc">캠페인 모수가 클수록 오른쪽, 채널 반응률이 높을수록 위 · 원 크기는 쿠폰 반응률</div>
+          </div>
+          <div class="product-cross-controls">
+            <div class="cross-channel-toggle" id="crossChannelToggle">
+              <button type="button" class="cross-channel-btn active" data-cross-channel="toast">토스트</button>
+              <button type="button" class="cross-channel-btn" data-cross-channel="smart">스마트</button>
+            </div>
+          </div>
+        </div>
+        <div class="product-cross-chart" id="productCrossChart"></div>
+        <div class="product-cross-foot"><span id="productCrossNote"></span><span class="cross-size-legend"><i class="cross-size-dot" style="width:8px;height:8px"></i><i class="cross-size-dot" style="width:15px;height:15px"></i> 쿠폰 반응률</span></div>
+      </div>
     </div>
   </section>
 
   <section>
+    <details class="campaign-detail">
+      <summary><span>캠페인 상세</span><span class="campaign-detail-summary-note">반응률 기준 정렬 및 전체 캠페인 조회</span></summary>
+      <div class="campaign-detail-body">
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th></th><th>캠페인</th><th>캠페인 모수</th>
+                <th><button class="sort-btn" data-sort="toast">토스트 반응률<span class="sort-arrow"></span></button></th>
+                <th><button class="sort-btn" data-sort="smart">스마트 반응률<span class="sort-arrow"></span></button></th>
+                <th><button class="sort-btn" data-sort="copn">쿠폰 반응률<span class="sort-arrow"></span></button></th>
+                <th>쿠폰 사용</th>
+              </tr>
+            </thead>
+            <tbody id="top10Body"></tbody>
+          </table>
+        </div>
+        <div style="text-align: center; margin-top: 14px;">
+          <button type="button" class="pill-btn" id="top10ShowMore">더보기</button>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <section>
     <div class="section-head">
-      <div class="section-title">반응 상위 캠페인 TOP 10</div>
-      <div class="section-note">토스트+스마트 클릭 합산 기준</div>
+      <div class="section-title">일별 반응 히트맵</div>
+      <div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap;justify-content:flex-end;">
+        <div class="section-note">아래 필터는 요약 상단 필터와 독립적으로 적용됩니다</div>
+        <button type="button" class="pill-btn" id="syncSummaryToHeatmap">상단 필터 가져오기</button>
+        <button type="button" class="filter-reset" id="clearSummaryHeatmap" hidden>가져온 조건 해제</button>
+      </div>
     </div>
-    <div class="card table-scroll">
-      <table>
-        <thead>
-          <tr>
-            <th></th><th>캠페인</th><th>서비스 모수</th>
-            <th><button class="sort-btn" data-sort="toast">토스트 반응률<span class="sort-arrow"></span></button></th>
-            <th><button class="sort-btn" data-sort="smart">스마트 반응률<span class="sort-arrow"></span></button></th>
-            <th><button class="sort-btn" data-sort="copn">쿠폰 반응률<span class="sort-arrow"></span></button></th>
-            <th>쿠폰 사용</th>
-          </tr>
-        </thead>
-        <tbody id="top10Body"></tbody>
-      </table>
-    </div>
-    <div style="text-align: center; margin-top: 14px;">
-      <button type="button" class="pill-btn" id="top10ShowMore">더보기</button>
-    </div>
+    <div id="summaryDailyMount"></div>
   </section>
 
   <footer>
@@ -1390,7 +1658,7 @@
           <p class="subtitle">토스트팝업·스마트알림 노출과 쿠폰 사용을 일자별 히트맵으로 확인하고, 현재 페이스로 이번달이 마감될 경우의 예상치를 봅니다.</p>
         </div>
 
-        <div class="card filter-card">
+        <div class="card filter-card" id="dailyHeatFilter">
           <div class="filter-grid" style="grid-template-columns: 0.8fr 1.3fr 1.3fr;">
             <div>
               <div class="filter-group-head"><span class="filter-group-title">기준년월</span></div>
@@ -1417,7 +1685,7 @@
           </div>
         </div>
 
-        <div class="heat-panels">
+        <div class="heat-panels" id="dailyHeatPanels">
           <div class="card heat-panel-card">
             <div class="section-head">
               <div class="section-title">채널 반응 히트맵 <span class="badge" id="dailyChannelBadge">토스트팝업</span></div>
@@ -1426,21 +1694,21 @@
                 <button type="button" class="pill-btn" data-ch="smart">스마트알림</button>
               </div>
             </div>
-            <div class="section-note" id="dailyChannelNote">캠페인별 일자별 반응 강도</div>
+            <div class="section-note" id="dailyChannelNote"></div>
             <div class="matrix-heat-scroll" id="dailyChannelMatrix"></div>
             <div class="matrix-hover-info" id="dailyChannelHoverInfo">캠페인 셀에 마우스를 올리면 상세 정보가 표시됩니다</div>
           </div>
           <div class="card heat-panel-card">
             <div class="section-head">
               <div class="section-title">쿠폰 반응 히트맵</div>
-              <div class="section-note" id="dailyCouponNote">캠페인별 쿠폰 사용 일자별 강도</div>
+              <div class="section-note" id="dailyCouponNote"></div>
             </div>
             <div class="matrix-heat-scroll" id="dailyCouponMatrix"></div>
             <div class="matrix-hover-info" id="dailyCouponHoverInfo">쿠폰 셀에 마우스를 올리면 상세 정보가 표시됩니다</div>
           </div>
         </div>
 
-        <div class="card" style="padding: 22px;">
+        <div class="card" id="forecastPanel" style="padding: 22px;">
           <div class="section-head">
             <div class="section-title">실적 마감 예측</div>
             <div class="section-note">아래 필터는 이 섹션에만 적용됩니다</div>
@@ -1526,12 +1794,48 @@
           <p class="subtitle">분석할 캠페인을 검색해 선택하면 동기간에 진행된 다른 캠페인, 동일 상품의 과거 캠페인과 교차 비교해 이번 캠페인의 특징과 다음에 시도해볼 만한 액션을 제안합니다.</p>
         </div>
 
+        <section id="detailForecastMount"></section>
+
         <div class="card filter-card">
-          <div class="filter-group-head" style="margin-bottom: 10px;">
+          <div class="filter-grid">
+            <div>
+              <div class="filter-group-head">
+                <span class="filter-group-title">월</span>
+                <button class="filter-reset" data-detail-reset="month" disabled>초기화</button>
+              </div>
+              <div class="filter-list" id="detailMonthList"></div>
+            </div>
+            <div>
+              <div class="filter-group-head">
+                <span class="filter-group-title">상품</span>
+                <button class="filter-reset" data-detail-reset="product" disabled>초기화</button>
+              </div>
+              <div class="filter-list" id="detailProductList"></div>
+            </div>
+            <div>
+              <div class="filter-group-head">
+                <span class="filter-group-title">캠페인</span>
+                <button class="filter-reset" data-detail-reset="campaign" disabled>초기화</button>
+              </div>
+              <div class="dropdown-wrap" id="detailCampaignDropdown">
+                <button type="button" class="dropdown-trigger" id="detailCampaignTrigger">
+                  <span id="detailCampaignTriggerLabel">전체 캠페인</span><span class="chev">▾</span>
+                </button>
+                <div class="dropdown-panel" id="detailCampaignPanel" hidden>
+                  <input class="filter-search" id="detailCampaignSearch" placeholder="캠페인명 또는 ID 검색" />
+                  <div class="filter-list" id="detailCampaignList"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="filter-group-head" style="margin: 14px 0 10px;">
             <span class="filter-group-title">분석할 캠페인 검색</span>
           </div>
-          <div class="section-note" style="margin-bottom: 10px;">캠페인명 또는 캠페인 ID로 검색한 뒤 목록에서 선택하세요</div>
+          <div class="section-note" style="margin-bottom: 10px;">위 필터 조건 안에서 캠페인명 또는 캠페인 ID로 검색한 뒤 목록에서 선택하세요</div>
           <input class="filter-search" id="detailSearch" placeholder="예: B tv+ MAX패키지, C2608..." style="width: 100%; margin-bottom: 12px;">
+          <div class="filter-status" style="margin-bottom: 12px;">
+            <span id="detailFilterStatus">선택된 필터 없음</span>
+          </div>
           <div class="search-result-list" id="detailSearchResults"></div>
         </div>
 
@@ -1606,6 +1910,19 @@
   const TOTAL_BASE = Math.max.apply(null, DATA.map(function (r) { return r.svc; })); // 전체 가입자수 근사치
   const TOTAL_CAMPAIGNS = DATA.length; // 캠페인 수 시각화 막대의 기준(전체 대비 비중)
   const REPORT_MONTH = '202608'; // 데이터 기준일(2026-08-27)이 속한 월 - 최초 진입 시 기본 선택
+  const TODAY_KEY = '20260829';
+
+  // Keep each feature's existing state and listeners intact while relocating the
+  // former daily-tab panels into their new report sections.
+  const legacyDailyView = document.getElementById('view-daily');
+  const summaryDailyMount = document.getElementById('summaryDailyMount');
+  const detailForecastMount = document.getElementById('detailForecastMount');
+  if (legacyDailyView && summaryDailyMount && detailForecastMount) {
+    summaryDailyMount.appendChild(document.getElementById('dailyHeatFilter'));
+    summaryDailyMount.appendChild(document.getElementById('dailyHeatPanels'));
+    detailForecastMount.appendChild(document.getElementById('forecastPanel'));
+    legacyDailyView.remove();
+  }
   function prevMonthKey(key) {
     const y = parseInt(key.slice(0, 4), 10), m = parseInt(key.slice(4, 6), 10);
     return m === 1 ? (y - 1) + '12' : y + String(m - 1).padStart(2, '0');
@@ -1636,6 +1953,7 @@
 
   const state = { months: new Set([REPORT_MONTH]), products: new Set(), campaigns: new Set() };
   let sortKey = 'toast';
+  let kpiChannel = 'toast';
 
   // "월 미상"(빈 값)과 이번 달을 넘어서는 미래 월은 필터 목록에서 제외, 최신 월이 먼저 오도록 내림차순
   const ALL_MONTH_KEYS = Array.from(new Set(DATA.map(function (r) { return r.ym || ''; })))
@@ -1851,46 +2169,101 @@
       ? monthLabel(prevKeys[0])
       : monthLabel(prevKeys[0]) + ' ~ ' + monthLabel(prevKeys[prevKeys.length - 1]);
     document.getElementById('kpiMonthNote').textContent = label + ' · 직전 동일 개월수(' + prevLabel + ') 대비 증감 표시';
-    const toastShowRate = div(a.t.show, a.t.pop);
-    const toastGoRate = div(a.t.go, a.t.show);
-    const copnRate = div(a.copnUse, a.copnSvc);
+    const channel = kpiChannel === 'smart' ? a.s : a.t;
+    const prevChannel = kpiChannel === 'smart' ? prev.s : prev.t;
+    const channelName = kpiChannel === 'smart' ? '스마트알림' : '토스트팝업';
+    const channelColor = kpiChannel === 'smart' ? 'var(--series-smart)' : 'var(--series-toast)';
+    const channelShowRate = div(channel.show, channel.pop);
+    const channelClickRate = div(channel.click, channel.show);
+    const channelGoRate = div(channel.go, channel.show);
+    const currentRowsForKpi = rowsMatching({ skipMonth: true }).filter(function (r) {
+      return monthKeys.indexOf(r.ym || '') !== -1;
+    });
+    const prevRowsForKpi = rowsMatching({ skipMonth: true }).filter(function (r) {
+      return prevKeys.indexOf(r.ym || '') !== -1;
+    });
+    const couponRowsForKpi = currentRowsForKpi.filter(function (r) { return r.copnYn && !isExtensionCoupon(r); });
+    const prevCouponRowsForKpi = prevRowsForKpi.filter(function (r) { return r.copnYn && !isExtensionCoupon(r); });
+    const couponAggForKpi = aggregate(couponRowsForKpi);
+    const prevCouponAggForKpi = aggregate(prevCouponRowsForKpi);
+    const copnRate = div(couponAggForKpi.copnUse, couponAggForKpi.copnSvc);
     const perPersonCampaigns = a.svc / TOTAL_BASE;
     const perPersonCoupons = a.copnSvc / TOTAL_BASE;
 
-    const pToastShowRate = div(prev.t.show, prev.t.pop);
-    const pToastGoRate = div(prev.t.go, prev.t.show);
-    const pCopnRate = div(prev.copnUse, prev.copnSvc);
+    const pChannelShowRate = div(prevChannel.show, prevChannel.pop);
+    const pChannelClickRate = div(prevChannel.click, prevChannel.show);
+    const pChannelGoRate = div(prevChannel.go, prevChannel.show);
+    const pCopnRate = div(prevCouponAggForKpi.copnUse, prevCouponAggForKpi.copnSvc);
     const pPerPersonCampaigns = prev.svc / TOTAL_BASE;
     const pPerPersonCoupons = prev.copnSvc / TOTAL_BASE;
+    const channelKey = kpiChannel === 'smart' ? 's' : 't';
+
+    const metricTop3 = function (sourceRows, metricKey) {
+      const cfg = {
+        show: { numerator: function (r) { return channelKey === 't' ? r.tShow : r.sShow; }, denominator: function (r) { return channelKey === 't' ? r.tPop : r.sPop; }, decimals: 1 },
+        click: { numerator: function (r) { return channelKey === 't' ? r.tClick : r.sClick; }, denominator: function (r) { return channelKey === 't' ? r.tShow : r.sShow; }, decimals: 1 },
+        go: { numerator: function (r) { return channelKey === 't' ? r.tGo : r.sGo; }, denominator: function (r) { return channelKey === 't' ? r.tShow : r.sShow; }, decimals: 2 },
+        coupon: { numerator: function (r) { return r.copnUse; }, denominator: function (r) { return r.svc; }, decimals: 2 },
+      }[metricKey];
+      return sourceRows.map(function (r) {
+        const den = cfg.denominator(r);
+        const rate = den > 0 ? cfg.numerator(r) / den : null;
+        return { name: r.nm, rate: rate, decimals: cfg.decimals };
+      }).filter(function (x) {
+        if (x.rate === null || x.rate <= 0) return false;
+        return metricKey !== 'coupon' || x.rate <= 0.1;
+      })
+        .sort(function (a, b) { return b.rate - a.rate; })
+        .slice(0, 3);
+    };
+    const topRows = {
+      show: metricTop3(currentRowsForKpi, 'show'),
+      click: metricTop3(currentRowsForKpi, 'click'),
+      go: metricTop3(currentRowsForKpi, 'go'),
+      coupon: metricTop3(couponRowsForKpi, 'coupon'),
+    };
 
     const visualTiles = [
       {
-        label: '캠페인 수', color: 'var(--accent)',
-        value: fmt(a.count) + '<small>건</small>',
-        gap: gapBadge(a.count, prev.count, function (d) { return fmt(d) + '건'; }),
-        barPct: TOTAL_CAMPAIGNS > 0 ? Math.min((a.count / TOTAL_CAMPAIGNS) * 100, 100) : 0,
+        group: channelName, channelStart: true, label: '노출', color: channelColor,
+        value: channelShowRate === null ? '-' : pct(channelShowRate, 1),
+        gap: gapBadge(channelShowRate, pChannelShowRate, function (d) { return (d * 100).toFixed(1) + '%p'; }),
+        barPct: channelShowRate === null ? 0 : Math.min(channelShowRate * 100, 100),
+        sub: '캠페인 모수 대비 노출',
+        top: topRows.show,
       },
       {
-        label: '토스트팝업 모수대비노출', color: 'var(--series-toast)',
-        value: toastShowRate === null ? '-' : pct(toastShowRate, 1),
-        gap: gapBadge(toastShowRate, pToastShowRate, function (d) { return (d * 100).toFixed(1) + '%p'; }),
-        barPct: toastShowRate === null ? 0 : Math.min(toastShowRate * 100, 100),
+        group: '&nbsp;', label: '반응', color: channelColor,
+        value: channelClickRate === null ? '-' : pct(channelClickRate, 1),
+        gap: gapBadge(channelClickRate, pChannelClickRate, function (d) { return (d * 100).toFixed(1) + '%p'; }),
+        barPct: channelClickRate === null ? 0 : Math.min(channelClickRate * 100, 100),
+        sub: '노출 대비 클릭',
+        top: topRows.click,
       },
       {
-        label: '토스트팝업 노출대비반응 (바로가기)', color: 'var(--series-toast)',
-        value: toastGoRate === null ? '-' : pct(toastGoRate, 2),
-        gap: gapBadge(toastGoRate, pToastGoRate, function (d) { return (d * 100).toFixed(2) + '%p'; }),
-        barPct: toastGoRate === null ? 0 : Math.min(toastGoRate * 100, 100),
+        group: '&nbsp;', label: '바로가기', color: channelColor,
+        value: channelGoRate === null ? '-' : pct(channelGoRate, 2),
+        gap: gapBadge(channelGoRate, pChannelGoRate, function (d) { return (d * 100).toFixed(2) + '%p'; }),
+        barPct: channelGoRate === null ? 0 : Math.min(channelGoRate * 100, 100),
+        sub: '노출 대비 바로가기',
+        top: topRows.go,
       },
       {
-        label: '쿠폰 반응률 (할당대비반응)', color: 'var(--series-copn)',
+        group: '쿠폰', coupon: true, label: '쿠폰 반응률', color: 'var(--series-copn)',
         value: copnRate === null ? '-' : pct(copnRate, 2),
         gap: gapBadge(copnRate, pCopnRate, function (d) { return (d * 100).toFixed(2) + '%p'; }),
         barPct: copnRate === null ? 0 : Math.min(copnRate * 100, 100),
+        sub: '할당 대비 사용',
+        top: topRows.coupon,
       },
     ];
 
     const textTiles = [
+      {
+        label: '총 캠페인 수',
+        value: fmt(a.count) + '<small>건</small>',
+        gap: gapBadge(a.count, prev.count, function (d) { return fmt(d) + '건'; }),
+      },
       {
         label: '인당 평균 캠페인 수',
         value: perPersonCampaigns.toFixed(1) + '<small>건</small>',
@@ -1904,24 +2277,39 @@
     ];
 
     const grid = document.getElementById('kpiGrid');
+    const renderTop3 = function (items) {
+      if (!items || !items.length) return '<div class="kpi-top-list"><div class="kpi-top-title">TOP 3</div><div class="kpi-top-row"><span></span><span class="kpi-top-name">해당 실적 없음</span><span class="kpi-top-value">-</span></div></div>';
+      return '<div class="kpi-top-list"><div class="kpi-top-title">TOP 3</div>' + items.map(function (item, idx) {
+        return '<div class="kpi-top-row"><span class="kpi-top-rank">' + (idx + 1) + '</span><span class="kpi-top-name" title="' + esc(item.name) + '">' + esc(item.name) + '</span><span class="kpi-top-value">' + pct(item.rate, item.decimals) + '</span></div>';
+      }).join('') + '</div>';
+    };
+    const renderVisualTile = function (t) {
+      return '<div class="kpi-visual" style="--kpi-channel-color:' + t.color + '"><div class="kpi-label">' + t.label + '</div>' +
+        '<div class="kpi-value-row"><span class="kpi-value">' + t.value + '</span>' + t.gap + '</div>' +
+        '<div class="kpi-bar-track"><div class="kpi-bar-fill" style="width:' + t.barPct + '%; background:' + t.color + '"></div></div>' +
+        (t.sub ? '<div class="kpi-sub">' + t.sub + '</div>' : '') +
+        renderTop3(t.top) +
+        '</div>';
+    };
     grid.innerHTML =
       '<div class="kpi-visual-group">' +
-      visualTiles.map(function (t) {
-        return '<div class="kpi-visual"><div class="kpi-label">' + t.label + '</div>' +
-          '<div class="kpi-value-row"><span class="kpi-value">' + t.value + '</span>' + t.gap + '</div>' +
-          '<div class="kpi-bar-track"><div class="kpi-bar-fill" style="width:' + t.barPct + '%; background:' + t.color + '"></div></div>' +
-          '</div>';
-      }).join('') +
+      '<div class="kpi-metric-cluster channel" style="--kpi-cluster-color:' + channelColor + '"><div class="kpi-cluster-title">' + channelName + '</div><div class="kpi-cluster-tiles">' + visualTiles.slice(0, 3).map(renderVisualTile).join('') + '</div></div>' +
+      '<div class="kpi-metric-cluster coupon" style="--kpi-cluster-color:var(--series-copn)"><div class="kpi-cluster-title">쿠폰</div><div class="kpi-cluster-tiles">' + renderVisualTile(visualTiles[3]) + '</div></div>' +
       '</div>' +
       '<div class="kpi-text-group">' +
+      '<div class="kpi-text-group-title">OVERVIEW</div>' +
       textTiles.map(function (t) {
         return '<div class="kpi-text-item"><div class="kpi-label">' + t.label + '</div>' +
           '<div class="kpi-value-row"><span class="kpi-text-value">' + t.value + '</span>' + t.gap + '</div></div>';
       }).join('') +
       '</div>';
+    document.getElementById('summaryOneLine').textContent =
+      '선택 조건 요약 · 총 ' + fmt(a.count) + '개 캠페인, ' + channelName + ' 노출률 ' + (channelShowRate === null ? '-' : pct(channelShowRate, 1)) +
+      ' · 반응률 ' + (channelClickRate === null ? '-' : pct(channelClickRate, 1)) + ' · 바로가기율 ' + (channelGoRate === null ? '-' : pct(channelGoRate, 2)) +
+      ' · 쿠폰 반응률 ' + (copnRate === null ? '-' : pct(copnRate, 2));
   }
 
-  function funnelCard(title, dotClass, steps, rateLeft, rateRight, grayLeft) {
+  function funnelCard(title, dotClass, steps, rates, grayFirst) {
     const stepsHtml = steps.map(function (s) {
       const muted = s.muted ? ' muted' : '';
       const fillClass = s.muted ? 'muted' : dotClass;
@@ -1934,25 +2322,28 @@
       '<div class="funnel-title"><span class="dot ' + dotClass + '"></span>' + title + '</div>' +
       stepsHtml +
       '<div class="funnel-rate">' +
-      '<div>모수 대비 노출<b' + (grayLeft ? ' class="muted"' : '') + '>' + rateLeft + '</b></div>' +
-      '<div>노출 대비 반응<b>' + rateRight + '</b></div>' +
+      rates.map(function (rate, i) { return '<div>' + rate.label + '<b' + (grayFirst && i === 0 ? ' class="muted"' : '') + '>' + rate.value + '</b></div>'; }).join('') +
       '</div></div>';
   }
 
   function renderFunnel(a) {
     const tShowRate = div(a.t.show, a.t.pop);
     const tClickRate = div(a.t.click, a.t.show);
-    const tGoRate = div(a.t.go, a.t.click);
+    const tGoRate = div(a.t.go, a.t.show);
     const sShowRate = div(a.s.show, a.s.pop);
     const sClickRate = div(a.s.click, a.s.show);
-    const sGoRate = div(a.s.go, a.s.click);
+    const sGoRate = div(a.s.go, a.s.show);
 
     const toastHtml = funnelCard('토스트팝업', 'toast', [
       { label: '모수', value: a.t.pop, width: 100 },
       { label: '노출', value: a.t.show, width: (tShowRate || 0) * 100 },
       { label: '클릭', value: a.t.click, width: (div(a.t.click, a.t.pop) || 0) * 100 },
       { label: '바로가기', value: a.t.go, width: (div(a.t.go, a.t.pop) || 0) * 100 },
-    ], tShowRate === null ? '-' : pct(tShowRate, 1), (tClickRate === null ? '-' : pct(tClickRate, 1)) + ' · ' + (tGoRate === null ? '-' : pct(tGoRate, 1)), false);
+    ], [
+      { label: '모수 대비 노출', value: tShowRate === null ? '-' : pct(tShowRate, 1) },
+      { label: '노출 대비 클릭', value: tClickRate === null ? '-' : pct(tClickRate, 1) },
+      { label: '노출 대비 바로가기', value: tGoRate === null ? '-' : pct(tGoRate, 2) },
+    ], false);
 
     // 스마트알림은 발송 즉시 노출되어 모수대비노출이 항상 100%에 가까움 - 모수 막대와 그 비율만 회색으로 구분
     const smartHtml = funnelCard('스마트알림', 'smart', [
@@ -1960,7 +2351,11 @@
       { label: '노출', value: a.s.show, width: (sShowRate || 0) * 100 },
       { label: '클릭', value: a.s.click, width: (div(a.s.click, a.s.pop) || 0) * 100 },
       { label: '바로가기', value: a.s.go, width: (div(a.s.go, a.s.pop) || 0) * 100 },
-    ], sShowRate === null ? '-' : pct(sShowRate, 1), (sClickRate === null ? '-' : pct(sClickRate, 1)) + ' · ' + (sGoRate === null ? '-' : pct(sGoRate, 1)), true);
+    ], [
+      { label: '모수 대비 노출', value: sShowRate === null ? '-' : pct(sShowRate, 1) },
+      { label: '노출 대비 클릭', value: sClickRate === null ? '-' : pct(sClickRate, 1) },
+      { label: '노출 대비 바로가기', value: sGoRate === null ? '-' : pct(sGoRate, 2) },
+    ], true);
 
     document.getElementById('funnelGrid').innerHTML = toastHtml + smartHtml;
   }
@@ -1975,11 +2370,121 @@
       '<span class="rate-num">' + pct(r, decimals === undefined ? 1 : decimals) + '</span></div>';
   }
 
-  function renderProductTable(rows) {
+  let crossChannel = 'toast';
+  let crossExcludeExtension = false;
+  const expandedProducts = new Set();
+  const CROSS_COLORS = ['#2f6fed', '#e56b4f', '#2fa374', '#d49a20', '#8a63d2', '#d5548d', '#268b9b', '#7c8b35', '#b7652a', '#536d9e', '#c44848', '#487d5b'];
+
+  function isExtensionCoupon(r) {
+    return /연장|한\s*달\s*무료/i.test((r.nm || '') + ' ' + (r.copnNm || ''));
+  }
+
+  function renderProductCrossChart(rows) {
+    const chartEl = document.getElementById('productCrossChart');
+    const noteEl = document.getElementById('productCrossNote');
+    const source = crossExcludeExtension ? rows.filter(function (r) { return !isExtensionCoupon(r); }) : rows;
+    const excludedCount = rows.length - source.length;
     const byProduct = {};
-    rows.forEach(function (r) {
-      const p = byProduct[r.prod] || (byProduct[r.prod] = { prod: r.prod, cnt: 0, svc: 0, tClick: 0, tShow: 0, sClick: 0, sShow: 0, copnSvc: 0, copnUse: 0, coupons: {} });
+    source.forEach(function (r) {
+      const p = byProduct[r.prod] || (byProduct[r.prod] = { prod: r.prod, svc: 0, tClick: 0, tShow: 0, sClick: 0, sShow: 0, copnSvc: 0, copnUse: 0, count: 0 });
+      p.svc += r.svc; p.tClick += r.tClick; p.tShow += r.tShow; p.sClick += r.sClick; p.sShow += r.sShow; p.count++;
+      if (r.copnYn) { p.copnSvc += r.svc; p.copnUse += r.copnUse; }
+    });
+    const points = Object.values(byProduct).map(function (p) {
+      return { p: p, channelRate: crossChannel === 'toast' ? ratio(p.tClick, p.tShow) : ratio(p.sClick, p.sShow), couponRate: ratio(p.copnUse, p.copnSvc) };
+    }).filter(function (x) { return x.p.svc > 0 && x.channelRate !== null; });
+    if (!points.length) {
+      chartEl.innerHTML = '<div class="cross-empty">선택 조건에서 ' + (crossChannel === 'toast' ? '토스트' : '스마트') + ' 반응 실적이 있는 상품이 없습니다.</div>';
+      noteEl.textContent = excludedCount ? '연장 쿠폰 캠페인 ' + fmt(excludedCount) + '건 제외' : '표시할 상품 없음';
+      return;
+    }
+
+    const W = 650, H = 338, m = { l: 58, r: 22, t: 18, b: 48 };
+    const iw = W - m.l - m.r, ih = H - m.t - m.b;
+    const xMinBase = 10000;
+    const maxSvc = Math.max.apply(null, points.map(function (x) { return x.p.svc; }));
+    const xMax = Math.max(maxSvc, xMinBase * 10);
+    const maxRateRaw = Math.max.apply(null, points.map(function (x) { return x.channelRate; }));
+    const yMax = Math.max(0.1, Math.ceil(maxRateRaw * 10) / 10);
+    const maxCoupon = Math.max.apply(null, points.map(function (x) { return x.couponRate || 0; })) || 0;
+    const xPos = function (v) {
+      const safe = Math.max(xMinBase, v);
+      return m.l + ((Math.log10(safe) - Math.log10(xMinBase)) / (Math.log10(xMax) - Math.log10(xMinBase))) * iw;
+    };
+    const yPos = function (v) { return m.t + ih - (v / yMax) * ih; };
+    const radius = function (v) { return v === null || maxCoupon === 0 ? 6 : 6 + Math.sqrt(v / maxCoupon) * 16; };
+    const xCandidates = [10000, 30000, 100000, 300000, 1000000, 3000000, 10000000, 30000000, 100000000];
+    const xTicks = xCandidates.filter(function (v) { return v >= xMinBase && v <= xMax; });
+    if (xTicks[xTicks.length - 1] !== xMax) xTicks.push(xMax);
+    const yTicks = [0, .25, .5, .75, 1].map(function (v) { return v * yMax; });
+    const compact = function (v) { return v >= 100000000 ? (v / 100000000).toFixed(0) + '억' : v >= 10000 ? (v / 10000).toFixed(v < 100000 ? 1 : 0) + '만' : v >= 1000 ? (v / 1000).toFixed(0) + '천' : String(Math.round(v)); };
+    let svg = '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="상품별 캠페인 모수와 채널 반응률 교차 분석 버블 차트">';
+    yTicks.forEach(function (v) {
+      const y = yPos(v);
+      svg += '<line class="cross-grid-line" x1="' + m.l + '" y1="' + y + '" x2="' + (W - m.r) + '" y2="' + y + '"></line>' +
+        '<text class="cross-axis-text" x="' + (m.l - 9) + '" y="' + (y + 4) + '" text-anchor="end">' + (v * 100).toFixed(v < .1 ? 1 : 0) + '%</text>';
+    });
+    xTicks.forEach(function (v) {
+      const x = xPos(v);
+      svg += '<line class="cross-grid-line" x1="' + x + '" y1="' + m.t + '" x2="' + x + '" y2="' + (m.t + ih) + '"></line>' +
+        '<text class="cross-axis-text" x="' + x + '" y="' + (H - 27) + '" text-anchor="middle">' + compact(v) + '</text>';
+    });
+    svg += '<line class="cross-axis-line" x1="' + m.l + '" y1="' + (m.t + ih) + '" x2="' + (W - m.r) + '" y2="' + (m.t + ih) + '"></line>' +
+      '<line class="cross-axis-line" x1="' + m.l + '" y1="' + m.t + '" x2="' + m.l + '" y2="' + (m.t + ih) + '"></line>' +
+      '<text class="cross-axis-title" x="' + (m.l + iw / 2) + '" y="' + (H - 5) + '" text-anchor="middle">캠페인 모수</text>' +
+      '<text class="cross-axis-title" transform="translate(14 ' + (m.t + ih / 2) + ') rotate(-90)" text-anchor="middle">' + (crossChannel === 'toast' ? '토스트' : '스마트') + ' 반응률</text>';
+    const labelSet = new Set(points.slice().sort(function (a, b) { return b.p.svc - a.p.svc; }).slice(0, 8).map(function (x) { return x.p.prod; }));
+    points.sort(function (a, b) { return radius(b.couponRate) - radius(a.couponRate); }).forEach(function (x, idx) {
+      const cx = xPos(x.p.svc), cy = yPos(x.channelRate), r = radius(x.couponRate);
+      const tip = x.p.prod + '\n캠페인 ' + fmt(x.p.count) + '건\n캠페인 모수 ' + fmt(x.p.svc) + '\n' + (crossChannel === 'toast' ? '토스트' : '스마트') + ' 반응률 ' + pct(x.channelRate, 1) + '\n쿠폰 반응률 ' + (x.couponRate === null ? '-' : pct(x.couponRate, 2));
+      svg += '<circle class="cross-bubble tip" data-product="' + esc(x.p.prod) + '" data-tooltip="' + esc(tip + '\n클릭하여 캠페인 상세 보기') + '" cx="' + cx.toFixed(1) + '" cy="' + cy.toFixed(1) + '" r="' + r.toFixed(1) + '" fill="' + CROSS_COLORS[idx % CROSS_COLORS.length] + '"></circle>';
+      if (labelSet.has(x.p.prod)) svg += '<text class="cross-label" x="' + (cx + r + 3).toFixed(1) + '" y="' + (cy + 3).toFixed(1) + '">' + esc(x.p.prod.length > 13 ? x.p.prod.slice(0, 12) + '…' : x.p.prod) + '</text>';
+    });
+    svg += '</svg>';
+    chartEl.innerHTML = svg;
+    chartEl.querySelectorAll('[data-product]').forEach(function (bubble) {
+      bubble.addEventListener('click', function () { openProductCampaignModal(bubble.getAttribute('data-product'), source); });
+    });
+    noteEl.textContent = fmt(points.length) + '개 상품' + (excludedCount ? ' · 연장 쿠폰 캠페인 ' + fmt(excludedCount) + '건 제외' : '') + ' · 원을 클릭해 캠페인 상세 확인';
+  }
+
+  function campaignMetricRow(r, maxT, maxS, maxC) {
+    const t = ratio(r.tClick, r.tShow), s = ratio(r.sClick, r.sShow), c = r.copnYn ? ratio(r.copnUse, r.svc) : null;
+    return '<tr class="product-campaign-row"><td class="product-campaign-name">' + esc(r.nm) + '<span>' + esc(r.id) + '</span></td><td class="tip" data-tooltip="정확한 모수 ' + fmt(r.svc) + '">' + compactPopulation(r.svc) + '</td>' +
+      '<td>' + relBar(t, maxT, 'toast', 1) + '</td><td>' + relBar(s, maxS, 'smart', 1) + '</td><td>' + relBar(c, maxC, 'copn', 2) + '</td>' +
+      '<td class="coupon-use-cell">' + (r.copnYn ? fmt(r.copnUse) : '<span class="dash">-</span>') + '</td></tr>';
+  }
+
+  function compactPopulation(value) {
+    if (value >= 10000) return fmt(Math.round(value / 10000)) + '만';
+    if (value >= 1000) return fmt(Math.round(value / 1000)) + '천';
+    return fmt(value);
+  }
+
+  function openProductCampaignModal(product, rows) {
+    const campaigns = rows.filter(function (r) { return r.prod === product; }).sort(function (a, b) { return b.svc - a.svc; });
+    const modal = document.getElementById('sheetModal');
+    document.getElementById('modalDate').textContent = product + ' · 캠페인 ' + fmt(campaigns.length) + '개';
+    document.getElementById('modalBody').innerHTML = campaigns.map(function (r) {
+      const t = ratio(r.tClick, r.tShow), s = ratio(r.sClick, r.sShow), c = r.copnYn ? ratio(r.copnUse, r.svc) : null;
+      return '<div class="modal-item"><div class="modal-item-title">' + esc(r.nm) + '</div>' +
+        '<div class="modal-field"><span class="k">캠페인 ID</span><span class="v">' + esc(r.id) + '</span></div>' +
+        '<div class="modal-field"><span class="k">캠페인 모수</span><span class="v">' + fmt(r.svc) + '</span></div>' +
+        '<div class="modal-field"><span class="k">토스트 반응률</span><span class="v">' + (t === null ? '-' : pct(t, 1)) + ' (' + fmt(r.tClick) + ' 클릭)</span></div>' +
+        '<div class="modal-field"><span class="k">스마트 반응률</span><span class="v">' + (s === null ? '-' : pct(s, 1)) + ' (' + fmt(r.sClick) + ' 클릭)</span></div>' +
+        '<div class="modal-field"><span class="k">쿠폰 반응률</span><span class="v">' + (c === null ? '-' : pct(c, 2) + ' (' + fmt(r.copnUse) + ' 사용)') + '</span></div>' +
+        (r.copnNm ? '<div class="modal-field"><span class="k">쿠폰</span><span class="v">' + esc(r.copnNm) + '</span></div>' : '') + '</div>';
+    }).join('');
+    modal.removeAttribute('hidden');
+  }
+
+  function renderProductTable(rows) {
+    const source = crossExcludeExtension ? rows.filter(function (r) { return !isExtensionCoupon(r); }) : rows;
+    const byProduct = {};
+    source.forEach(function (r) {
+      const p = byProduct[r.prod] || (byProduct[r.prod] = { prod: r.prod, cnt: 0, svc: 0, tClick: 0, tShow: 0, sClick: 0, sShow: 0, copnSvc: 0, copnUse: 0, coupons: {}, campaigns: [] });
       p.cnt++; p.svc += r.svc; p.tClick += r.tClick; p.tShow += r.tShow; p.sClick += r.sClick; p.sShow += r.sShow;
+      p.campaigns.push(r);
       if (r.copnYn) {
         p.copnSvc += r.svc; p.copnUse += r.copnUse;
         const name = r.copnNm || '(정책명 없음)';
@@ -1991,7 +2496,8 @@
     const body = document.getElementById('productBody');
     if (list.length === 0) {
       body.innerHTML = '<tr><td colspan="6"><div class="empty-state">조건에 맞는 데이터가 없습니다</div></td></tr>';
-      document.getElementById('productNote').textContent = '서비스 모수 상위 상품';
+      document.getElementById('productNote').textContent = '상단 필터 기준 · 반응률 막대는 상품 간 상대 비교 · 쿠폰 반응률에 마우스를 올리면 정책별 상세가 보입니다';
+      renderProductCrossChart(source);
       return;
     }
     const computed = list.map(function (p) {
@@ -2010,12 +2516,24 @@
     const maxC = Math.max.apply(null, computed.map(function (x) { return x.c || 0; })) || 0;
 
     body.innerHTML = computed.map(function (x) {
-      return '<tr><td class="strong">' + x.p.prod + '</td><td>' + fmt(x.p.cnt) + '</td><td>' + fmt(x.p.svc) + '</td>' +
+      const expanded = expandedProducts.has(x.p.prod);
+      const parent = '<tr class="product-main-row' + (expanded ? ' expanded' : '') + '" data-product-row="' + esc(x.p.prod) + '"><td class="strong"><div class="product-name-wrap"><button type="button" class="product-expand-btn" data-product-toggle="' + esc(x.p.prod) + '" aria-expanded="' + expanded + '" aria-label="' + esc(x.p.prod) + ' 캠페인 ' + (expanded ? '접기' : '열기') + '">' + (expanded ? '−' : '+') + '</button><span class="product-name-text">' + esc(x.p.prod) + '</span><span class="product-count-badge">' + fmt(x.p.cnt) + '개</span></div></td><td class="tip" data-tooltip="정확한 모수 ' + fmt(x.p.svc) + '">' + compactPopulation(x.p.svc) + '</td>' +
         '<td>' + relBar(x.t, maxT, 'toast', 1) + '</td>' +
         '<td>' + relBar(x.s, maxS, 'smart', 1) + '</td>' +
-        '<td>' + relBar(x.c, maxC, 'copn', 2, x.couponTip) + '</td></tr>';
+        '<td>' + relBar(x.c, maxC, 'copn', 2, x.couponTip) + '</td>' +
+        '<td class="coupon-use-cell">' + fmt(x.p.copnUse) + '</td></tr>';
+      if (!expanded) return parent;
+      return parent + x.p.campaigns.slice().sort(function (a, b) { return b.svc - a.svc; }).map(function (r) { return campaignMetricRow(r, maxT, maxS, maxC); }).join('');
     }).join('');
-    document.getElementById('productNote').textContent = '전체 ' + list.length + '개 상품 · 반응률 막대는 상품 간 상대 비교 · 쿠폰 반응률에 마우스를 올리면 정책별 상세가 보입니다';
+    body.querySelectorAll('[data-product-toggle]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        const product = btn.getAttribute('data-product-toggle');
+        if (expandedProducts.has(product)) expandedProducts.delete(product); else expandedProducts.add(product);
+        renderProductTable(lastRows);
+      });
+    });
+    document.getElementById('productNote').textContent = '상단 필터 기준 · 반응률 막대는 상품 간 상대 비교 · 쿠폰 반응률에 마우스를 올리면 정책별 상세가 보입니다';
+    renderProductCrossChart(source);
   }
 
   let top10ShowAll = false;
@@ -2099,6 +2617,27 @@
     renderTop10(lastRows);
   });
 
+  document.querySelectorAll('[data-kpi-channel]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      kpiChannel = btn.getAttribute('data-kpi-channel');
+      document.querySelectorAll('[data-kpi-channel]').forEach(function (item) { item.classList.toggle('active', item === btn); });
+      const monthKeys = monthKeysFromState();
+      renderKPI(aggregateForMonths(monthKeys), aggregateForMonths(previousMonthRange(monthKeys)), monthKeys);
+    });
+  });
+
+  document.querySelectorAll('[data-cross-channel]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      crossChannel = btn.getAttribute('data-cross-channel');
+      document.querySelectorAll('[data-cross-channel]').forEach(function (item) { item.classList.toggle('active', item === btn); });
+      renderProductCrossChart(lastRows);
+    });
+  });
+  document.getElementById('crossExcludeExtension').addEventListener('change', function (e) {
+    crossExcludeExtension = e.target.checked;
+    renderProductTable(lastRows);
+  });
+
   // ---- Global tooltip (fixed-position, never clipped by table/card overflow) ----
   (function () {
     const tooltipEl = document.getElementById('globalTooltip');
@@ -2145,7 +2684,7 @@
   document.querySelectorAll('.side-link').forEach(function (btn) {
     btn.addEventListener('click', function () { showView(btn.getAttribute('data-view')); });
   });
-  showView(location.hash === '#summary' ? 'summary' : (location.hash === '#daily' ? 'daily' : (location.hash === '#detail' ? 'detail' : 'calendar')));
+  showView(location.hash === '#summary' || location.hash === '#daily' ? 'summary' : (location.hash === '#detail' ? 'detail' : 'calendar'));
 
   // ---- Campaign request sheet -> calendar (live, fetched directly from the browser) ----
   (function () {
@@ -2160,6 +2699,11 @@
     const modalDateEl = document.getElementById('modalDate');
     const modalBodyEl = document.getElementById('modalBody');
     const modalCloseEl = document.getElementById('modalClose');
+    const ownerModeOpenEl = document.getElementById('ownerModeOpen');
+    const ownerModeModalEl = document.getElementById('ownerModeModal');
+    const ownerModeCloseEl = document.getElementById('ownerModeClose');
+    const ownerModeSummaryEl = document.getElementById('ownerModeSummary');
+    const ownerModeListEl = document.getElementById('ownerModeList');
 
     let headers = [];
     let allRows = []; // flat list of every parsed row (each carries __dateKey, __pop)
@@ -2167,6 +2711,7 @@
     let rowsByDate = new Map(); // 'YYYY-MM-DD' -> [row, ...], after filters applied
     let curYear = null, curMonth = null; // curMonth: 0-11
     let loaded = false;
+    const ownerAssignments = new Map();
 
     const filterState = { channels: new Set(), excludeWireline: false, search: '' };
 
@@ -2175,6 +2720,53 @@
         return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
       });
     }
+
+    function ownerRowKey(row, index) {
+      return (row['캠페인명'] || '') + '|' + (row['담당자'] || '') + '|' + (row.__dateKey || '') + '|' + index;
+    }
+
+    function renderOwnerMode() {
+      const pendingCount = applicationRows.filter(function (row, index) { return !ownerAssignments.has(ownerRowKey(row, index)); }).length;
+      ownerModeSummaryEl.innerHTML = '<div class="owner-stat">신청 건수 <b>' + applicationRows.length + '</b></div>' +
+        '<div class="owner-stat">시간 미확정 <b>' + pendingCount + '</b></div>' +
+        '<div class="owner-stat">배정 완료 <b>' + ownerAssignments.size + '</b></div>';
+      if (!applicationRows.length) {
+        ownerModeListEl.innerHTML = '<div class="empty-state">현재 일정 배정을 기다리는 신청 캠페인이 없습니다.</div>';
+        return;
+      }
+      const timeOptions = ['09:00', '10:00', '11:00', '13:00', '14:00', '15:00', '16:00', '18:00', '20:00'];
+      ownerModeListEl.innerHTML = applicationRows.map(function (row, index) {
+        const key = ownerRowKey(row, index);
+        const assigned = ownerAssignments.get(key);
+        return '<div class="owner-pending-item' + (assigned ? ' assigned' : '') + '">' +
+          '<div><div class="owner-campaign-name" title="' + esc(row['캠페인명'] || '') + '">' + esc(row['캠페인명'] || '(캠페인명 없음)') + '</div>' +
+          '<div class="owner-campaign-meta">' + esc(row['담당자'] || '담당자 미정') + ' · ' + esc(row['채널'] || '채널 미정') + ' · 모수 ' + Number(row.__pop || 0).toLocaleString('ko-KR') + '</div></div>' +
+          '<div class="owner-campaign-meta">신청일<br><b style="color:var(--ink-soft)">' + esc(row.__dateKey || '-') + '</b></div>' +
+          '<input type="date" class="owner-assign-input" data-owner-date="' + index + '" value="' + esc(assigned ? assigned.date : (row.__dateKey || '')) + '"' + (assigned ? ' disabled' : '') + '>' +
+          '<select class="owner-assign-input" data-owner-time="' + index + '"' + (assigned ? ' disabled' : '') + '>' + timeOptions.map(function (time) { return '<option value="' + time + '"' + ((assigned ? assigned.time : '10:00') === time ? ' selected' : '') + '>' + time + '</option>'; }).join('') + '</select>' +
+          (assigned ? '<div class="owner-assigned-label">' + esc(assigned.time) + ' 배정 완료</div>' : '<button type="button" class="owner-assign-btn" data-owner-assign="' + index + '">시간 배정</button>') +
+          '</div>';
+      }).join('');
+      ownerModeListEl.querySelectorAll('[data-owner-assign]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          const index = Number(btn.getAttribute('data-owner-assign'));
+          const row = applicationRows[index];
+          const dateInput = ownerModeListEl.querySelector('[data-owner-date="' + index + '"]');
+          const timeInput = ownerModeListEl.querySelector('[data-owner-time="' + index + '"]');
+          if (!dateInput.value) { dateInput.focus(); return; }
+          ownerAssignments.set(ownerRowKey(row, index), { date: dateInput.value, time: timeInput.value });
+          renderOwnerMode();
+        });
+      });
+    }
+
+    ownerModeOpenEl.addEventListener('click', function () {
+      ownerModeModalEl.removeAttribute('hidden');
+      renderOwnerMode();
+      loadApplications().then(renderOwnerMode);
+    });
+    ownerModeCloseEl.addEventListener('click', function () { ownerModeModalEl.setAttribute('hidden', ''); });
+    ownerModeModalEl.addEventListener('click', function (e) { if (e.target === ownerModeModalEl) ownerModeModalEl.setAttribute('hidden', ''); });
 
     function findDateColumn(hdrs) {
       const exact = hdrs.find(function (h) { return h === '시작일'; });
@@ -2469,8 +3061,10 @@
             __dateKey: item.startDate
           };
         });
+        if (!ownerModeModalEl.hasAttribute('hidden')) renderOwnerMode();
       } catch (_err) {
         applicationRows = [];
+        if (!ownerModeModalEl.hasAttribute('hidden')) renderOwnerMode();
       }
     }
   })();
@@ -2977,11 +3571,66 @@
       return values;
     }
 
+    function seriesDateRange(cmpgnId) {
+      const keys = [];
+      ['toast', 'smart'].forEach(function (ch) {
+        campaignSeries(ch, cmpgnId).forEach(function (_, dt) { keys.push(dt); });
+      });
+      campaignSeries('copn', cmpgnId).forEach(function (_, dt) { keys.push(dt); });
+      if (!keys.length) return null;
+      keys.sort();
+      return { min: keys[0], max: keys[keys.length - 1] };
+    }
+
+    function addMonthsToRange(rangeStart, rangeEnd) {
+      const result = [];
+      let cursor = rangeStart.slice(0, 6);
+      const last = rangeEnd.slice(0, 6);
+      while (cursor <= last) {
+        result.push(cursor);
+        const year = +cursor.slice(0, 4);
+        const month = +cursor.slice(4, 6);
+        cursor = month === 12 ? String(year + 1) + '01' : String(year) + String(month + 1).padStart(2, '0');
+      }
+      return result;
+    }
+
+    function buildTimeline(startKey, endKey) {
+      const days = [];
+      const monthGroups = [];
+      const cursor = new Date(+startKey.slice(0, 4), +startKey.slice(4, 6) - 1, +startKey.slice(6, 8));
+      const end = new Date(+endKey.slice(0, 4), +endKey.slice(4, 6) - 1, +endKey.slice(6, 8));
+      let activeGroup = null;
+      while (cursor <= end) {
+        const y = cursor.getFullYear();
+        const m = String(cursor.getMonth() + 1).padStart(2, '0');
+        const d = String(cursor.getDate()).padStart(2, '0');
+        const key = '' + y + m + d;
+        const ym = '' + y + m;
+        if (!activeGroup || activeGroup.ym !== ym) {
+          activeGroup = { ym: ym, label: monthLabelYm(ym), span: 0 };
+          monthGroups.push(activeGroup);
+        }
+        activeGroup.span += 1;
+        days.push({
+          key: key,
+          ym: ym,
+          day: parseInt(d, 10),
+          weekend: cursor.getDay() === 0 || cursor.getDay() === 6,
+          monthStart: d === '01',
+        });
+        cursor.setDate(cursor.getDate() + 1);
+      }
+      return { days: days, monthGroups: monthGroups };
+    }
+
     // ============ Heatmap section state + filters ============
     let dailyMonth = monthOptions.length ? monthOptions[0] : REPORT_MONTH;
     let dailyHeatChannel = 'toast';
     const dailyProdState = new Set();
+    const dailyCampaignState = new Set();
     let dailyStaFrom = '', dailyStaTo = '';
+    let dailySyncedFromSummary = false;
     const MAX_MATRIX_ROWS = 40;
 
     const monthSelectEl = document.getElementById('dailyMonthSelect');
@@ -3029,6 +3678,38 @@
       dailyProdState.clear(); prodResetEl.disabled = true; buildProdList(); renderHeatPanels();
     });
 
+    const syncSummaryBtn = document.getElementById('syncSummaryToHeatmap');
+    const clearSummaryBtn = document.getElementById('clearSummaryHeatmap');
+    syncSummaryBtn.addEventListener('click', function () {
+      const summaryMonths = monthKeysFromState();
+      const requestedMonth = summaryMonths[summaryMonths.length - 1];
+      if (monthOptions.indexOf(requestedMonth) !== -1) dailyMonth = requestedMonth;
+      monthSelectEl.value = dailyMonth;
+
+      dailyProdState.clear();
+      state.products.forEach(function (product) { dailyProdState.add(product); });
+      dailyCampaignState.clear();
+      state.campaigns.forEach(function (campaignId) { dailyCampaignState.add(campaignId); });
+      dailyStaFrom = ''; dailyStaTo = '';
+      staFromEl.value = ''; staToEl.value = '';
+      dailySyncedFromSummary = true;
+      clearSummaryBtn.removeAttribute('hidden');
+      prodResetEl.disabled = dailyProdState.size === 0;
+      buildProdList();
+      renderHeatPanels();
+      syncSummaryBtn.textContent = '상단 필터 적용됨';
+      setTimeout(function () { syncSummaryBtn.textContent = '상단 필터 가져오기'; }, 1800);
+    });
+    clearSummaryBtn.addEventListener('click', function () {
+      dailyProdState.clear();
+      dailyCampaignState.clear();
+      dailySyncedFromSummary = false;
+      prodResetEl.disabled = true;
+      clearSummaryBtn.setAttribute('hidden', '');
+      buildProdList();
+      renderHeatPanels();
+    });
+
     const dailyChannelBadgeEl = document.getElementById('dailyChannelBadge');
     const CHANNEL_LABEL = { toast: '토스트팝업', smart: '스마트알림' };
     document.querySelectorAll('#dailyHeatChannelToggle .pill-btn').forEach(function (btn) {
@@ -3043,6 +3724,7 @@
     function filteredCampaigns() {
       return DATA.filter(function (r) {
         if (!campaignIdsWithData.has(r.id)) return false;
+        if (dailyCampaignState.size > 0 && !dailyCampaignState.has(r.id)) return false;
         if (dailyProdState.size > 0 && !dailyProdState.has(r.prod)) return false;
         if (dailyStaFrom && (!r.staDt || r.staDt < dailyStaFrom)) return false;
         if (dailyStaTo && (!r.staDt || r.staDt > dailyStaTo)) return false;
@@ -3053,34 +3735,41 @@
     function setupHoverDelegation(containerId, hoverInfoId) {
       const container = document.getElementById(containerId);
       const hoverInfo = document.getElementById(hoverInfoId);
+      function hoverDateLabel(key) {
+        return key ? (key.slice(0, 4) + '.' + key.slice(4, 6) + '.' + key.slice(6, 8)) : '-';
+      }
       container.addEventListener('mouseover', function (e) {
         const cell = e.target.closest ? e.target.closest('.matrix-cell') : null;
         if (!cell) return;
         hoverInfo.innerHTML = '<b>' + esc(cell.getAttribute('data-label')) + '</b> · ' +
-          cell.getAttribute('data-day') + '일 · 반응 ' + fmtN(+cell.getAttribute('data-val')) + '건';
+          hoverDateLabel(cell.getAttribute('data-day')) + ' · 반응 ' + fmtN(+cell.getAttribute('data-val')) + '건';
       });
     }
     setupHoverDelegation('dailyChannelMatrix', 'dailyChannelHoverInfo');
     setupHoverDelegation('dailyCouponMatrix', 'dailyCouponHoverInfo');
 
-    function renderMatrixPanel(containerId, rowHeadLabel, rows, rgb, ym) {
+    function renderMatrixPanel(containerId, rowHeadLabel, rows, rgb, timeline) {
       const container = document.getElementById(containerId);
       if (rows.length === 0) {
         container.innerHTML = '<div class="matrix-empty">조건에 맞는 데이터가 없습니다</div>';
         return;
       }
-      const daysInMonth = rows[0].values.length;
-      const y = +ym.slice(0, 4), mo = +ym.slice(4, 6);
+      const dayCount = timeline.days.length;
       const globalMax = Math.max.apply(null, rows.reduce(function (acc, r) { return acc.concat(r.values); }, []).concat([1]));
-      const colStyle = 'grid-template-columns: repeat(' + daysInMonth + ', 1fr);';
+      const colStyle = 'grid-template-columns: repeat(' + dayCount + ', 1fr);';
 
-      const dayHeads = Array.from({ length: daysInMonth }).map(function (_, i) {
-        const dow = new Date(y, mo - 1, i + 1).getDay();
-        return '<div class="matrix-day-head' + (dow === 0 || dow === 6 ? ' weekend' : '') + '">' + (i + 1) + '</div>';
+      const monthHeads = timeline.monthGroups.map(function (group) {
+        return '<div class="matrix-month-head' + (group.ym === timeline.days[0].ym ? ' month-start' : '') + '" style="grid-column: span ' + group.span + ';">' + esc(group.label) + '</div>';
+      }).join('');
+      const dayHeads = timeline.days.map(function (item) {
+        return '<div class="matrix-day-head' + (item.weekend ? ' weekend' : '') + (item.monthStart ? ' month-start' : '') + '">' + item.day + '</div>';
       }).join('');
 
       let html = '<div class="matrix-row">' +
         '<div class="matrix-row-label head">' + esc(rowHeadLabel) + '</div>' +
+        '<div class="matrix-days" style="' + colStyle + '">' + monthHeads + '</div></div>' +
+        '<div class="matrix-row">' +
+        '<div class="matrix-row-label subhead">일자</div>' +
         '<div class="matrix-days" style="' + colStyle + '">' + dayHeads + '</div></div>';
 
       rows.forEach(function (row) {
@@ -3090,7 +3779,7 @@
           row.values.map(function (v, i) {
             const intensity = globalMax > 0 ? v / globalMax : 0;
             const bg = v > 0 ? 'rgba(' + rgb.join(',') + ',' + (0.1 + intensity * 0.85).toFixed(2) + ')' : 'var(--surface-soft)';
-            return '<div class="matrix-cell" style="background:' + bg + '" data-label="' + esc(row.label) + '" data-day="' + (i + 1) + '" data-val="' + v + '"></div>';
+            return '<div class="matrix-cell' + (timeline.days[i].monthStart ? ' month-start' : '') + '" style="background:' + bg + '" data-label="' + esc(row.label) + '" data-day="' + timeline.days[i].key + '" data-val="' + v + '"></div>';
           }).join('') +
           '</div></div>';
       });
@@ -3125,9 +3814,22 @@
 
     // 채널(선택된 sub-channel)과 쿠폰 데이터를 모두 가진 캠페인을 앞쪽에 짝지어 배치
     function buildPairedRows(ym, channelKey) {
-      const items = filteredCampaigns().map(function (r) {
-        const chVals = monthValuesForCampaign(channelKey, r.id, ym);
-        const cpVals = monthValuesForCampaign('copn', r.id, ym);
+      const baseCampaigns = filteredCampaigns();
+      if (!baseCampaigns.length) return { both: [], channelOnly: [], couponOnly: [], timeline: null, months: [ym] };
+      const monthStart = ym + '01';
+      let maxDateKey = monthStart;
+      baseCampaigns.forEach(function (r) {
+        const range = seriesDateRange(r.id);
+        if (!range) return;
+        const cappedMax = range.max > TODAY_KEY ? TODAY_KEY : range.max;
+        if (cappedMax >= monthStart && cappedMax > maxDateKey) maxDateKey = cappedMax;
+      });
+      const timeline = buildTimeline(monthStart, maxDateKey);
+      const items = baseCampaigns.map(function (r) {
+        const chSeries = campaignSeries(channelKey, r.id);
+        const cpSeries = campaignSeries('copn', r.id);
+        const chVals = timeline.days.map(function (d) { return chSeries.get(d.key) || 0; });
+        const cpVals = timeline.days.map(function (d) { return cpSeries.get(d.key) || 0; });
         const chTotal = chVals.reduce(function (a, b) { return a + b; }, 0);
         const cpTotal = cpVals.reduce(function (a, b) { return a + b; }, 0);
         return { r: r, chVals: chVals, cpVals: cpVals, chTotal: chTotal, cpTotal: cpTotal };
@@ -3138,27 +3840,28 @@
         .sort(function (a, b) { return b.chTotal - a.chTotal; });
       const couponOnly = items.filter(function (x) { return x.chTotal === 0 && x.cpTotal > 0; })
         .sort(function (a, b) { return b.cpTotal - a.cpTotal; });
-      return { both: both, channelOnly: channelOnly, couponOnly: couponOnly };
+      return { both: both, channelOnly: channelOnly, couponOnly: couponOnly, timeline: timeline, months: addMonthsToRange(monthStart, maxDateKey) };
     }
 
     function renderHeatPanels() {
       const groups = buildPairedRows(dailyMonth, dailyHeatChannel);
       const channelList = groups.both.concat(groups.channelOnly);
       const couponList = groups.both.concat(groups.couponOnly);
+      const monthRangeText = groups.months && groups.months.length
+        ? groups.months.map(monthLabelYm).join(' ~ ')
+        : monthLabelYm(dailyMonth);
 
-      document.getElementById('dailyFilterStatus').textContent = monthLabelYm(dailyMonth) + ' 기준';
-      document.getElementById('dailyChannelNote').textContent =
-        (dailyHeatChannel === 'toast' ? '토스트팝업' : '스마트알림') + ' 캠페인별 일자별 반응 강도' +
-        (channelList.length > MAX_MATRIX_ROWS ? ' · 상위 ' + MAX_MATRIX_ROWS + '개' : '');
-      document.getElementById('dailyCouponNote').textContent =
-        '캠페인별 쿠폰 사용 일자별 강도' + (couponList.length > MAX_MATRIX_ROWS ? ' · 상위 ' + MAX_MATRIX_ROWS + '개' : '');
+      document.getElementById('dailyFilterStatus').textContent = monthRangeText + ' 표시 · 2026.08.29 기준 미래 일자 제외' +
+        (dailySyncedFromSummary ? ' · 상단 필터 스냅샷 적용' + (dailyCampaignState.size ? ' (캠페인 ' + dailyCampaignState.size + '개)' : '') : '');
+      document.getElementById('dailyChannelNote').textContent = '';
+      document.getElementById('dailyCouponNote').textContent = '';
 
       renderMatrixPanel('dailyChannelMatrix', '캠페인',
         channelList.slice(0, MAX_MATRIX_ROWS).map(function (x) { return { id: x.r.id, label: x.r.nm, values: x.chVals }; }),
-        CHANNEL_RGB[dailyHeatChannel], dailyMonth);
+        CHANNEL_RGB[dailyHeatChannel], groups.timeline);
       renderMatrixPanel('dailyCouponMatrix', '캠페인',
         couponList.slice(0, MAX_MATRIX_ROWS).map(function (x) { return { id: x.r.id, label: x.r.nm, values: x.cpVals }; }),
-        CHANNEL_RGB.copn, dailyMonth);
+        CHANNEL_RGB.copn, groups.timeline);
     }
 
     // ============ Month-end forecast (independent filter: 월 > 상품(다중) > 캠페인(다중)) ============
@@ -3822,6 +4525,7 @@
   (function () {
     const searchEl = document.getElementById('detailSearch');
     const resultsEl = document.getElementById('detailSearchResults');
+    const filterStatusEl = document.getElementById('detailFilterStatus');
     const emptyEl = document.getElementById('detailEmptyState');
     const analysisEl = document.getElementById('detailAnalysis');
     const titleEl = document.getElementById('detailCampaignTitle');
@@ -3833,11 +4537,179 @@
     const historyNoteEl = document.getElementById('detailHistoryNote');
     const historyBodyEl = document.getElementById('detailHistoryBody');
     const insightListEl = document.getElementById('detailInsightList');
+    const detailMonthListEl = document.getElementById('detailMonthList');
+    const detailProductListEl = document.getElementById('detailProductList');
+    const detailCampaignListEl = document.getElementById('detailCampaignList');
+    const detailCampaignSearchEl = document.getElementById('detailCampaignSearch');
+    const detailCampaignTriggerEl = document.getElementById('detailCampaignTrigger');
+    const detailCampaignTriggerLabelEl = document.getElementById('detailCampaignTriggerLabel');
+    const detailCampaignPanelEl = document.getElementById('detailCampaignPanel');
 
     const byId = {};
     DATA.forEach(function (r) { byId[r.id] = r; });
 
     let selectedId = null;
+    const detailState = { months: new Set([REPORT_MONTH]), products: new Set(), campaigns: new Set() };
+
+    function detailRowsMatching(opts) {
+      opts = opts || {};
+      return DATA.filter(function (r) {
+        if (!opts.skipMonth && detailState.months.size > 0 && !detailState.months.has(r.ym || '')) return false;
+        if (!opts.skipProduct && detailState.products.size > 0 && !detailState.products.has(r.prod)) return false;
+        if (!opts.skipCampaign && detailState.campaigns.size > 0 && !detailState.campaigns.has(r.id)) return false;
+        return true;
+      });
+    }
+
+    function detailBuildCheckList(container, entries, groupSet, labelFn) {
+      container.innerHTML = '';
+      entries.forEach(function (entry) {
+        const key = entry[0], count = entry[1];
+        const id = container.id + '-' + key.replace(/[^a-zA-Z0-9가-힣]/g, '_');
+        const label = document.createElement('label');
+        label.className = 'filter-item' + (count === 0 ? ' zero' : '');
+        label.setAttribute('for', id);
+        const input = document.createElement('input');
+        input.type = 'checkbox';
+        input.id = id;
+        input.checked = groupSet.has(key);
+        input.addEventListener('change', function () {
+          if (input.checked) groupSet.add(key); else groupSet.delete(key);
+          detailSyncResetButtons();
+          detailRefreshFilterLists();
+          syncSelectedCampaignWithFilters();
+          renderSearch();
+          renderAnalysis();
+        });
+        const span = document.createElement('span');
+        span.textContent = labelFn(key);
+        const cnt = document.createElement('span');
+        cnt.className = 'cnt';
+        cnt.textContent = count + '건';
+        label.appendChild(input);
+        label.appendChild(span);
+        label.appendChild(cnt);
+        container.appendChild(label);
+      });
+    }
+
+    function detailRenderCampaignList() {
+      const q = detailCampaignSearchEl.value.trim().toLowerCase();
+      const pool = detailRowsMatching({ skipCampaign: true });
+      detailCampaignListEl.innerHTML = '';
+      const matches = pool.filter(function (r) {
+        return !q || r.nm.toLowerCase().indexOf(q) !== -1 || r.id.toLowerCase().indexOf(q) !== -1;
+      });
+      const shown = matches.slice(0, 120);
+      shown.forEach(function (r) {
+        const id = 'detail-camp-' + r.id;
+        const label = document.createElement('label');
+        label.className = 'filter-item';
+        label.setAttribute('for', id);
+        const input = document.createElement('input');
+        input.type = 'checkbox';
+        input.id = id;
+        input.checked = detailState.campaigns.has(r.id);
+        input.addEventListener('change', function () {
+          if (input.checked) detailState.campaigns.add(r.id); else detailState.campaigns.delete(r.id);
+          detailSyncResetButtons();
+          detailUpdateCampaignTrigger();
+          syncSelectedCampaignWithFilters();
+          renderSearch();
+          renderAnalysis();
+        });
+        const span = document.createElement('span');
+        span.textContent = r.nm;
+        span.style.overflow = 'hidden';
+        span.style.textOverflow = 'ellipsis';
+        span.style.whiteSpace = 'nowrap';
+        label.appendChild(input);
+        label.appendChild(span);
+        detailCampaignListEl.appendChild(label);
+      });
+      if (matches.length > shown.length) {
+        const more = document.createElement('div');
+        more.className = 'filter-hint';
+        more.textContent = '외 ' + (matches.length - shown.length) + '건 - 검색어를 좁혀보세요';
+        detailCampaignListEl.appendChild(more);
+      }
+    }
+
+    function detailUpdateCampaignTrigger() {
+      detailCampaignTriggerLabelEl.textContent = detailState.campaigns.size === 0 ? '전체 캠페인' : detailState.campaigns.size + '개 선택됨';
+    }
+
+    function detailRefreshFilterLists() {
+      const monthRows = detailRowsMatching({ skipMonth: true });
+      const monthCounts = {};
+      monthRows.forEach(function (r) { const k = r.ym || ''; monthCounts[k] = (monthCounts[k] || 0) + 1; });
+      detailBuildCheckList(detailMonthListEl, ALL_MONTH_KEYS.map(function (k) { return [k, monthCounts[k] || 0]; }), detailState.months, monthLabel);
+
+      const productRows = detailRowsMatching({ skipProduct: true });
+      const productCounts = {};
+      productRows.forEach(function (r) { productCounts[r.prod] = (productCounts[r.prod] || 0) + 1; });
+      const productEntries = ALL_PRODUCT_KEYS.map(function (k) { return [k, productCounts[k] || 0]; })
+        .sort(pinLastComparator(function (e) { return e[0]; }, function (e) { return e[1]; }));
+      detailBuildCheckList(detailProductListEl, productEntries, detailState.products, function (k) { return k; });
+
+      detailRenderCampaignList();
+      detailUpdateCampaignTrigger();
+      detailUpdateFilterStatus();
+    }
+
+    function detailSyncResetButtons() {
+      document.querySelector('[data-detail-reset="month"]').disabled = detailState.months.size === 0;
+      document.querySelector('[data-detail-reset="product"]').disabled = detailState.products.size === 0;
+      document.querySelector('[data-detail-reset="campaign"]').disabled = detailState.campaigns.size === 0;
+    }
+
+    function detailUpdateFilterStatus() {
+      const monthText = detailState.months.size ? Array.from(detailState.months).sort().map(monthLabel).join(', ') : '전체';
+      const productText = detailState.products.size ? Array.from(detailState.products).join(', ') : '전체';
+      const campaignText = detailState.campaigns.size ? detailState.campaigns.size + '개 선택' : '전체';
+      filterStatusEl.textContent = '월: ' + monthText + ' · 상품: ' + productText + ' · 캠페인: ' + campaignText;
+    }
+
+    function detailFilteredPool() {
+      return detailRowsMatching({});
+    }
+
+    function syncSelectedCampaignWithFilters() {
+      const visibleIds = new Set(detailFilteredPool().map(function (r) { return r.id; }));
+      if (selectedId && !visibleIds.has(selectedId)) selectedId = null;
+    }
+
+    detailCampaignSearchEl.addEventListener('input', detailRenderCampaignList);
+    detailCampaignTriggerEl.addEventListener('click', function () {
+      const opening = detailCampaignPanelEl.hasAttribute('hidden');
+      if (opening) {
+        detailRenderCampaignList();
+        detailCampaignPanelEl.removeAttribute('hidden');
+        detailCampaignTriggerEl.classList.add('open');
+        detailCampaignSearchEl.focus();
+      } else {
+        detailCampaignPanelEl.setAttribute('hidden', '');
+        detailCampaignTriggerEl.classList.remove('open');
+      }
+    });
+    document.addEventListener('click', function (e) {
+      if (!document.getElementById('detailCampaignDropdown').contains(e.target)) {
+        detailCampaignPanelEl.setAttribute('hidden', '');
+        detailCampaignTriggerEl.classList.remove('open');
+      }
+    });
+    document.querySelectorAll('[data-detail-reset]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        const which = btn.getAttribute('data-detail-reset');
+        detailState[which === 'month' ? 'months' : which === 'product' ? 'products' : 'campaigns'].clear();
+        if (which === 'campaign') detailCampaignSearchEl.value = '';
+        detailSyncResetButtons();
+        detailRefreshFilterLists();
+        syncSelectedCampaignWithFilters();
+        renderSearch();
+        renderAnalysis();
+      });
+    });
 
     // Some rows (mostly untagged "PPV 등" campaigns) have click counts that exceed
     // show counts due to distinct-count aggregation quirks noted in the summary tab's
@@ -3894,21 +4766,32 @@
 
     function renderSearch() {
       const q = searchEl.value.trim().toLowerCase();
-      if (!q) { resultsEl.innerHTML = ''; return; }
-      const matches = DATA.filter(function (r) {
+      const pool = detailFilteredPool();
+      if (!q) {
+        if (detailState.campaigns.size === 1 && !selectedId) selectedId = Array.from(detailState.campaigns)[0];
+        resultsEl.innerHTML = pool.slice(0, 30).map(function (r) {
+          const active = r.id === selectedId ? ' active' : '';
+          return '<button type="button" class="search-result-item' + active + '" data-id="' + esc(r.id) + '">' +
+            '<strong>' + esc(r.nm) + '</strong>' +
+            '<div class="search-result-meta"><span>' + esc(r.prod) + '</span><span>' + (r.ym ? monthLabel(r.ym) : '월 미상') + '</span><span>모수 ' + fmt(r.svc) + '명</span></div>' +
+            '</button>';
+        }).join('') || '<div class="empty-state" style="padding:16px 0;">필터 조건에 맞는 캠페인이 없습니다</div>';
+      } else {
+        const matches = pool.filter(function (r) {
         return r.nm.toLowerCase().indexOf(q) !== -1 || r.id.toLowerCase().indexOf(q) !== -1;
-      }).slice(0, 30);
-      if (!matches.length) {
-        resultsEl.innerHTML = '<div class="empty-state" style="padding:16px 0;">검색 결과가 없습니다</div>';
-        return;
+        }).slice(0, 30);
+        if (!matches.length) {
+          resultsEl.innerHTML = '<div class="empty-state" style="padding:16px 0;">검색 결과가 없습니다</div>';
+          return;
+        }
+        resultsEl.innerHTML = matches.map(function (r) {
+          const active = r.id === selectedId ? ' active' : '';
+          return '<button type="button" class="search-result-item' + active + '" data-id="' + esc(r.id) + '">' +
+            '<strong>' + esc(r.nm) + '</strong>' +
+            '<div class="search-result-meta"><span>' + esc(r.prod) + '</span><span>' + (r.ym ? monthLabel(r.ym) : '월 미상') + '</span><span>모수 ' + fmt(r.svc) + '명</span></div>' +
+            '</button>';
+        }).join('');
       }
-      resultsEl.innerHTML = matches.map(function (r) {
-        const active = r.id === selectedId ? ' active' : '';
-        return '<button type="button" class="search-result-item' + active + '" data-id="' + esc(r.id) + '">' +
-          '<strong>' + esc(r.nm) + '</strong>' +
-          '<div class="search-result-meta"><span>' + esc(r.prod) + '</span><span>' + (r.ym ? monthLabel(r.ym) : '월 미상') + '</span><span>모수 ' + fmt(r.svc) + '명</span></div>' +
-          '</button>';
-      }).join('');
       resultsEl.querySelectorAll('.search-result-item').forEach(function (btn) {
         btn.addEventListener('click', function () {
           selectedId = btn.getAttribute('data-id');
@@ -4127,6 +5010,8 @@
       }).join('');
     }
 
+    detailSyncResetButtons();
+    detailRefreshFilterLists();
     renderSearch();
   })();
 })();
