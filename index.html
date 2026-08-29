@@ -151,6 +151,14 @@
     color: var(--ink);
   }
   .section-note { font-size: 13px; color: var(--ink-mute); }
+  .detail-section-head { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; }
+  .detail-section-title {
+    font-family: "Gowun Batang", serif;
+    font-weight: 700;
+    font-size: 20px;
+    color: var(--ink);
+  }
+  .detail-section-divider { height: 1px; background: var(--line); margin: 32px 0; }
   .badge {
     display: inline-flex;
     align-items: center;
@@ -636,6 +644,7 @@
   .calendar-head-actions { display: flex; align-items: center; gap: 9px; }
   .owner-mode-btn { display: inline-flex; align-items: center; gap: 7px; padding: 9px 14px; border: 1px solid var(--accent); border-radius: 999px; background: var(--accent); color: #fff; font: inherit; font-size: 12px; font-weight: 750; cursor: pointer; }
   .owner-mode-btn:hover { filter: brightness(.96); }
+  .owner-mode-btn.secondary { background: var(--surface); color: var(--accent); }
   .owner-mode-box { width: min(920px, 100%); max-height: 86vh; overflow: auto; background: var(--surface); border-radius: 16px; box-shadow: var(--shadow); }
   .owner-mode-intro { padding: 14px 20px; border-bottom: 1px solid var(--line); background: var(--surface-soft); color: var(--ink-soft); font-size: 12.5px; line-height: 1.6; }
   .owner-mode-summary { display: flex; gap: 10px; padding: 16px 20px 4px; }
@@ -643,6 +652,26 @@
   .owner-stat b { margin-left: 5px; color: var(--ink); font-size: 15px; }
   .owner-mode-list { display: flex; flex-direction: column; gap: 9px; padding: 14px 20px 20px; }
   .owner-mode-list[hidden] { display: none; }
+  .schedule-search { display: grid; grid-template-columns: 150px 1fr 1fr; gap: 12px; margin: 16px 20px 4px; padding: 16px; border: 1px solid var(--line); border-radius: 13px; background: var(--surface-soft); }
+  .schedule-search-field { display: flex; flex-direction: column; gap: 5px; }
+  .schedule-search-field label { font-size: 11.5px; font-weight: 650; color: var(--ink-mute); }
+  .schedule-search .owner-assign-input { width: 100%; min-height: 38px; background: var(--surface); }
+  .schedule-search-field.period { grid-column: span 2; }
+  .schedule-period-inputs { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 7px; }
+  .schedule-period-inputs > span { color: var(--ink-mute); font-size: 12px; }
+  .schedule-search-actions { display: flex; align-items: flex-end; gap: 7px; }
+  .schedule-mode-summary { padding-top: 10px; padding-bottom: 2px; color: var(--ink-mute); font-size: 11.5px; }
+  .schedule-mode-summary .schedule-summary-copy { display: inline-flex; align-items: center; gap: 7px; opacity: .72; }
+  .schedule-mode-summary .schedule-summary-copy + .schedule-summary-copy::before { content: ''; width: 3px; height: 3px; border-radius: 50%; background: currentColor; margin-right: 3px; }
+  .schedule-mode-summary b { color: inherit; font-weight: 650; }
+  .schedule-result-item { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) 128px 152px; gap: 18px; align-items: center; padding: 15px 16px 15px 19px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); transition: border-color .15s ease, box-shadow .15s ease, transform .15s ease; }
+  .schedule-result-item::before { content: ''; position: absolute; left: 0; top: 11px; bottom: 11px; width: 3px; border-radius: 0 3px 3px 0; background: var(--accent); opacity: .48; }
+  .schedule-result-item:hover { border-color: color-mix(in srgb, var(--accent) 42%, var(--line)); box-shadow: 0 8px 22px -18px rgba(20, 23, 28, .6); transform: translateY(-1px); }
+  .schedule-result-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 13.5px; font-weight: 700; color: var(--ink); }
+  .schedule-result-meta { display: flex; flex-wrap: wrap; gap: 5px 12px; margin-top: 6px; font-size: 11.5px; color: var(--ink-mute); }
+  .schedule-result-label { display: block; margin-bottom: 3px; font-size: 10.5px; color: var(--ink-mute); }
+  .schedule-result-value { font-size: 12.5px; font-weight: 650; color: var(--ink-soft); }
+  .schedule-result-time { padding: 10px 11px; border: 1px solid color-mix(in srgb, var(--accent) 14%, transparent); border-radius: 9px; background: var(--accent-soft); color: var(--accent); font-size: 13px; font-weight: 800; text-align: center; }
   .owner-tab-btn { padding: 7px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--ink-soft); font: inherit; font-size: 12px; font-weight: 600; cursor: pointer; }
   .owner-tab-btn:hover { border-color: var(--accent); color: var(--accent); }
   .owner-tab-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
@@ -959,10 +988,10 @@
   .heat-panels { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 14px; margin-bottom: 20px; align-items: start; }
   .heat-panel-card { padding: 16px; min-width: 0; }
   .matrix-heat-scroll { max-height: 520px; overflow: auto; border: 1px solid var(--line); border-radius: 10px; }
-  .matrix-row { display: flex; align-items: stretch; }
+  .matrix-row { position: relative; display: flex; align-items: stretch; }
   .matrix-row[data-cmpgn-id] { cursor: pointer; }
-  .matrix-row.row-highlight { outline: 2px solid var(--accent); outline-offset: -2px; }
-  .matrix-row.row-highlight .matrix-row-label { background: var(--accent-soft); color: var(--accent); font-weight: 700; }
+  .matrix-row.row-highlight::after { content: ''; position: absolute; inset: 0; z-index: 8; border: 1px solid #555b64; box-sizing: border-box; pointer-events: none; }
+  .matrix-row.row-highlight .matrix-row-label { background: #eceef1; color: #3f444c; font-weight: 600; }
   .matrix-row-label {
     flex: 0 0 144px;
     width: 144px;
@@ -1129,21 +1158,30 @@
   }
   .ai-insight-summary { margin: 0 0 12px; font-size: 13.5px; line-height: 1.6; color: var(--ink); }
   .ai-insight-summary b { font-weight: 700; }
-  .ai-insight-products { display: flex; flex-wrap: wrap; gap: 8px; }
+  .ai-insight-products { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; }
   .ai-insight-chip {
-    flex: 1 1 190px;
-    min-width: 170px;
     background: var(--surface);
     border: 1px solid var(--line);
     border-radius: 10px;
-    padding: 10px 12px;
+    padding: 12px 14px;
     font-size: 12px;
     color: var(--ink-soft);
   }
-  .ai-insight-chip .chip-prod { display: flex; align-items: center; gap: 6px; font-weight: 700; color: var(--ink); font-size: 12.5px; margin-bottom: 6px; }
+  .ai-insight-chip .chip-prod { display: flex; align-items: center; gap: 6px; font-weight: 700; color: var(--ink); font-size: 12.5px; margin-bottom: 8px; }
   .ai-insight-chip .chip-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
-  .ai-insight-chip .chip-row { display: flex; justify-content: space-between; padding: 1px 0; }
+  .ai-insight-chip .chip-row { display: flex; justify-content: space-between; align-items: baseline; padding: 3px 0; }
   .ai-insight-chip .chip-row b { color: var(--ink); font-weight: 600; }
+  .ai-insight-chip .chip-row b.chip-forecast { color: var(--accent); font-size: 13.5px; font-weight: 800; }
+  .ai-insight-chip .chip-row b.chip-short { color: var(--neg); }
+  .ai-insight-chip .chip-row b.chip-over { color: var(--accent); }
+  .ai-insight-chip .chip-tip {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px dashed var(--line);
+    font-size: 11px;
+    line-height: 1.5;
+    color: var(--ink-mute);
+  }
 
   .forecast-dual { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
   .forecast-chart-card {
@@ -1188,6 +1226,20 @@
   .goal-gap-result { font-size: 12.5px; color: var(--ink-soft); line-height: 1.5; }
   .goal-gap-line { padding: 3px 0; }
   .goal-gap-line b { color: var(--ink); font-weight: 700; }
+  .goal-gap-line b.gap-blue { color: var(--accent); }
+  .goal-gap-line b.gap-red { color: var(--neg); }
+  .goal-gap-suggestion {
+    margin-top: 10px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    font-size: 12px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+  }
+  .goal-gap-suggestion .sg-title { display: block; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+  .goal-gap-suggestion ul { margin: 0; padding-left: 16px; }
   @media (max-width: 700px) { .goal-gap-row { grid-template-columns: 1fr; } }
 
   /* Collapsible "실제 쿠폰 반응 수" editable detail table */
@@ -1342,6 +1394,9 @@
   @media (max-width: 640px) {
     .request-fields { grid-template-columns: 1fr; }
     .capacity-grid { grid-template-columns: 1fr; }
+    .schedule-search { grid-template-columns: 1fr; }
+    .schedule-search-field.period { grid-column: auto; }
+    .schedule-result-item { grid-template-columns: 1fr; }
   }
 </style>
 
@@ -1371,7 +1426,8 @@
               <button type="button" class="calendar-quick-btn active" id="jumpRequestPanel">캠페인 신청</button>
               <button type="button" class="calendar-quick-btn" id="jumpCalendarPanel">캠페인 캘린더</button>
             </div>
-            <button type="button" class="owner-mode-btn" id="ownerModeOpen">담당자 모드</button>
+            <button type="button" class="owner-mode-btn secondary" id="scheduleModeOpen">담당자 모드</button>
+            <button type="button" class="owner-mode-btn" id="ownerModeOpen">관리자 모드</button>
           </div>
         </div>
         <div class="card calendar-toolbar" id="requestPanel">
@@ -1527,7 +1583,7 @@
       <div class="owner-mode-box" role="dialog" aria-modal="true" aria-labelledby="ownerModeTitle">
         <div class="modal-head">
           <span style="display:flex; align-items:center; gap:8px;">
-            <span id="ownerModeTitle">담당자 모드 · 일정 배정</span>
+            <span id="ownerModeTitle">관리자 모드 · 일정 배정</span>
             <span class="owner-help-wrap">
               <button type="button" class="owner-help-btn" id="ownerHelpToggle" aria-expanded="false" title="시간 배정 추천 기준 보기">?</button>
               <div class="owner-help-panel" id="ownerHelpPanel" hidden></div>
@@ -1535,7 +1591,7 @@
           </span>
           <button type="button" class="modal-close" id="ownerModeClose">✕</button>
         </div>
-        <div class="owner-mode-intro">캠페인 신청은 완료됐지만 발송 시간이 확정되지 않은 항목입니다. 날짜와 시간을 선택한 뒤 배정하면 담당자 검토 상태로 표시됩니다.</div>
+        <div class="owner-mode-intro">캠페인 신청은 완료됐지만 발송 시간이 확정되지 않은 항목입니다. 날짜와 시간을 선택해 실행시각을 확정할 수 있습니다.</div>
         <div class="owner-mode-summary" id="ownerModeSummary"></div>
         <div class="chan-btn-row" id="ownerModeTabs" style="padding: 0 20px;">
           <button type="button" class="owner-tab-btn active" data-owner-tab="pending">배정 대기</button>
@@ -1543,6 +1599,44 @@
         </div>
         <div class="owner-mode-list" id="ownerModeList"></div>
         <div class="owner-mode-list" id="ownerCompletedList" hidden></div>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="scheduleModeModal" hidden>
+      <div class="owner-mode-box" role="dialog" aria-modal="true" aria-labelledby="scheduleModeTitle">
+        <div class="modal-head">
+          <span id="scheduleModeTitle">담당자 모드 · 확정 일정 조회</span>
+          <button type="button" class="modal-close" id="scheduleModeClose">✕</button>
+        </div>
+        <div class="owner-mode-intro">관리자가 확정한 캠페인의 실행시각을 조회합니다. 확정 캘린더 시트의 J열에 실행시각이 있는 일정만 표시됩니다.</div>
+        <div class="schedule-search">
+          <div class="schedule-search-field">
+            <label for="scheduleMonth">월</label>
+            <input type="month" class="owner-assign-input" id="scheduleMonth">
+          </div>
+          <div class="schedule-search-field">
+            <label for="scheduleOwner">담당자</label>
+            <input type="text" class="owner-assign-input" id="scheduleOwner" placeholder="담당자명">
+          </div>
+          <div class="schedule-search-field">
+            <label for="scheduleCampaign">캠페인명</label>
+            <input type="text" class="owner-assign-input" id="scheduleCampaign" placeholder="캠페인명">
+          </div>
+          <div class="schedule-search-field period">
+            <label>캠페인 기간</label>
+            <div class="schedule-period-inputs">
+              <input type="date" class="owner-assign-input" id="scheduleStartDate" aria-label="캠페인 기간 시작일">
+              <span>~</span>
+              <input type="date" class="owner-assign-input" id="scheduleEndDate" aria-label="캠페인 기간 종료일">
+            </div>
+          </div>
+          <div class="schedule-search-actions">
+            <button type="button" class="apply-btn" id="scheduleSearch">검색</button>
+            <button type="button" class="apply-btn secondary" id="scheduleReset">초기화</button>
+          </div>
+        </div>
+        <div class="owner-mode-summary schedule-mode-summary" id="scheduleModeSummary"></div>
+        <div class="owner-mode-list" id="scheduleModeList"></div>
       </div>
     </div>
 
@@ -1766,39 +1860,41 @@
             <div class="section-title">실적 마감 예측</div>
             <div class="section-note">아래 필터는 이 섹션에만 적용됩니다</div>
           </div>
-          <div class="filter-grid" style="grid-template-columns: 1fr 1fr 1.4fr; margin-bottom: 18px;">
-            <div>
-              <div class="filter-group-head">
-                <span class="filter-group-title">월</span>
-                <div class="forecast-actions">
-                  <button class="filter-reset" id="forecastMonthSelectAll" disabled>전체 선택</button>
-                  <button class="filter-reset" id="forecastMonthReset" disabled>초기화</button>
+          <div class="request-card" style="margin-bottom: 18px;">
+            <div class="filter-grid" style="grid-template-columns: 1fr 1fr 1.4fr;">
+              <div>
+                <div class="filter-group-head">
+                  <span class="filter-group-title">월</span>
+                  <div class="forecast-actions">
+                    <button class="filter-reset" id="forecastMonthSelectAll" disabled>전체 선택</button>
+                    <button class="filter-reset" id="forecastMonthReset" disabled>초기화</button>
+                  </div>
                 </div>
+                <div class="filter-list" id="forecastMonthList" style="max-height: 120px;"></div>
               </div>
-              <div class="filter-list" id="forecastMonthList" style="max-height: 120px;"></div>
-            </div>
-            <div>
-              <div class="filter-group-head">
-                <span class="filter-group-title">상품</span>
-                <div class="forecast-actions">
-                  <button class="filter-reset" id="forecastProdSelectAll" disabled>전체 선택</button>
-                  <button class="filter-reset" id="forecastProdReset" disabled>초기화</button>
+              <div>
+                <div class="filter-group-head">
+                  <span class="filter-group-title">상품</span>
+                  <div class="forecast-actions">
+                    <button class="filter-reset" id="forecastProdSelectAll" disabled>전체 선택</button>
+                    <button class="filter-reset" id="forecastProdReset" disabled>초기화</button>
+                  </div>
                 </div>
+                <div class="filter-list" id="forecastProdList" style="max-height: 120px;"></div>
               </div>
-              <div class="filter-list" id="forecastProdList" style="max-height: 120px;"></div>
-            </div>
-            <div>
-              <div class="filter-group-head">
-                <span class="filter-group-title">캠페인</span>
-                <div class="forecast-actions">
-                  <button class="filter-reset" id="forecastCampaignSelectAll" disabled>전체 선택</button>
-                  <button class="filter-reset" id="forecastCampaignReset" disabled>초기화</button>
+              <div>
+                <div class="filter-group-head">
+                  <span class="filter-group-title">캠페인</span>
+                  <div class="forecast-actions">
+                    <button class="filter-reset" id="forecastCampaignSelectAll" disabled>전체 선택</button>
+                    <button class="filter-reset" id="forecastCampaignReset" disabled>초기화</button>
+                  </div>
                 </div>
+                <div class="filter-list" id="forecastCampaignList" style="max-height: 120px;"></div>
               </div>
-              <div class="filter-list" id="forecastCampaignList" style="max-height: 120px;"></div>
             </div>
+            <div class="forecast-panel-note" id="forecastFilterStatus">선택 상품: 없음</div>
           </div>
-          <div class="forecast-panel-note" id="forecastFilterStatus">선택 상품: 없음</div>
 
           <div class="forecast-half">
             <div class="forecast-half-title"><span class="dot" style="background:var(--series-copn)"></span>쿠폰 반응(사용) 수</div>
@@ -1809,7 +1905,7 @@
             </div>
 
             <div class="goal-gap-card" id="goalGapCard">
-              <div class="goal-gap-title">🎯 목표 대비 갭 계산기</div>
+              <div class="goal-gap-title">목표 대비 갭 계산기</div>
               <div class="goal-gap-row">
                 <div class="goal-field">
                   <label for="goalProdSelect">상품</label>
@@ -1846,60 +1942,80 @@
           <h1>캠페인 상세 분석</h1>
           <p class="subtitle">분석할 캠페인을 검색해 선택하면 동기간에 진행된 다른 캠페인, 동일 상품의 과거 캠페인과 교차 비교해 이번 캠페인의 특징과 다음에 시도해볼 만한 액션을 제안합니다.</p>
         </div>
+        <div class="calendar-toolbar-head" style="margin-bottom:16px;">
+          <div></div>
+          <div class="calendar-quick-nav">
+            <button type="button" class="calendar-quick-btn active" id="jumpForecastSection">실적 마감 예측</button>
+            <button type="button" class="calendar-quick-btn" id="jumpCrossSection">캠페인 교차 분석</button>
+          </div>
+        </div>
 
-        <section id="detailForecastMount"></section>
+        <section id="detailForecastSection">
+          <div class="detail-section-head">
+            <span class="detail-section-title">실적 마감 예측</span>
+          </div>
+          <section id="detailForecastMount"></section>
+        </section>
 
-        <div class="card filter-card">
-          <div class="filter-grid">
-            <div>
-              <div class="filter-group-head">
-                <span class="filter-group-title">월</span>
-                <button class="filter-reset" data-detail-reset="month" disabled>초기화</button>
-              </div>
-              <div class="filter-list" id="detailMonthList"></div>
-            </div>
-            <div>
-              <div class="filter-group-head">
-                <span class="filter-group-title">상품</span>
-                <button class="filter-reset" data-detail-reset="product" disabled>초기화</button>
-              </div>
-              <div class="filter-list" id="detailProductList"></div>
-            </div>
-            <div>
-              <div class="filter-group-head">
-                <span class="filter-group-title">캠페인</span>
-                <button class="filter-reset" data-detail-reset="campaign" disabled>초기화</button>
-              </div>
-              <div class="dropdown-wrap" id="detailCampaignDropdown">
-                <button type="button" class="dropdown-trigger" id="detailCampaignTrigger">
-                  <span id="detailCampaignTriggerLabel">전체 캠페인</span><span class="chev">▾</span>
-                </button>
-                <div class="dropdown-panel" id="detailCampaignPanel" hidden>
-                  <input class="filter-search" id="detailCampaignSearch" placeholder="캠페인명 또는 ID 검색" />
-                  <div class="filter-list" id="detailCampaignList"></div>
+        <div class="detail-section-divider"></div>
+
+        <section id="detailCrossSection">
+          <div class="detail-section-head">
+            <span class="detail-section-title">캠페인 교차 분석</span>
+          </div>
+
+          <div class="card filter-card">
+            <div class="request-card" style="margin-bottom: 18px;">
+              <div class="filter-grid">
+                <div>
+                  <div class="filter-group-head">
+                    <span class="filter-group-title">월</span>
+                    <button class="filter-reset" data-detail-reset="month" disabled>초기화</button>
+                  </div>
+                  <div class="filter-list" id="detailMonthList"></div>
+                </div>
+                <div>
+                  <div class="filter-group-head">
+                    <span class="filter-group-title">상품</span>
+                    <button class="filter-reset" data-detail-reset="product" disabled>초기화</button>
+                  </div>
+                  <div class="filter-list" id="detailProductList"></div>
+                </div>
+                <div>
+                  <div class="filter-group-head">
+                    <span class="filter-group-title">캠페인</span>
+                    <button class="filter-reset" data-detail-reset="campaign" disabled>초기화</button>
+                  </div>
+                  <div class="dropdown-wrap" id="detailCampaignDropdown">
+                    <button type="button" class="dropdown-trigger" id="detailCampaignTrigger">
+                      <span id="detailCampaignTriggerLabel">전체 캠페인</span><span class="chev">▾</span>
+                    </button>
+                    <div class="dropdown-panel" id="detailCampaignPanel" hidden>
+                      <input class="filter-search" id="detailCampaignSearch" placeholder="캠페인명 또는 ID 검색" />
+                      <div style="display:flex; gap:6px; margin-bottom:8px;">
+                        <button type="button" class="filter-reset" id="detailCampaignSelectAll">전체 선택</button>
+                        <button type="button" class="filter-reset" id="detailCampaignClearAll">전체 해제</button>
+                      </div>
+                      <div class="filter-list" id="detailCampaignList"></div>
+                    </div>
+                  </div>
                 </div>
               </div>
+              <div class="filter-status" style="margin-top:14px; display:flex; align-items:center; justify-content:space-between; gap:12px;">
+                <span id="detailFilterStatus">선택된 필터 없음</span>
+                <button type="button" class="apply-btn" id="detailFilterApply">선택 필터 적용</button>
+              </div>
             </div>
           </div>
-          <div class="filter-group-head" style="margin: 14px 0 10px;">
-            <span class="filter-group-title">분석할 캠페인 검색</span>
-          </div>
-          <div class="section-note" style="margin-bottom: 10px;">위 필터 조건 안에서 캠페인명 또는 캠페인 ID로 검색한 뒤 목록에서 선택하세요</div>
-          <input class="filter-search" id="detailSearch" placeholder="예: B tv+ MAX패키지, C2608..." style="width: 100%; margin-bottom: 12px;">
-          <div class="filter-status" style="margin-bottom: 12px;">
-            <span id="detailFilterStatus">선택된 필터 없음</span>
-          </div>
-          <div class="search-result-list" id="detailSearchResults"></div>
-        </div>
 
-        <div id="detailEmptyState" class="card">
-          <div class="empty-state">위에서 분석할 캠페인을 검색해 선택하면 상세 분석이 표시됩니다.</div>
-        </div>
+          <div id="detailEmptyState" class="card">
+            <div class="empty-state">필터 조건에 맞는 캠페인이 없습니다.</div>
+          </div>
 
-        <div id="detailAnalysis" hidden>
+          <div id="detailAnalysis" hidden>
           <section>
             <div class="card" style="padding: 22px;">
-              <div class="eyebrow">SELECTED CAMPAIGN</div>
+              <div class="eyebrow" id="detailSelectedEyebrow">SELECTED CAMPAIGN</div>
               <div class="section-title" id="detailCampaignTitle" style="margin-bottom: 4px;"></div>
               <div class="detail-campaign-meta" id="detailCampaignMeta"></div>
             </div>
@@ -1928,7 +2044,7 @@
 
           <section>
             <div class="section-head">
-              <div class="section-title">동일 상품 캠페인 히스토리</div>
+              <div class="section-title" id="detailHistoryTitle">동일 상품 캠페인 히스토리</div>
               <div class="section-note" id="detailHistoryNote"></div>
             </div>
             <div class="card table-scroll">
@@ -1947,6 +2063,7 @@
             <div class="insight-list" id="detailInsightList"></div>
           </section>
         </div>
+        </section>
       </div>
     </section>
 
@@ -2760,6 +2877,16 @@
     const ownerModeSummaryEl = document.getElementById('ownerModeSummary');
     const ownerModeListEl = document.getElementById('ownerModeList');
     const ownerCompletedListEl = document.getElementById('ownerCompletedList');
+    const scheduleModeOpenEl = document.getElementById('scheduleModeOpen');
+    const scheduleModeModalEl = document.getElementById('scheduleModeModal');
+    const scheduleModeCloseEl = document.getElementById('scheduleModeClose');
+    const scheduleModeSummaryEl = document.getElementById('scheduleModeSummary');
+    const scheduleModeListEl = document.getElementById('scheduleModeList');
+    const scheduleMonthEl = document.getElementById('scheduleMonth');
+    const scheduleOwnerEl = document.getElementById('scheduleOwner');
+    const scheduleCampaignEl = document.getElementById('scheduleCampaign');
+    const scheduleStartDateEl = document.getElementById('scheduleStartDate');
+    const scheduleEndDateEl = document.getElementById('scheduleEndDate');
 
     let headers = [];
     let allRows = []; // flat list of every parsed row (each carries __dateKey, __pop)
@@ -2781,6 +2908,65 @@
 
     function ownerRowKey(row, index) {
       return (row['캠페인명'] || '') + '|' + (row['담당자'] || '') + '|' + (row.__dateKey || '') + '|' + index;
+    }
+
+    function scheduleDateText(value) {
+      const text = String(value || '').trim().replace(/\./g, '-').replace(/\//g, '-');
+      if (/^\d{8}$/.test(text)) return text.slice(0, 4) + '-' + text.slice(4, 6) + '-' + text.slice(6, 8);
+      const match = text.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);
+      return match ? match[1] + '-' + match[2].padStart(2, '0') + '-' + match[3].padStart(2, '0') : text;
+    }
+
+    function renderConfirmedSchedules() {
+      if (!loaded || !headers.length) {
+        scheduleModeSummaryEl.innerHTML = '<div class="owner-stat">확정 일정을 불러오는 중입니다.</div>';
+        scheduleModeListEl.innerHTML = '<div class="empty-state">구글 시트 데이터를 불러오고 있습니다.</div>';
+        return;
+      }
+
+      const titleCol = headers[0], startCol = headers[1], endCol = headers[2], channelCol = headers[3];
+      const ownerCol = headers[8], executionCol = headers[9];
+      const month = scheduleMonthEl.value;
+      const ownerKeyword = scheduleOwnerEl.value.trim().toLowerCase();
+      const campaignKeyword = scheduleCampaignEl.value.trim().toLowerCase();
+      const periodStart = scheduleStartDateEl.value;
+      const periodEnd = scheduleEndDateEl.value;
+      const monthStart = month ? month + '-01' : '';
+      const monthEnd = month ? month + '-31' : '';
+
+      const results = allRows.filter(function (row) {
+        const executionAt = String(row[executionCol] || '').trim();
+        if (!executionAt) return false;
+        const start = scheduleDateText(row[startCol] || row.__dateKey);
+        const end = scheduleDateText(row[endCol] || start);
+        if (month && (end < monthStart || start > monthEnd)) return false;
+        if (periodStart && end < periodStart) return false;
+        if (periodEnd && start > periodEnd) return false;
+        if (ownerKeyword && String(row[ownerCol] || '').toLowerCase().indexOf(ownerKeyword) === -1) return false;
+        if (campaignKeyword && String(row[titleCol] || '').toLowerCase().indexOf(campaignKeyword) === -1) return false;
+        return true;
+      }).sort(function (a, b) {
+        return scheduleDateText(b[startCol]).localeCompare(scheduleDateText(a[startCol])) ||
+          String(b[executionCol]).localeCompare(String(a[executionCol]));
+      });
+
+      scheduleModeSummaryEl.innerHTML = '<span class="schedule-summary-copy">확정 일정 <b>' + results.length + '건</b></span>' +
+        '<span class="schedule-summary-copy">기준 <b>J열 실행시각</b></span>' +
+        '<span class="schedule-summary-copy">늦은 시작일 우선</span>';
+      if (!results.length) {
+        scheduleModeListEl.innerHTML = '<div class="empty-state">검색 조건에 맞는 확정 일정이 없습니다.</div>';
+        return;
+      }
+      scheduleModeListEl.innerHTML = results.map(function (row) {
+        const start = scheduleDateText(row[startCol] || row.__dateKey);
+        const end = scheduleDateText(row[endCol] || start);
+        return '<div class="schedule-result-item">' +
+          '<div><div class="schedule-result-name" title="' + esc(row[titleCol]) + '">' + esc(row[titleCol] || '(캠페인명 없음)') + '</div>' +
+          '<div class="schedule-result-meta"><span>담당자 ' + esc(row[ownerCol] || '-') + '</span><span>채널 ' + esc(row[channelCol] || '-') + '</span></div></div>' +
+          '<div><span class="schedule-result-label">캠페인 기간</span><span class="schedule-result-value">' + esc(start || '-') + '<br>' + esc(end || start || '-') + '</span></div>' +
+          '<div><span class="schedule-result-label">확정 실행시각</span><div class="schedule-result-time">' + esc(row[executionCol]) + '</div></div>' +
+          '</div>';
+      }).join('');
     }
 
     // ---- 실행가능 여부 검토(시간 배정) : 확정 캠페인(gid=0, window.__campaignRequestSource) 기준 capa 계산 ----
@@ -3210,6 +3396,30 @@
     ownerModeCloseEl.addEventListener('click', function () { ownerModeModalEl.setAttribute('hidden', ''); });
     ownerModeModalEl.addEventListener('click', function (e) { if (e.target === ownerModeModalEl) ownerModeModalEl.setAttribute('hidden', ''); });
 
+    scheduleModeOpenEl.addEventListener('click', function () {
+      scheduleModeModalEl.removeAttribute('hidden');
+      if (!scheduleMonthEl.value) {
+        const now = new Date();
+        scheduleMonthEl.value = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0');
+      }
+      renderConfirmedSchedules();
+      if (!loaded) loadSheet().then(renderConfirmedSchedules);
+    });
+    scheduleModeCloseEl.addEventListener('click', function () { scheduleModeModalEl.setAttribute('hidden', ''); });
+    scheduleModeModalEl.addEventListener('click', function (e) { if (e.target === scheduleModeModalEl) scheduleModeModalEl.setAttribute('hidden', ''); });
+    document.getElementById('scheduleSearch').addEventListener('click', renderConfirmedSchedules);
+    document.getElementById('scheduleReset').addEventListener('click', function () {
+      scheduleMonthEl.value = '';
+      scheduleOwnerEl.value = '';
+      scheduleCampaignEl.value = '';
+      scheduleStartDateEl.value = '';
+      scheduleEndDateEl.value = '';
+      renderConfirmedSchedules();
+    });
+    [scheduleOwnerEl, scheduleCampaignEl].forEach(function (input) {
+      input.addEventListener('keydown', function (e) { if (e.key === 'Enter') renderConfirmedSchedules(); });
+    });
+
     const ownerHelpToggleEl = document.getElementById('ownerHelpToggle');
     const ownerHelpPanelEl = document.getElementById('ownerHelpPanel');
     ownerHelpPanelEl.innerHTML = '<div class="owner-help-panel-title">시간 배정 추천 기준</div>' + OWNER_RULES_HTML;
@@ -3336,7 +3546,7 @@
       const titleCol = findTitleColumn(headers);
       const q = filterState.search.trim().toLowerCase();
 
-      const filtered = allRows.concat(applicationRows).filter(function (row) {
+      const filtered = allRows.filter(function (row) {
         if (filterState.channels.size > 0) {
           const matchesAny = Array.from(filterState.channels).some(function (chanKey) {
             return rowMatchesChannel(row, channelCol, couponCol, chanKey);
@@ -3535,6 +3745,7 @@
         applyFilters();
         statusEl.textContent = '마지막 갱신 ' + new Date().toLocaleTimeString('ko-KR');
         loaded = true;
+        if (!scheduleModeModalEl.hasAttribute('hidden')) renderConfirmedSchedules();
       } catch (err) {
         statusEl.textContent = '불러오기 실패';
         gridEl.innerHTML = '<div class="empty-state">구글 시트를 불러오지 못했습니다.<br>' + esc(err.message) + '</div>';
@@ -4266,7 +4477,7 @@
       }
       const dayCount = timeline.days.length;
       const globalMax = Math.max.apply(null, rows.reduce(function (acc, r) { return acc.concat(r.values); }, []).concat([1]));
-      const colStyle = 'grid-template-columns: repeat(' + dayCount + ', 1fr);';
+      const colStyle = 'grid-template-columns: repeat(' + dayCount + ', minmax(22px, 1fr));';
 
       const monthHeads = timeline.monthGroups.map(function (group) {
         return '<div class="matrix-month-head' + (group.ym === timeline.days[0].ym ? ' month-start' : '') + '" style="grid-column: span ' + group.span + ';">' + esc(group.label) + '</div>';
@@ -4622,24 +4833,31 @@
       const productsEl = document.getElementById(ids.products);
       const active = seriesStats.filter(function (s) { return s.hasData; }).sort(function (a, b) { return b.total - a.total; });
       if (!active.length) {
+        summaryEl.hidden = false;
         summaryEl.textContent = '월과 상품을 선택하면 AI 인사이트가 표시됩니다.';
         productsEl.innerHTML = '';
         return;
       }
-      const monthText = months.length === 1 ? monthLabelYm(months[0]) : months.length + '개 월 구간';
-      summaryEl.innerHTML = monthText + ' 기준 쿠폰 반응은 현재까지 <b>' + fmtN(actualTotal) + '건</b> 누적됐습니다. 일평균 <b>' + fmtN(avgPace) + '건/일</b> 페이스가 이어지면 마감 시점에는 약 <b>' + fmtN(forecastTotal) + '건</b>으로 예상됩니다.';
+      summaryEl.hidden = true;
+      // Each product gets its own compact card (누적/마감예상 + a marketing nudge when pace is
+      // cooling) instead of one blended sentence, so multi-product selections read product-by-product.
       productsEl.innerHTML = active.map(function (s) {
+        const tip = s.cooling
+          ? '<div class="chip-tip">💡 최근 반응이 평소보다 둔화됐습니다 · 팝업 1회 추가 발송을 검토해 보세요</div>'
+          : '';
         return '<div class="ai-insight-chip"><div class="chip-prod"><span class="chip-dot" style="background:' + s.color + '"></span>' + esc(s.prod) + '</div>' +
           '<div class="chip-row"><span>누적</span><b>' + fmtN(s.actual) + '건</b></div>' +
-          '<div class="chip-row"><span>일평균</span><b>' + fmtN(s.avg) + '건/일</b></div>' +
-          '<div class="chip-row"><span>마감 예상</span><b>' + fmtN(s.total) + '건</b></div></div>';
+          '<div class="chip-row"><span>마감 예상</span><b class="chip-forecast">' + fmtN(s.total) + '건</b></div>' +
+          tip + '</div>';
       }).join('');
     }
 
     function renderForecastMulti(seriesList, ids) {
       const months = selectedForecastMonths();
       if (!months.length || !seriesList.length) {
-        document.getElementById(ids.summary).textContent = '월과 상품을 선택하면 AI 인사이트가 표시됩니다.';
+        const emptySummaryEl = document.getElementById(ids.summary);
+        emptySummaryEl.hidden = false;
+        emptySummaryEl.textContent = '월과 상품을 선택하면 AI 인사이트가 표시됩니다.';
         document.getElementById(ids.products).innerHTML = '';
         document.getElementById(ids.chart).innerHTML = '<div class="forecast-legend"><span>월과 상품을 선택하면 그래프가 표시됩니다</span></div>';
         lastSeriesStats = [];
@@ -4668,8 +4886,12 @@
         });
         return { prod: series.prod, color: series.color, daily: totals, cumulative: cumulative };
       });
-      // Per-product actual/pace/forecast - same formula as the combined KPI below, computed per series
-      // so the AI-insight card can break the numbers out by product instead of one blended total.
+      // Per-product actual/pace/forecast, computed per series so the AI-insight card can break the
+      // numbers out by product instead of one blended total. Remaining days (through the selected
+      // month's end, used as a stand-in for the campaign end date until real end-date data is wired
+      // up) are projected at the daily-average pace, except the final 2 remaining days which assume
+      // a ~5% pickup over the average pace (last-push effect before a campaign closes).
+      const BOOST_DAYS = 2, BOOST_RATE = 1.05;
       const seriesStats = perSeries.map(function (series) {
         let lastIndex = -1;
         series.daily.forEach(function (v, i) { if (v > 0) lastIndex = i; });
@@ -4677,8 +4899,14 @@
         const activeDays = Math.max(1, lastIndex + 1);
         const actual = hasData ? (series.cumulative[lastIndex] || 0) : 0;
         const avg = hasData ? actual / activeDays : 0;
-        const total = hasData ? avg * series.cumulative.length : 0;
-        return { prod: series.prod, color: series.color, lastIndex: lastIndex, actual: actual, avg: avg, total: total, hasData: hasData };
+        const remainingDays = Math.max(0, series.cumulative.length - activeDays);
+        const boostDays = Math.min(BOOST_DAYS, remainingDays);
+        const normalDays = remainingDays - boostDays;
+        const total = hasData ? actual + avg * normalDays + avg * BOOST_RATE * boostDays : 0;
+        const recentSlice = hasData ? series.daily.slice(Math.max(0, lastIndex - 2), lastIndex + 1) : [];
+        const recentAvg = recentSlice.length ? recentSlice.reduce(function (a, b) { return a + b; }, 0) / recentSlice.length : 0;
+        const cooling = hasData && activeDays >= 4 && recentAvg < avg * 0.7;
+        return { prod: series.prod, color: series.color, lastIndex: lastIndex, actual: actual, avg: avg, total: total, hasData: hasData, cooling: cooling };
       });
       const totalsByIndex = new Array(timeline.length).fill(0);
       const cumulativeByIndex = new Array(timeline.length).fill(0);
@@ -4810,16 +5038,11 @@
     }
 
     function renderForecastSection() {
-      const monthText = forecastMonthState.size
-        ? Array.from(forecastMonthState).sort().map(monthLabelYm).join(', ')
-        : '없음';
-      const prodText = forecastProdState.size
-        ? Array.from(forecastProdState).join(', ')
-        : '없음';
-      const campaignText = forecastCampaignState.size
-        ? ' · 선택 캠페인 ' + forecastCampaignState.size + '건'
-        : '';
-      forecastFilterStatusEl.textContent = '선택 월: ' + monthText + ' · 선택 상품: ' + prodText + campaignText + ' · 쿠폰 가입자수는 현재 일자별 distinct 집계값 기준';
+      const statusParts = [];
+      if (forecastMonthState.size) statusParts.push(Array.from(forecastMonthState).sort().map(monthLabelYm).join(', '));
+      if (forecastProdState.size) statusParts.push(Array.from(forecastProdState).join(', '));
+      if (forecastCampaignState.size) statusParts.push('캠페인 ' + forecastCampaignState.size + '건');
+      forecastFilterStatusEl.textContent = statusParts.length ? '선택된 값은 ' + statusParts.join(', ') : '선택된 값 없음';
       renderForecastMulti(forecastValuesByProduct('copn'),
         { summary: 'fcInsightSummary', products: 'fcInsightProducts', chart: 'fcCopnChart' });
       populateGoalProdSelect();
@@ -4984,7 +5207,8 @@
         return;
       }
       const lines = [];
-      lines.push(esc(stat.prod) + ' · 현재 누적 <b>' + fmtN(stat.actual) + '건</b> · 일평균 <b>' + fmtN(stat.avg) + '건/일</b> · 이 페이스면 마감 예상 <b>' + fmtN(stat.total) + '건</b>');
+      let suggestionHtml = '';
+      lines.push(esc(stat.prod) + ' · 현재 누적 <b>' + fmtN(stat.actual) + '건</b> · 일평균 <b>' + fmtN(stat.avg) + '건/일</b> · 이 페이스면 마감 예상 <b class="gap-blue">' + fmtN(stat.total) + '건</b>');
 
       const targetRaw = goalTargetInputEl.value.trim();
       const target = targetRaw === '' ? null : Number(targetRaw);
@@ -4992,9 +5216,9 @@
         const gapVsActual = target - stat.actual;
         const gapVsForecast = target - stat.total;
         lines.push('목표 ' + fmtN(target) + '건 대비 현재까지 ' +
-          (gapVsActual > 0 ? '<b>' + fmtN(gapVsActual) + '건 부족</b>' : '<b>' + fmtN(-gapVsActual) + '건 초과</b> 달성'));
+          (gapVsActual > 0 ? '<b class="gap-red">' + fmtN(gapVsActual) + '건 부족</b>' : '<b class="gap-blue">' + fmtN(-gapVsActual) + '건 초과</b> 달성'));
         lines.push('현재 페이스를 유지하면 마감 시점 예상치는 목표 대비 ' +
-          (gapVsForecast > 0 ? '<b>' + fmtN(gapVsForecast) + '건 부족</b>할 것으로' : '<b>' + fmtN(-gapVsForecast) + '건 초과</b>할 것으로') + ' 예상됩니다.');
+          (gapVsForecast > 0 ? '<b class="gap-red">' + fmtN(gapVsForecast) + '건 부족</b>할 것으로' : '<b class="gap-blue">' + fmtN(-gapVsForecast) + '건 초과</b>할 것으로') + ' 예상됩니다.');
 
         const deadlineRaw = goalDeadlineInputEl.value;
         if (deadlineRaw) {
@@ -5016,8 +5240,26 @@
               : '현재 페이스로도 목표 달성이 가능할 것으로 예상됩니다 (여유 일평균 ' + fmtN(-diff) + '건).');
           }
         }
+
+        // Additional marketing suggestion, driven by the target-vs-forecast gap and whether
+        // this product's recent daily pace has been cooling off (same signal the AI-insight
+        // cards use above).
+        const tips = [];
+        if (gapVsForecast > 0) {
+          tips.push('마감 시점 목표 대비 <b class="gap-red">' + fmtN(gapVsForecast) + '건 부족</b>할 것으로 예상됩니다.');
+          tips.push(stat.cooling
+            ? '최근 반응 속도도 평소보다 둔화된 상태입니다 · 팝업 추가 발송을 우선 검토해 보세요.'
+            : '팝업 추가 발송, 쿠폰 혜택 강화, 타겟 세그먼트 확대 등을 검토해 보세요.');
+        } else {
+          tips.push('목표를 <b class="gap-blue">초과 달성</b>할 것으로 예상됩니다 (+' + fmtN(-gapVsForecast) + '건).');
+          tips.push(stat.cooling
+            ? '다만 최근 반응이 둔화 추세이니 페이스는 계속 모니터링해 주세요.'
+            : '현재 페이스를 유지해도 좋습니다.');
+        }
+        suggestionHtml = '<div class="goal-gap-suggestion"><span class="sg-title">💡 추가 마케팅 제언</span><ul>' +
+          tips.map(function (t) { return '<li>' + t + '</li>'; }).join('') + '</ul></div>';
       }
-      goalGapResultEl.innerHTML = lines.map(function (l) { return '<div class="goal-gap-line">' + l + '</div>'; }).join('');
+      goalGapResultEl.innerHTML = lines.map(function (l) { return '<div class="goal-gap-line">' + l + '</div>'; }).join('') + suggestionHtml;
     }
 
     goalProdSelectEl.addEventListener('change', renderGoalGap);
@@ -5033,13 +5275,13 @@
   // feature/next-action insights. All comparisons are transparent averages/percentiles
   // over the same DATA rows used elsewhere - not a black-box prediction. ----
   (function () {
-    const searchEl = document.getElementById('detailSearch');
-    const resultsEl = document.getElementById('detailSearchResults');
     const filterStatusEl = document.getElementById('detailFilterStatus');
     const emptyEl = document.getElementById('detailEmptyState');
     const analysisEl = document.getElementById('detailAnalysis');
+    const selectedEyebrowEl = document.getElementById('detailSelectedEyebrow');
     const titleEl = document.getElementById('detailCampaignTitle');
     const metaEl = document.getElementById('detailCampaignMeta');
+    const historyTitleEl = document.getElementById('detailHistoryTitle');
     const kpiNoteEl = document.getElementById('detailKpiNote');
     const kpiGridEl = document.getElementById('detailKpiGrid');
     const peerNoteEl = document.getElementById('detailPeerNote');
@@ -5055,18 +5297,47 @@
     const detailCampaignTriggerLabelEl = document.getElementById('detailCampaignTriggerLabel');
     const detailCampaignPanelEl = document.getElementById('detailCampaignPanel');
 
+    // Top-right quick nav: jump between the 실적 마감 예측 section and the 캠페인 교차 분석
+    // section further down the page. Purely a scroll/highlight affordance - it doesn't touch
+    // either section's filter state, which stay fully independent of one another.
+    (function () {
+      const jumpForecastEl = document.getElementById('jumpForecastSection');
+      const jumpCrossEl = document.getElementById('jumpCrossSection');
+      const forecastSectionEl = document.getElementById('detailForecastSection');
+      const crossSectionEl = document.getElementById('detailCrossSection');
+      if (!jumpForecastEl || !jumpCrossEl || !forecastSectionEl || !crossSectionEl) return;
+      function setDetailQuickNav(active) {
+        jumpForecastEl.classList.toggle('active', active === 'forecast');
+        jumpCrossEl.classList.toggle('active', active === 'cross');
+      }
+      function scrollToDetailSection(el) {
+        const top = el.getBoundingClientRect().top + window.scrollY - 18;
+        window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+      }
+      jumpForecastEl.addEventListener('click', function () {
+        setDetailQuickNav('forecast');
+        scrollToDetailSection(forecastSectionEl);
+      });
+      jumpCrossEl.addEventListener('click', function () {
+        setDetailQuickNav('cross');
+        scrollToDetailSection(crossSectionEl);
+      });
+    })();
+
     const byId = {};
     DATA.forEach(function (r) { byId[r.id] = r; });
 
     let selectedId = null;
     const detailState = { months: new Set([REPORT_MONTH]), products: new Set(), campaigns: new Set() };
+    const detailDraft = { months: new Set(detailState.months), products: new Set(), campaigns: new Set() };
 
     function detailRowsMatching(opts) {
       opts = opts || {};
+      const filter = opts.state || detailState;
       return DATA.filter(function (r) {
-        if (!opts.skipMonth && detailState.months.size > 0 && !detailState.months.has(r.ym || '')) return false;
-        if (!opts.skipProduct && detailState.products.size > 0 && !detailState.products.has(r.prod)) return false;
-        if (!opts.skipCampaign && detailState.campaigns.size > 0 && !detailState.campaigns.has(r.id)) return false;
+        if (!opts.skipMonth && filter.months.size > 0 && !filter.months.has(r.ym || '')) return false;
+        if (!opts.skipProduct && filter.products.size > 0 && !filter.products.has(r.prod)) return false;
+        if (!opts.skipCampaign && filter.campaigns.size > 0 && !filter.campaigns.has(r.id)) return false;
         return true;
       });
     }
@@ -5086,10 +5357,7 @@
         input.addEventListener('change', function () {
           if (input.checked) groupSet.add(key); else groupSet.delete(key);
           detailSyncResetButtons();
-          detailRefreshFilterLists();
-          syncSelectedCampaignWithFilters();
-          renderSearch();
-          renderAnalysis();
+          detailUpdateCampaignTrigger();
         });
         const span = document.createElement('span');
         span.textContent = labelFn(key);
@@ -5105,7 +5373,7 @@
 
     function detailRenderCampaignList() {
       const q = detailCampaignSearchEl.value.trim().toLowerCase();
-      const pool = detailRowsMatching({ skipCampaign: true });
+      const pool = detailRowsMatching({ skipCampaign: true, state: detailDraft });
       detailCampaignListEl.innerHTML = '';
       const matches = pool.filter(function (r) {
         return !q || r.nm.toLowerCase().indexOf(q) !== -1 || r.id.toLowerCase().indexOf(q) !== -1;
@@ -5119,14 +5387,11 @@
         const input = document.createElement('input');
         input.type = 'checkbox';
         input.id = id;
-        input.checked = detailState.campaigns.has(r.id);
+        input.checked = detailDraft.campaigns.has(r.id);
         input.addEventListener('change', function () {
-          if (input.checked) detailState.campaigns.add(r.id); else detailState.campaigns.delete(r.id);
+          if (input.checked) detailDraft.campaigns.add(r.id); else detailDraft.campaigns.delete(r.id);
           detailSyncResetButtons();
           detailUpdateCampaignTrigger();
-          syncSelectedCampaignWithFilters();
-          renderSearch();
-          renderAnalysis();
         });
         const span = document.createElement('span');
         span.textContent = r.nm;
@@ -5146,21 +5411,21 @@
     }
 
     function detailUpdateCampaignTrigger() {
-      detailCampaignTriggerLabelEl.textContent = detailState.campaigns.size === 0 ? '전체 캠페인' : detailState.campaigns.size + '개 선택됨';
+      detailCampaignTriggerLabelEl.textContent = detailDraft.campaigns.size === 0 ? '전체 캠페인' : detailDraft.campaigns.size + '개 선택됨';
     }
 
     function detailRefreshFilterLists() {
-      const monthRows = detailRowsMatching({ skipMonth: true });
+      const monthRows = detailRowsMatching({ skipMonth: true, state: detailDraft });
       const monthCounts = {};
       monthRows.forEach(function (r) { const k = r.ym || ''; monthCounts[k] = (monthCounts[k] || 0) + 1; });
-      detailBuildCheckList(detailMonthListEl, ALL_MONTH_KEYS.map(function (k) { return [k, monthCounts[k] || 0]; }), detailState.months, monthLabel);
+      detailBuildCheckList(detailMonthListEl, ALL_MONTH_KEYS.map(function (k) { return [k, monthCounts[k] || 0]; }), detailDraft.months, monthLabel);
 
-      const productRows = detailRowsMatching({ skipProduct: true });
+      const productRows = detailRowsMatching({ skipProduct: true, state: detailDraft });
       const productCounts = {};
       productRows.forEach(function (r) { productCounts[r.prod] = (productCounts[r.prod] || 0) + 1; });
       const productEntries = ALL_PRODUCT_KEYS.map(function (k) { return [k, productCounts[k] || 0]; })
         .sort(pinLastComparator(function (e) { return e[0]; }, function (e) { return e[1]; }));
-      detailBuildCheckList(detailProductListEl, productEntries, detailState.products, function (k) { return k; });
+      detailBuildCheckList(detailProductListEl, productEntries, detailDraft.products, function (k) { return k; });
 
       detailRenderCampaignList();
       detailUpdateCampaignTrigger();
@@ -5168,9 +5433,9 @@
     }
 
     function detailSyncResetButtons() {
-      document.querySelector('[data-detail-reset="month"]').disabled = detailState.months.size === 0;
-      document.querySelector('[data-detail-reset="product"]').disabled = detailState.products.size === 0;
-      document.querySelector('[data-detail-reset="campaign"]').disabled = detailState.campaigns.size === 0;
+      document.querySelector('[data-detail-reset="month"]').disabled = detailDraft.months.size === 0;
+      document.querySelector('[data-detail-reset="product"]').disabled = detailDraft.products.size === 0;
+      document.querySelector('[data-detail-reset="campaign"]').disabled = detailDraft.campaigns.size === 0;
     }
 
     function detailUpdateFilterStatus() {
@@ -5186,10 +5451,30 @@
 
     function syncSelectedCampaignWithFilters() {
       const visibleIds = new Set(detailFilteredPool().map(function (r) { return r.id; }));
-      if (selectedId && !visibleIds.has(selectedId)) selectedId = null;
+      selectedId = null;
+      // Selecting exactly one campaign opens its deep-dive; broader filters remain filter-only.
+      if (detailState.campaigns.size === 1) {
+        const onlyId = Array.from(detailState.campaigns)[0];
+        if (visibleIds.has(onlyId)) selectedId = onlyId;
+      }
     }
 
     detailCampaignSearchEl.addEventListener('input', detailRenderCampaignList);
+    document.getElementById('detailCampaignSelectAll').addEventListener('click', function () {
+      const q = detailCampaignSearchEl.value.trim().toLowerCase();
+      detailRowsMatching({ skipCampaign: true, state: detailDraft }).forEach(function (r) {
+        if (!q || r.nm.toLowerCase().indexOf(q) !== -1 || r.id.toLowerCase().indexOf(q) !== -1) detailDraft.campaigns.add(r.id);
+      });
+      detailRenderCampaignList();
+      detailUpdateCampaignTrigger();
+      detailSyncResetButtons();
+    });
+    document.getElementById('detailCampaignClearAll').addEventListener('click', function () {
+      detailDraft.campaigns.clear();
+      detailRenderCampaignList();
+      detailUpdateCampaignTrigger();
+      detailSyncResetButtons();
+    });
     detailCampaignTriggerEl.addEventListener('click', function () {
       const opening = detailCampaignPanelEl.hasAttribute('hidden');
       if (opening) {
@@ -5211,14 +5496,21 @@
     document.querySelectorAll('[data-detail-reset]').forEach(function (btn) {
       btn.addEventListener('click', function () {
         const which = btn.getAttribute('data-detail-reset');
-        detailState[which === 'month' ? 'months' : which === 'product' ? 'products' : 'campaigns'].clear();
+        detailDraft[which === 'month' ? 'months' : which === 'product' ? 'products' : 'campaigns'].clear();
         if (which === 'campaign') detailCampaignSearchEl.value = '';
         detailSyncResetButtons();
         detailRefreshFilterLists();
-        syncSelectedCampaignWithFilters();
-        renderSearch();
-        renderAnalysis();
       });
+    });
+    document.getElementById('detailFilterApply').addEventListener('click', function () {
+      detailState.months = new Set(detailDraft.months);
+      detailState.products = new Set(detailDraft.products);
+      detailState.campaigns = new Set(detailDraft.campaigns);
+      detailCampaignPanelEl.setAttribute('hidden', '');
+      detailCampaignTriggerEl.classList.remove('open');
+      syncSelectedCampaignWithFilters();
+      detailRefreshFilterLists();
+      renderCrossView();
     });
 
     // Some rows (mostly untagged "PPV 등" campaigns) have click counts that exceed
@@ -5274,52 +5566,31 @@
 
     function addInsight(list, tone, icon, html) { list.push({ tone: tone, icon: icon, html: html }); }
 
-    function renderSearch() {
-      const q = searchEl.value.trim().toLowerCase();
+    // The filters drive the view directly. Detailed analysis appears only when one campaign is selected.
+    function renderCrossView() {
       const pool = detailFilteredPool();
-      if (!q) {
-        if (detailState.campaigns.size === 1 && !selectedId) selectedId = Array.from(detailState.campaigns)[0];
-        resultsEl.innerHTML = pool.slice(0, 30).map(function (r) {
-          const active = r.id === selectedId ? ' active' : '';
-          return '<button type="button" class="search-result-item' + active + '" data-id="' + esc(r.id) + '">' +
-            '<strong>' + esc(r.nm) + '</strong>' +
-            '<div class="search-result-meta"><span>' + esc(r.prod) + '</span><span>' + (r.ym ? monthLabel(r.ym) : '월 미상') + '</span><span>모수 ' + fmt(r.svc) + '명</span></div>' +
-            '</button>';
-        }).join('') || '<div class="empty-state" style="padding:16px 0;">필터 조건에 맞는 캠페인이 없습니다</div>';
-      } else {
-        const matches = pool.filter(function (r) {
-        return r.nm.toLowerCase().indexOf(q) !== -1 || r.id.toLowerCase().indexOf(q) !== -1;
-        }).slice(0, 30);
-        if (!matches.length) {
-          resultsEl.innerHTML = '<div class="empty-state" style="padding:16px 0;">검색 결과가 없습니다</div>';
-          return;
-        }
-        resultsEl.innerHTML = matches.map(function (r) {
-          const active = r.id === selectedId ? ' active' : '';
-          return '<button type="button" class="search-result-item' + active + '" data-id="' + esc(r.id) + '">' +
-            '<strong>' + esc(r.nm) + '</strong>' +
-            '<div class="search-result-meta"><span>' + esc(r.prod) + '</span><span>' + (r.ym ? monthLabel(r.ym) : '월 미상') + '</span><span>모수 ' + fmt(r.svc) + '명</span></div>' +
-            '</button>';
-        }).join('');
+      if (!pool.length) {
+        emptyEl.hidden = false;
+        analysisEl.hidden = true;
+        return;
       }
-      resultsEl.querySelectorAll('.search-result-item').forEach(function (btn) {
-        btn.addEventListener('click', function () {
-          selectedId = btn.getAttribute('data-id');
-          renderSearch();
-          renderAnalysis();
-        });
-      });
+      emptyEl.hidden = true;
+      analysisEl.hidden = false;
+      if (selectedId && byId[selectedId]) {
+        renderAnalysis();
+      } else {
+        renderGroupAnalysis(pool);
+      }
     }
-    searchEl.addEventListener('input', renderSearch);
 
     function renderAnalysis() {
       const sel = byId[selectedId];
-      if (!sel) { analysisEl.hidden = true; emptyEl.hidden = false; return; }
-      emptyEl.hidden = true;
-      analysisEl.hidden = false;
+      if (!sel) return; // renderCrossView() only calls this once selectedId resolves to a real row
 
       const selRates = rates(sel);
 
+      selectedEyebrowEl.textContent = 'SELECTED CAMPAIGN';
+      historyTitleEl.textContent = '동일 상품 캠페인 히스토리';
       titleEl.textContent = sel.nm;
       const tags = [
         sel.prod,
@@ -5520,9 +5791,192 @@
       }).join('');
     }
 
+    // Group view: shown whenever the applied filters match more than one campaign (i.e. no single
+    // campaign is selected). Instead of one campaign vs its peers, this treats the whole filtered
+    // set as "이 그룹" and compares its blended average against (a) other campaigns from the same
+    // start month(s) and (b) the same filter one month earlier (전월 동기), plus lists every
+    // campaign in the group side by side so they can be cross-compared directly.
+    function renderGroupAnalysis(pool) {
+      const groupIds = new Set(pool.map(function (r) { return r.id; }));
+      const groupYms = Array.from(new Set(pool.map(function (r) { return r.ym; }).filter(Boolean))).sort();
+      const groupProds = Array.from(new Set(pool.map(function (r) { return r.prod; })));
+      const groupRatesList = pool.map(rates);
+      const groupSvcTotal = pool.reduce(function (a, r) { return a + r.svc; }, 0);
+      const groupSvcAvg = groupSvcTotal / pool.length;
+      const groupToastClick = avg(groupRatesList.map(function (x) { return x.toastClick; }));
+      const groupSmartClick = avg(groupRatesList.map(function (x) { return x.smartClick; }));
+      const groupCopnRate = avg(groupRatesList.map(function (x) { return x.copnRate; }));
+
+      selectedEyebrowEl.textContent = 'FILTERED GROUP';
+      historyTitleEl.textContent = '전월 동기 대비';
+      titleEl.textContent = '선택 필터 그룹 · ' + pool.length + '건';
+      const tags = [
+        groupProds.length === 1 ? groupProds[0] : groupProds.length + '개 상품',
+        groupYms.length ? groupYms.map(monthLabel).join(', ') : '시작월 미상',
+        '합산 서비스 모수 ' + fmt(groupSvcTotal) + '명',
+        pool.filter(function (r) { return r.copnYn; }).length + '건 쿠폰 연계',
+      ];
+      metaEl.innerHTML = tags.map(function (t) { return '<span class="detail-tag">' + esc(t) + '</span>'; }).join('');
+
+      // ---- Period peers: other campaigns that started in the same month(s), excluding the group ----
+      const periodPeers = groupYms.length ? DATA.filter(function (r) { return !groupIds.has(r.id) && groupYms.indexOf(r.ym || '') !== -1; }) : [];
+      const periodRates = periodPeers.map(rates);
+      const peerAvgToastClick = avg(periodRates.map(function (x) { return x.toastClick; }));
+      const peerAvgSmartClick = avg(periodRates.map(function (x) { return x.smartClick; }));
+      const peerAvgCopn = avg(periodRates.map(function (x) { return x.copnRate; }));
+      const peerAvgSvc = avg(periodPeers.map(function (r) { return r.svc; }));
+
+      kpiNoteEl.textContent = groupYms.length
+        ? (groupYms.map(monthLabel).join(', ') + '에 시작된 그룹 외 캠페인 ' + periodPeers.length + '건과 비교 (그룹 평균 기준)')
+        : '시작월 정보가 없어 동기간 비교를 제공할 수 없습니다';
+
+      const kpiTiles = [
+        {
+          label: '캠페인당 평균 서비스 모수', color: 'var(--accent)', value: fmt(groupSvcAvg) + '<small>명</small>',
+          gap: peerGapBadgeAbs(groupSvcAvg, peerAvgSvc),
+          barPct: peerAvgSvc ? Math.min((groupSvcAvg / (peerAvgSvc * 2)) * 100, 100) : (groupSvcAvg > 0 ? 100 : 0),
+        },
+        {
+          label: '토스트팝업 반응률(클릭/노출)', color: 'var(--series-toast)',
+          value: groupToastClick === null ? '-' : pct(groupToastClick, 1),
+          gap: peerGapBadge(groupToastClick, peerAvgToastClick, 1),
+          barPct: groupToastClick === null ? 0 : Math.min(groupToastClick * 100, 100),
+        },
+        {
+          label: '스마트알림 반응률(클릭/노출)', color: 'var(--series-smart)',
+          value: groupSmartClick === null ? '-' : pct(groupSmartClick, 1),
+          gap: peerGapBadge(groupSmartClick, peerAvgSmartClick, 1),
+          barPct: groupSmartClick === null ? 0 : Math.min(groupSmartClick * 100, 100),
+        },
+        {
+          label: '쿠폰 반응률(사용/모수)', color: 'var(--series-copn)',
+          value: groupCopnRate === null ? '-' : pct(groupCopnRate, 2),
+          gap: peerGapBadge(groupCopnRate, peerAvgCopn, 2),
+          barPct: groupCopnRate === null ? 0 : Math.min(groupCopnRate * 100, 100),
+        },
+      ];
+      kpiGridEl.innerHTML = '<div class="kpi-visual-group">' + kpiTiles.map(function (t) {
+        return '<div class="kpi-visual"><div class="kpi-label">' + t.label + '</div>' +
+          '<div class="kpi-value-row"><span class="kpi-value">' + t.value + '</span>' + t.gap + '</div>' +
+          '<div class="kpi-bar-track"><div class="kpi-bar-fill" style="width:' + t.barPct + '%; background:' + t.color + '"></div></div>' +
+          '</div>';
+      }).join('') + '</div>';
+
+      // ---- Cross-campaign table: group average + period average, then every campaign in the
+      // group so they can be compared against each other directly (캠페인간 교차 분석) ----
+      peerNoteEl.textContent = groupYms.length ? (groupYms.map(monthLabel).join(', ') + ' 시작 캠페인 ' + periodPeers.length + '건 기준 · 그룹 내 개별 캠페인 포함') : '';
+      const crossRows = [
+        { label: '★ 이 그룹 평균 (' + pool.length + '건)', svc: groupSvcAvg, t: groupToastClick, s: groupSmartClick, c: groupCopnRate, self: true },
+        { label: '동기간 평균 (' + periodPeers.length + '건)', svc: peerAvgSvc, t: peerAvgToastClick, s: peerAvgSmartClick, c: peerAvgCopn },
+      ];
+      const sortedPool = pool.slice().sort(function (a, b) { return b.svc - a.svc; }).slice(0, 30);
+      sortedPool.forEach(function (r) {
+        const rr = rates(r);
+        crossRows.push({ label: r.nm, svc: r.svc, t: rr.toastClick, s: rr.smartClick, c: rr.copnRate, clickId: r.id });
+      });
+      const maxT = Math.max.apply(null, crossRows.map(function (x) { return x.t || 0; })) || 0;
+      const maxS = Math.max.apply(null, crossRows.map(function (x) { return x.s || 0; })) || 0;
+      const maxC = Math.max.apply(null, crossRows.map(function (x) { return x.c || 0; })) || 0;
+      peerBodyEl.innerHTML = crossRows.map(function (row) {
+        return '<tr' + (row.self ? ' class="detail-self-row"' : '') + (row.clickId ? ' class="cross-list-row" data-id="' + esc(row.clickId) + '"' : '') + '><td class="cell-name"><span class="nm">' + esc(row.label) + '</span></td>' +
+          '<td>' + (row.svc === null || row.svc === undefined ? '<span class="dash">-</span>' : fmt(row.svc)) + '</td>' +
+          '<td>' + relBar(row.t, maxT, 'toast', 1) + '</td>' +
+          '<td>' + relBar(row.s, maxS, 'smart', 1) + '</td>' +
+          '<td>' + relBar(row.c, maxC, 'copn', 2) + '</td></tr>';
+      }).join('');
+      if (pool.length > sortedPool.length) {
+        peerBodyEl.innerHTML += '<tr><td colspan="5"><div class="filter-hint">서비스 모수 상위 ' + sortedPool.length + '건만 표시 · 총 ' + pool.length + '건 중</div></td></tr>';
+      }
+      peerBodyEl.querySelectorAll('tr.cross-list-row').forEach(function (tr) {
+        tr.addEventListener('click', function () {
+          detailState.campaigns = new Set([tr.getAttribute('data-id')]);
+          detailDraft.campaigns = new Set(detailState.campaigns);
+          detailSyncResetButtons();
+          detailRefreshFilterLists();
+          syncSelectedCampaignWithFilters();
+          renderCrossView();
+        });
+      });
+
+      // ---- 전월 동기 대비: same filter, one month earlier ----
+      const priorYms = groupYms.map(prevMonthKey);
+      const priorPool = priorYms.length ? DATA.filter(function (r) {
+        if (priorYms.indexOf(r.ym || '') === -1) return false;
+        if (detailState.products.size && !detailState.products.has(r.prod)) return false;
+        return true;
+      }) : [];
+      const priorRatesList = priorPool.map(rates);
+      const priorSvcAvg = priorPool.length ? priorPool.reduce(function (a, r) { return a + r.svc; }, 0) / priorPool.length : null;
+      const priorToastClick = avg(priorRatesList.map(function (x) { return x.toastClick; }));
+      const priorSmartClick = avg(priorRatesList.map(function (x) { return x.smartClick; }));
+      const priorCopnRate = avg(priorRatesList.map(function (x) { return x.copnRate; }));
+
+      historyNoteEl.textContent = priorYms.length ? ('전월 동기(' + priorYms.map(monthLabel).join(', ') + ') · 동일 상품 조건 캠페인 ' + priorPool.length + '건과 비교') : '비교할 전월 정보가 없습니다';
+      if (!priorPool.length) {
+        historyBodyEl.innerHTML = '<tr><td colspan="6"><div class="empty-state">비교할 전월 동기 캠페인이 없습니다</div></td></tr>';
+      } else {
+        const maxHT = Math.max(groupToastClick || 0, priorToastClick || 0) || 0;
+        const maxHS = Math.max(groupSmartClick || 0, priorSmartClick || 0) || 0;
+        const maxHC = Math.max(groupCopnRate || 0, priorCopnRate || 0) || 0;
+        const rowsHtml = [
+          { label: '★ 이번 기간 그룹 평균 (' + pool.length + '건)', d: groupYms.map(monthLabel).join(', '), svc: groupSvcAvg, t: groupToastClick, s: groupSmartClick, c: groupCopnRate, self: true },
+          { label: '전월 동기 평균 (' + priorPool.length + '건)', d: priorYms.map(monthLabel).join(', '), svc: priorSvcAvg, t: priorToastClick, s: priorSmartClick, c: priorCopnRate },
+        ].map(function (row) {
+          return '<tr' + (row.self ? ' class="detail-self-row"' : '') + '><td class="cell-name"><span class="nm">' + esc(row.label) + '</span></td>' +
+            '<td>' + esc(row.d) + '</td>' +
+            '<td>' + (row.svc === null || row.svc === undefined ? '<span class="dash">-</span>' : fmt(row.svc)) + '</td>' +
+            '<td>' + relBar(row.t, maxHT, 'toast', 1) + '</td>' +
+            '<td>' + relBar(row.s, maxHS, 'smart', 1) + '</td>' +
+            '<td>' + relBar(row.c, maxHC, 'copn', 2) + '</td></tr>';
+        }).join('');
+        historyBodyEl.innerHTML = rowsHtml;
+      }
+
+      // ---- Rule-based insights for the group ----
+      const insights = [];
+      addInsight(insights, 'info', '🧩', '현재 필터 조건에 맞는 캠페인은 <b>' + pool.length + '건</b>이며, 그룹 평균 기준으로 비교합니다.');
+
+      const gapCandidates = [];
+      if (groupToastClick !== null && peerAvgToastClick !== null) {
+        gapCandidates.push({ name: '토스트 반응률', cur: groupToastClick, peer: peerAvgToastClick, decimals: 1 });
+      }
+      if (groupSmartClick !== null && peerAvgSmartClick !== null) {
+        gapCandidates.push({ name: '스마트알림 반응률', cur: groupSmartClick, peer: peerAvgSmartClick, decimals: 1 });
+      }
+      if (groupCopnRate !== null && peerAvgCopn !== null) {
+        gapCandidates.push({ name: '쿠폰 반응률', cur: groupCopnRate, peer: peerAvgCopn, decimals: 2 });
+      }
+      gapCandidates.sort(function (a, b) { return Math.abs(b.cur - b.peer) - Math.abs(a.cur - a.peer); });
+      gapCandidates.slice(0, 2).forEach(function (g) {
+        const diffP = ((g.cur - g.peer) * 100).toFixed(g.decimals);
+        const better = g.cur >= g.peer;
+        addInsight(insights, better ? 'good' : 'warn', better ? '✅' : '⚠️',
+          g.name + '이 동기간 평균(' + pct(g.peer, g.decimals) + ') 대비 그룹 평균 <b>' + (better ? '+' : '') + diffP + 'p ' + (better ? '높습니다' : '낮습니다') + '</b>.' +
+          (better ? '' : ' 소재·타겟·발송 타이밍을 동기간 상위 캠페인과 비교해보는 것을 추천합니다.'));
+      });
+
+      if (priorPool.length) {
+        [
+          { name: '토스트 반응률', cur: groupToastClick, prior: priorToastClick, decimals: 1 },
+          { name: '스마트알림 반응률', cur: groupSmartClick, prior: priorSmartClick, decimals: 1 },
+          { name: '쿠폰 반응률', cur: groupCopnRate, prior: priorCopnRate, decimals: 2 },
+        ].filter(function (g) { return g.cur !== null && g.prior !== null; }).forEach(function (g) {
+          const diffP = ((g.cur - g.prior) * 100).toFixed(g.decimals);
+          const better = g.cur >= g.prior;
+          addInsight(insights, better ? 'good' : 'warn', better ? '📈' : '📉',
+            g.name + '이 전월 동기(' + pct(g.prior, g.decimals) + ') 대비 <b>' + (better ? '+' : '') + diffP + 'p ' + (better ? '상승했습니다' : '하락했습니다') + '</b>.');
+        });
+      }
+
+      insightListEl.innerHTML = insights.map(function (ins) {
+        return '<div class="insight-item tone-' + ins.tone + '"><span class="insight-icon">' + ins.icon + '</span><div class="insight-body">' + ins.html + '</div></div>';
+      }).join('');
+    }
+
     detailSyncResetButtons();
     detailRefreshFilterLists();
-    renderSearch();
+    syncSelectedCampaignWithFilters();
+    renderCrossView();
   })();
 })();
 </script>
