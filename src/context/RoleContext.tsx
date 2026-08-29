@@ -22,7 +22,7 @@ export const ALL_TABS: TabDef[] = [
 const EXEC_PATHS = new Set(["/overview", "/summary", "/campaigns", "/products", "/calendar"]);
 
 const DEFAULT_LANDING: Record<Role, string> = {
-  담당자: "/summary",
+  담당자: "/calendar",
   마케터: "/campaigns",
   상급자: "/overview",
 };
