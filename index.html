@@ -647,8 +647,16 @@
   .owner-mode-btn.secondary { background: var(--surface); color: var(--accent); }
   .owner-mode-box { width: min(920px, 100%); max-height: 86vh; overflow: auto; background: var(--surface); border-radius: 16px; box-shadow: var(--shadow); }
   .owner-mode-intro { padding: 14px 20px; border-bottom: 1px solid var(--line); background: var(--surface-soft); color: var(--ink-soft); font-size: 12.5px; line-height: 1.6; }
-  .owner-mode-summary { display: flex; gap: 10px; padding: 16px 20px 4px; }
-  .owner-stat { padding: 9px 12px; border: 1px solid var(--line); border-radius: 9px; color: var(--ink-mute); font-size: 11px; }
+  .owner-mode-summary { padding: 16px 20px 4px; }
+  .owner-summary-table-wrap { overflow-x: auto; border: 1px solid #d4d9e3; border-radius: 0; background: var(--surface); }
+  .owner-summary-table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 11.5px; }
+  .owner-summary-table th, .owner-summary-table td { padding: 8px 12px; text-align: left; white-space: nowrap; border-right: 1px solid #d4d9e3; border-bottom: 1px solid #d4d9e3; }
+  .owner-summary-table th:last-child, .owner-summary-table td:last-child { border-right: none; }
+  .owner-summary-table tbody tr:last-child td { border-bottom: none; }
+  .owner-summary-table th { background: var(--surface-soft); color: var(--ink-mute); font-size: 10px; font-weight: 750; text-transform: uppercase; letter-spacing: 0.03em; }
+  .owner-summary-table td { color: var(--ink); font-weight: 750; font-variant-numeric: tabular-nums; }
+  .owner-summary-table td.muted { color: var(--ink-mute); font-weight: 600; }
+  .owner-stat { color: var(--ink-mute); font-size: 11px; }
   .owner-stat b { margin-left: 5px; color: var(--ink); font-size: 15px; }
   .owner-mode-list { display: flex; flex-direction: column; gap: 9px; padding: 14px 20px 20px; }
   .owner-mode-list[hidden] { display: none; }
@@ -1279,6 +1287,32 @@
   .detail-coupon-table tr.detail-camp-row td.row-label { padding-left: 20px; color: var(--ink-mute); font-weight: 400; }
   .detail-coupon-table tr.detail-camp-row td { color: var(--ink-mute); }
   .detail-coupon-table td.cell-overridden { outline: 1.5px solid var(--series-smart); outline-offset: -1.5px; }
+  .qa-shell { display: grid; grid-template-columns: minmax(0, 1.15fr) 320px; gap: 18px; align-items: start; }
+  .qa-panel { border: 1px solid var(--line); background: var(--surface); border-radius: 12px; box-shadow: var(--shadow); overflow: hidden; }
+  .qa-chat { height: 580px; display: flex; flex-direction: column; }
+  .qa-chat-head { padding: 18px 20px; border-bottom: 1px solid var(--line); background: linear-gradient(135deg, #f8fbff 0%, #f4f7f1 100%); }
+  .qa-chat-title { color: var(--ink); font-size: 18px; font-weight: 850; letter-spacing: 0; }
+  .qa-chat-sub { margin-top: 6px; color: var(--ink-mute); font-size: 12.5px; line-height: 1.55; }
+  .qa-messages { flex: 1; min-height: 0; overflow-y: auto; padding: 18px 20px; display: flex; flex-direction: column; gap: 12px; background: #fbfcfd; scroll-behavior: smooth; }
+  .qa-msg { max-width: 82%; padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; font-size: 13px; line-height: 1.65; white-space: pre-line; }
+  .qa-msg.bot { align-self: flex-start; background: var(--surface); color: var(--ink-soft); }
+  .qa-msg.user { align-self: flex-end; background: #162033; border-color: #162033; color: #fff; }
+  .qa-input-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; padding: 14px; border-top: 1px solid var(--line); background: var(--surface); }
+  .qa-input { min-height: 48px; max-height: 110px; resize: vertical; padding: 12px 13px; border: 1px solid var(--line); border-radius: 10px; font: inherit; font-size: 13px; line-height: 1.5; color: var(--ink); background: var(--surface); }
+  .qa-send { align-self: end; min-height: 48px; padding: 0 18px; border: 0; border-radius: 10px; background: var(--accent); color: #fff; font: inherit; font-size: 13px; font-weight: 800; cursor: pointer; }
+  .qa-send:disabled { opacity: .55; cursor: not-allowed; }
+  .qa-side { display: flex; flex-direction: column; gap: 14px; }
+  .qa-side-card { padding: 16px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+  .qa-side-title { color: var(--ink); font-size: 13px; font-weight: 850; margin-bottom: 10px; }
+  .qa-metric-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .qa-metric { padding: 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface-soft); }
+  .qa-metric span { display: block; color: var(--ink-mute); font-size: 10.5px; font-weight: 700; }
+  .qa-metric b { display: block; margin-top: 4px; color: var(--ink); font-size: 15px; font-weight: 850; }
+  .qa-chip-list { display: flex; flex-wrap: wrap; gap: 7px; }
+  .qa-chip { padding: 7px 9px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); color: var(--ink-soft); font: inherit; font-size: 11.5px; font-weight: 650; cursor: pointer; }
+  .qa-chip:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+  .qa-note { color: var(--ink-mute); font-size: 11.5px; line-height: 1.55; }
+  @media (max-width: 900px) { .qa-shell { grid-template-columns: 1fr; } .qa-msg { max-width: 94%; } }
   .cell-input {
     width: 56px;
     border: none;
@@ -1589,7 +1623,10 @@
               <div class="owner-help-panel" id="ownerHelpPanel" hidden></div>
             </span>
           </span>
-          <button type="button" class="modal-close" id="ownerModeClose">✕</button>
+          <span style="display:flex; align-items:center; gap:8px;">
+            <button type="button" class="owner-mode-btn" id="ownerBulkOpen" style="padding:7px 12px; font-size:11.5px;">AI 일괄 승인</button>
+            <button type="button" class="modal-close" id="ownerModeClose">✕</button>
+          </span>
         </div>
         <div class="owner-mode-intro">캠페인 신청은 완료됐지만 발송 시간이 확정되지 않은 항목입니다. 날짜와 시간을 선택해 실행시각을 확정할 수 있습니다.</div>
         <div class="owner-mode-summary" id="ownerModeSummary"></div>
@@ -1602,13 +1639,29 @@
       </div>
     </div>
 
+    <div class="modal-overlay" id="ownerBulkModal" hidden>
+      <div class="owner-mode-box" role="dialog" aria-modal="true" aria-labelledby="ownerBulkTitle">
+        <div class="modal-head">
+          <span id="ownerBulkTitle">AI 일괄 승인 · 신청 현황 한눈에 보기</span>
+          <button type="button" class="modal-close" id="ownerBulkClose">✕</button>
+        </div>
+        <div class="owner-mode-intro">배정 대기 중인 신청 건을 한 번에 검토합니다. 추천 시각은 기존 시간 배정 추천 규칙과 동일하게 계산됩니다.</div>
+        <div class="owner-mode-summary" id="ownerBulkCapacity"></div>
+        <div class="owner-day-table-scroll" style="margin: 0 20px 16px;" id="ownerBulkTableWrap"></div>
+        <div style="display:flex; align-items:center; gap:12px; padding: 0 20px 20px; flex-wrap:wrap;">
+          <button type="button" class="owner-assign-btn" id="ownerBulkAssign" style="padding:10px 16px; font-size:13px;">일괄 시간 배정</button>
+          <span id="ownerBulkFeedback" style="font-size:12px; color:var(--ink-mute);"></span>
+        </div>
+      </div>
+    </div>
+
     <div class="modal-overlay" id="scheduleModeModal" hidden>
       <div class="owner-mode-box" role="dialog" aria-modal="true" aria-labelledby="scheduleModeTitle">
         <div class="modal-head">
           <span id="scheduleModeTitle">담당자 모드 · 확정 일정 조회</span>
           <button type="button" class="modal-close" id="scheduleModeClose">✕</button>
         </div>
-        <div class="owner-mode-intro">관리자가 확정한 캠페인의 실행시각을 조회합니다. 확정 캘린더 시트의 J열에 실행시각이 있는 일정만 표시됩니다.</div>
+        <div class="owner-mode-intro">신청하신 캠페인의 확정된 실행시각을 확인하세요. 담당자 혹은 캠페인명을 입력하면 바로 확인할 수 있습니다.</div>
         <div class="schedule-search">
           <div class="schedule-search-field">
             <label for="scheduleMonth">월</label>
@@ -1856,10 +1909,6 @@
         </div>
 
         <div class="card" id="forecastPanel" style="padding: 22px;">
-          <div class="section-head">
-            <div class="section-title">실적 마감 예측</div>
-            <div class="section-note">아래 필터는 이 섹션에만 적용됩니다</div>
-          </div>
           <div class="request-card" style="margin-bottom: 18px;">
             <div class="filter-grid" style="grid-template-columns: 1fr 1fr 1.4fr;">
               <div>
@@ -1940,13 +1989,13 @@
         <div class="masthead">
           <div class="eyebrow">Campaign Deep-Dive</div>
           <h1>캠페인 상세 분석</h1>
-          <p class="subtitle">분석할 캠페인을 검색해 선택하면 동기간에 진행된 다른 캠페인, 동일 상품의 과거 캠페인과 교차 비교해 이번 캠페인의 특징과 다음에 시도해볼 만한 액션을 제안합니다.</p>
+          <p class="subtitle">실행한 캠페인의 실적을 예측하고 분석하며 추가 마케팅 액션을 제안합니다</p>
         </div>
         <div class="calendar-toolbar-head" style="margin-bottom:16px;">
           <div></div>
           <div class="calendar-quick-nav">
             <button type="button" class="calendar-quick-btn active" id="jumpForecastSection">실적 마감 예측</button>
-            <button type="button" class="calendar-quick-btn" id="jumpCrossSection">캠페인 교차 분석</button>
+            <button type="button" class="calendar-quick-btn" id="jumpCrossSection">Agent</button>
           </div>
         </div>
 
@@ -1961,108 +2010,42 @@
 
         <section id="detailCrossSection">
           <div class="detail-section-head">
-            <span class="detail-section-title">캠페인 교차 분석</span>
+            <span class="detail-section-title">Analysis Agent 🤖</span>
           </div>
-
-          <div class="card filter-card">
-            <div class="request-card" style="margin-bottom: 18px;">
-              <div class="filter-grid">
-                <div>
-                  <div class="filter-group-head">
-                    <span class="filter-group-title">월</span>
-                    <button class="filter-reset" data-detail-reset="month" disabled>초기화</button>
-                  </div>
-                  <div class="filter-list" id="detailMonthList"></div>
-                </div>
-                <div>
-                  <div class="filter-group-head">
-                    <span class="filter-group-title">상품</span>
-                    <button class="filter-reset" data-detail-reset="product" disabled>초기화</button>
-                  </div>
-                  <div class="filter-list" id="detailProductList"></div>
-                </div>
-                <div>
-                  <div class="filter-group-head">
-                    <span class="filter-group-title">캠페인</span>
-                    <button class="filter-reset" data-detail-reset="campaign" disabled>초기화</button>
-                  </div>
-                  <div class="dropdown-wrap" id="detailCampaignDropdown">
-                    <button type="button" class="dropdown-trigger" id="detailCampaignTrigger">
-                      <span id="detailCampaignTriggerLabel">전체 캠페인</span><span class="chev">▾</span>
-                    </button>
-                    <div class="dropdown-panel" id="detailCampaignPanel" hidden>
-                      <input class="filter-search" id="detailCampaignSearch" placeholder="캠페인명 또는 ID 검색" />
-                      <div style="display:flex; gap:6px; margin-bottom:8px;">
-                        <button type="button" class="filter-reset" id="detailCampaignSelectAll">전체 선택</button>
-                        <button type="button" class="filter-reset" id="detailCampaignClearAll">전체 해제</button>
-                      </div>
-                      <div class="filter-list" id="detailCampaignList"></div>
-                    </div>
-                  </div>
+          <div class="qa-shell">
+            <section class="qa-panel qa-chat" aria-label="캠페인 데이터 질문 답변">
+              <div class="qa-chat-head">
+                <div class="qa-chat-sub">캠페인 성과에 대해 궁금한 점을 물어보세요. 대시보드 데이터에 기반해 답변합니다.</div>
+              </div>
+              <div class="qa-messages" id="qaMessages">
+                <div class="qa-msg bot">캠페인명, 상품, 월, 쿠폰 반응률, 타겟 모수처럼 데이터에 있는 단어를 넣으면 더 정확하게 답합니다. 예: “8월 쿠폰 반응률 TOP 5 알려줘”</div>
+              </div>
+              <form class="qa-input-row" id="qaForm">
+                <textarea class="qa-input" id="qaInput" rows="2" placeholder="Analysis Agent에게 질문하기"></textarea>
+                <button type="submit" class="qa-send" id="qaSend">질문하기</button>
+              </form>
+            </section>
+            <aside class="qa-side">
+              <div class="qa-side-card">
+                <div class="qa-side-title">데이터 스냅샷</div>
+                <div class="qa-metric-grid" id="qaMetrics"></div>
+              </div>
+              <div class="qa-side-card">
+                <div class="qa-side-title">추천 질문</div>
+                <div class="qa-chip-list" id="qaPromptChips">
+                  <button type="button" class="qa-chip">8월 쿠폰 반응률 TOP 5</button>
+                  <button type="button" class="qa-chip">B tv+ 캠페인 성과 요약</button>
+                  <button type="button" class="qa-chip">모수가 큰 캠페인 순위</button>
+                  <button type="button" class="qa-chip">스마트알림 클릭률이 좋은 상품</button>
+                  <button type="button" class="qa-chip">월정액 캠페인만 요약</button>
                 </div>
               </div>
-              <div class="filter-status" style="margin-top:14px; display:flex; align-items:center; justify-content:space-between; gap:12px;">
-                <span id="detailFilterStatus">선택된 필터 없음</span>
-                <button type="button" class="apply-btn" id="detailFilterApply">선택 필터 적용</button>
+              <div class="qa-side-card">
+                <div class="qa-side-title">LLM API 연결 예정</div>
+                <div class="qa-note">현재는 브라우저 내 데이터 요약 로직으로 답합니다. 내일 사내망 LLM API URL과 인증 방식이 준비되면 `askLlmApi()` 함수만 실제 호출로 교체하면 됩니다.</div>
               </div>
-            </div>
+            </aside>
           </div>
-
-          <div id="detailEmptyState" class="card">
-            <div class="empty-state">필터 조건에 맞는 캠페인이 없습니다.</div>
-          </div>
-
-          <div id="detailAnalysis" hidden>
-          <section>
-            <div class="card" style="padding: 22px;">
-              <div class="eyebrow" id="detailSelectedEyebrow">SELECTED CAMPAIGN</div>
-              <div class="section-title" id="detailCampaignTitle" style="margin-bottom: 4px;"></div>
-              <div class="detail-campaign-meta" id="detailCampaignMeta"></div>
-            </div>
-          </section>
-
-          <section>
-            <div class="section-head">
-              <div class="section-title">핵심 지표 · 동기간 평균 대비</div>
-              <div class="section-note" id="detailKpiNote"></div>
-            </div>
-            <div class="kpi-split" id="detailKpiGrid"></div>
-          </section>
-
-          <section>
-            <div class="section-head">
-              <div class="section-title">동기간 진행 캠페인과 비교</div>
-              <div class="section-note" id="detailPeerNote"></div>
-            </div>
-            <div class="card table-scroll">
-              <table>
-                <thead><tr><th>구분</th><th>서비스 모수</th><th>토스트 반응률</th><th>스마트 반응률</th><th>쿠폰 반응률</th></tr></thead>
-                <tbody id="detailPeerBody"></tbody>
-              </table>
-            </div>
-          </section>
-
-          <section>
-            <div class="section-head">
-              <div class="section-title" id="detailHistoryTitle">동일 상품 캠페인 히스토리</div>
-              <div class="section-note" id="detailHistoryNote"></div>
-            </div>
-            <div class="card table-scroll">
-              <table>
-                <thead><tr><th>캠페인</th><th>시작일</th><th>서비스 모수</th><th>토스트 반응률</th><th>스마트 반응률</th><th>쿠폰 반응률</th></tr></thead>
-                <tbody id="detailHistoryBody"></tbody>
-              </table>
-            </div>
-          </section>
-
-          <section>
-            <div class="section-head">
-              <div class="section-title">특징 요약 및 다음 액션 제안</div>
-              <div class="section-note">동기간·동일 상품 비교에 기반한 규칙 기반 제안입니다 · 최종 판단은 담당자가 확인해 주세요</div>
-            </div>
-            <div class="insight-list" id="detailInsightList"></div>
-          </section>
-        </div>
         </section>
       </div>
     </section>
@@ -2856,11 +2839,14 @@
   });
   showView(location.hash === '#summary' || location.hash === '#daily' ? 'summary' : (location.hash === '#detail' ? 'detail' : 'calendar'));
 
+  // docs/Code.gs 배포 URL. "캠페인 신청하기" 제출과 담당자 모드 "시간 배정"이 모두 같은 GAS 배포(new_dashboard 시트)로
+  // 가야 하므로 이 값 하나만 쓴다 - 새로 배포하면 여기 한 곳만 바꾸면 된다.
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyG3oeKsaK4D13cb4X_9jBozfy849KcGH3nyVgJVS7IxW9iIbL_P4bM6RGf7RzDXsODkw/exec';
+
   // ---- Campaign request sheet -> calendar (live, fetched directly from the browser) ----
   (function () {
     const SHEET_ID = '1V1476ZgCyUd8q0DB-8rSp6mi_Q4PRHAwYbU8UoZEhSU';
     const SHEET_GID = '1621616972';
-    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxisZegApg2pYAZm_890ySwny7HZP3y67kmJZ-DOTBDD4tqANxfneRfhEVPZAwp4vgdgQ/exec';
 
     const statusEl = document.getElementById('sheetStatus');
     const refreshEl = document.getElementById('sheetRefresh');
@@ -2877,6 +2863,14 @@
     const ownerModeSummaryEl = document.getElementById('ownerModeSummary');
     const ownerModeListEl = document.getElementById('ownerModeList');
     const ownerCompletedListEl = document.getElementById('ownerCompletedList');
+    const ownerBulkOpenEl = document.getElementById('ownerBulkOpen');
+    const ownerBulkModalEl = document.getElementById('ownerBulkModal');
+    const ownerBulkCloseEl = document.getElementById('ownerBulkClose');
+    const ownerBulkCapacityEl = document.getElementById('ownerBulkCapacity');
+    const ownerBulkTableWrapEl = document.getElementById('ownerBulkTableWrap');
+    const ownerBulkAssignEl = document.getElementById('ownerBulkAssign');
+    const ownerBulkFeedbackEl = document.getElementById('ownerBulkFeedback');
+    let ownerBulkPlanRows = []; // renderOwnerBulk()에서 채워지는, 일괄 배정 버튼이 그대로 사용할 추천 목록
     const scheduleModeOpenEl = document.getElementById('scheduleModeOpen');
     const scheduleModeModalEl = document.getElementById('scheduleModeModal');
     const scheduleModeCloseEl = document.getElementById('scheduleModeClose');
@@ -3070,7 +3064,7 @@
     // 이렇게 해야 상단(우선순위 높은) 행이 먼저 시간을 차지하고, 그 아래 행들이 그걸 피해서 배정되어
     // 서로 다른 카드가 같은 시간을 동시에 추천하는 일이 없다. excludeIndex를 주면 그 건만 빼고 계산한다
     // (담당자가 시간을 직접 입력했을 때 "다른 캠페인과 겹치는지"만 확인할 용도).
-    function ownerBuildDayPlan(dateText, excludeIndex) {
+    function ownerBuildDayPlan(dateText, excludeIndex, hardOnly) {
       const occupied = { coupon: {}, banner: {} };
       const dailyTotal = { coupon: 0, banner: 0 };
       const blocks = [];
@@ -3106,6 +3100,12 @@
         const isCoupon = ownerHasCoupon(row['쿠폰']);
         place(row['캠페인명'], row['담당자'], 'confirmed', isCoupon, row.__pop || 0, hour, ownerBlockLen(row.__pop || 0, isCoupon));
       });
+
+      // hardOnly가 true면 여기서 멈춘다 - 아직 시간이 확정되지 않은 "대기 중" 캠페인의 추천 시간대는
+      // 실제 점유가 아니므로, 진짜 겹침만 봐야 하는 충돌 검사(ownerCheckHour)에는 절대 섞이면 안 된다.
+      if (hardOnly) {
+        return { occupied: occupied, dailyTotal: dailyTotal, blocks: blocks, recommendedByIdx: recommendedByIdx };
+      }
 
       const sameDay = applicationRows
         .map(function (row, idx) { return { row: row, idx: idx }; })
@@ -3207,15 +3207,17 @@
       return { hour: fit.start, len: len, plan: plan, isCoupon: isCoupon, reason: ownerBuildReason(plan.occupied[pool], fit.start, fit.preferred) };
     }
 
+    // hardOnly(true)로 계산한 plan을 쓴다 - 확정/배정 완료된 일정하고만 비교해서 "진짜 겹치는 경우"만 충돌로 본다.
+    // 아직 시간이 정해지지 않은 다른 대기 캠페인의 추천 시간대는 실제 점유가 아니므로 충돌 사유에서 제외한다.
     function ownerCheckHour(row, index, hour, dateText) {
-      const plan = ownerBuildDayPlan(dateText, index);
+      const plan = ownerBuildDayPlan(dateText, index, true);
       const isCoupon = ownerHasCoupon(row['쿠폰']);
       const pool = isCoupon ? 'coupon' : 'banner';
       const target = row.__pop || 0;
       const len = ownerBlockLen(target, isCoupon);
 
       if (plan.dailyTotal[pool] + target > OWNER_DAILY_CAPA) {
-        return { feasible: false, conflicts: ['이 날짜 ' + (isCoupon ? '쿠폰' : '배너') + ' 일일 capa(280만) 초과'], len: len };
+        return { feasible: false, conflicts: ['이 날짜 ' + (isCoupon ? '쿠폰' : '배너') + ' 일일 capa(280만) 초과'], len: len, plan: plan, pool: pool, isCoupon: isCoupon, capaExceeded: true };
       }
       const conflicts = [];
       let feasible = hour >= 1 && hour + len - 1 <= 23;
@@ -3224,7 +3226,7 @@
         const slot = plan.occupied[pool][hr];
         if (slot) { feasible = false; if (conflicts.indexOf(slot.name) === -1) conflicts.push(slot.name); }
       }
-      return { feasible: feasible, conflicts: conflicts, len: len };
+      return { feasible: feasible, conflicts: conflicts, len: len, plan: plan, pool: pool, isCoupon: isCoupon, capaExceeded: false };
     }
 
     // 배너 포함 시 '배너', 팝업 포함 시 '팝업', 쿠폰이면 '쿠폰'을 순서대로 이어붙인다. 예: 배너/팝업/쿠폰
@@ -3307,9 +3309,10 @@
 
     function renderOwnerMode() {
       const pendingCount = applicationRows.filter(function (row, index) { return !ownerAssignments.has(ownerRowKey(row, index)); }).length;
-      ownerModeSummaryEl.innerHTML = '<div class="owner-stat">신청 건수 <b>' + applicationRows.length + '</b></div>' +
-        '<div class="owner-stat">시간 미확정 <b>' + pendingCount + '</b></div>' +
-        '<div class="owner-stat">배정 완료 <b>' + ownerAssignments.size + '</b></div>';
+      ownerModeSummaryEl.innerHTML = '<div class="owner-summary-table-wrap"><table class="owner-summary-table">' +
+        '<thead><tr><th>신청 건수</th><th>시간 미확정</th><th>배정 완료</th></tr></thead>' +
+        '<tbody><tr><td>' + applicationRows.length + '건</td><td>' + pendingCount + '건</td><td>' + ownerAssignments.size + '건</td></tr></tbody>' +
+        '</table></div>';
       if (!applicationRows.length) {
         ownerModeListEl.innerHTML = '<div class="empty-state">현재 일정 배정을 기다리는 신청 캠페인이 없습니다.</div>';
         renderCompletedRows();
@@ -3361,10 +3364,29 @@
           const dateInput = ownerModeListEl.querySelector('[data-owner-date="' + index + '"]');
           const timeInput = ownerModeListEl.querySelector('[data-owner-time="' + index + '"]');
           if (!dateInput.value) { dateInput.focus(); return; }
-          const chosenHour = Number(String(timeInput.value).replace('시', ''));
-          const check = ownerCheckHour(row, index, chosenHour, dateInput.value);
-          if (!check.feasible && !confirm('경고: 이 시간대는 [' + check.conflicts.join(', ') + ']와(과) 겹칩니다(capa 초과 가능). 그래도 배정하시겠습니까?')) {
-            return;
+          let chosenHour = Number(String(timeInput.value).replace('시', ''));
+          let check = ownerCheckHour(row, index, chosenHour, dateInput.value);
+          let movedFromHour = null;
+
+          if (!check.feasible) {
+            if (check.capaExceeded) {
+              alert('이 날짜(' + dateInput.value + ')는 ' + (check.isCoupon ? '쿠폰' : '배너') + ' 일일 capa(280만)를 이미 넘어 배정할 수 없습니다. 다른 날짜를 선택해 주세요.');
+              return;
+            }
+            // 실제로 확정된 일정과 겹치면, 강제로 물어보는 대신 이 날짜 안에서 비어있는 시간을 찾아 자동으로 피해서 배정한다.
+            const preferredHours = ownerPreferredHoursFor(row['채널'], check.isCoupon, row.__pop || 0);
+            const fit = ownerFindFit(check.plan.occupied[check.pool], check.len, preferredHours);
+            if (fit.start === null) {
+              alert('선택하신 시간대는 [' + check.conflicts.join(', ') + ']와(과) 겹치고, 이 날짜엔 배정 가능한 다른 시간이 없습니다. 다른 날짜를 선택해 주세요.');
+              return;
+            }
+            movedFromHour = chosenHour;
+            chosenHour = fit.start;
+            timeInput.value = String(chosenHour).padStart(2, '0') + '시';
+          }
+
+          if (movedFromHour !== null) {
+            alert('선택하신 ' + String(movedFromHour).padStart(2, '0') + '시는 확정된 [' + check.conflicts.join(', ') + '] 일정과 겹쳐, 비어있는 ' + String(chosenHour).padStart(2, '0') + '시로 자동 조정하여 배정합니다.');
           }
           const executionAt = dateInput.value + ' ' + timeInput.value;
           btn.disabled = true;
@@ -3384,6 +3406,121 @@
       });
       renderCompletedRows();
     }
+
+    function ownerTodayKey() {
+      const now = new Date();
+      return dateKey(now.getFullYear(), now.getMonth() + 1, now.getDate());
+    }
+
+    // 관리자 모드에서 건마다 "시간 배정"을 따로 누르지 않고, 배정 대기 전체를 표로 한눈에 보고
+    // 추천 시각 그대로 한 번에 배정할 수 있게 하는 화면. 추천 시각 계산은 renderOwnerMode와 동일한
+    // ownerRecommendHour를 그대로 쓰므로, 같은 날짜에 몰린 건끼리는 서로 겹치지 않게 이미 조정되어 있다.
+    function renderOwnerBulk() {
+      const pendingTotal = applicationRows.filter(function (row, index) { return !ownerAssignments.has(ownerRowKey(row, index)); }).length;
+      const priorityOrder = applicationRows
+        .map(function (row, index) { return { row: row, index: index }; })
+        .filter(function (entry) { return !ownerAssignments.has(ownerRowKey(entry.row, entry.index)); })
+        .sort(function (a, b) {
+          const am = ownerIsMonthly(a.row['캠페인명']) ? 0 : 1;
+          const bm = ownerIsMonthly(b.row['캠페인명']) ? 0 : 1;
+          if (am !== bm) return am - bm;
+          return a.row.__rowNumber - b.row.__rowNumber;
+        });
+
+      const capacityDates = Array.from(new Set(priorityOrder.map(function (entry) {
+        return ownerReviewDates.get(entry.index) || entry.row.__dateKey || '';
+      }).filter(Boolean))).sort();
+      const capacityHtml = capacityDates.map(function (dateText) {
+        const plan = ownerBuildDayPlan(dateText);
+        const bannerRemain = Math.max(0, OWNER_DAILY_CAPA - plan.dailyTotal.banner);
+        const couponRemain = Math.max(0, OWNER_DAILY_CAPA - plan.dailyTotal.coupon);
+        return '<tr><td class="muted">' + esc(dateText) + '</td><td>' + ownerFormatPop(bannerRemain) + '</td><td>' + ownerFormatPop(couponRemain) + '</td></tr>';
+      }).join('');
+      ownerBulkCapacityEl.innerHTML = '<div class="owner-summary-table-wrap"><table class="owner-summary-table">' +
+        '<thead><tr><th>신청일</th><th>배너 잔여 capa</th><th>쿠폰 잔여 capa</th></tr></thead>' +
+        '<tbody>' + (capacityHtml || '<tr><td class="muted">-</td><td>0</td><td>0</td></tr>') + '</tbody>' +
+        '</table></div>';
+
+      ownerBulkPlanRows = priorityOrder.map(function (entry) {
+        const row = entry.row, index = entry.index;
+        const reviewDate = ownerReviewDates.get(index) || row.__dateKey || '';
+        const rec = ownerRecommendHour(row, index, reviewDate);
+        return { row: row, index: index, reviewDate: reviewDate, hour: rec.hour, len: rec.len, reason: rec.reason, isCoupon: rec.isCoupon };
+      });
+
+      if (!ownerBulkPlanRows.length) {
+        ownerBulkTableWrapEl.innerHTML = '<div class="owner-day-empty">배정 대기 중인 신청 건이 없습니다.</div>';
+        ownerBulkAssignEl.disabled = true;
+        return;
+      }
+      ownerBulkAssignEl.disabled = false;
+
+      const rowsHtml = ownerBulkPlanRows.map(function (item, i) {
+        const row = item.row;
+        const timeText = item.hour === null ? '배정 불가' : (item.reviewDate || '-') + ' ' + String(item.hour).padStart(2, '0') + '시';
+        return '<tr class="owner-day-row' + (item.hour === null ? ' pending' : '') + '">' +
+          '<td>' + (i + 1) + '</td>' +
+          '<td class="owner-day-name" title="' + esc(row['캠페인명'] || '') + '">' + esc(row['캠페인명'] || '(캠페인명 없음)') + '</td>' +
+          '<td>' + esc(row['담당자'] || '-') + '</td>' +
+          '<td><span class="owner-day-pool">' + esc(ownerChannelLabel(row['채널'], item.isCoupon)) + '</span></td>' +
+          '<td class="owner-day-pop">' + esc(ownerFormatPop(row.__pop || 0)) + '</td>' +
+          '<td title="' + esc(item.reason || '') + '">' + esc(timeText) + '</td>' +
+          '</tr>';
+      }).join('');
+
+      ownerBulkTableWrapEl.innerHTML = '<table class="owner-day-table">' +
+        '<thead><tr><th>#</th><th>캠페인명</th><th>담당자</th><th>채널</th><th>모수</th><th>추천 시각</th></tr></thead>' +
+        '<tbody>' + rowsHtml + '</tbody></table>';
+    }
+
+    ownerBulkOpenEl.addEventListener('click', function () {
+      ownerBulkModalEl.removeAttribute('hidden');
+      ownerBulkFeedbackEl.textContent = '';
+      renderOwnerBulk();
+    });
+    ownerBulkCloseEl.addEventListener('click', function () { ownerBulkModalEl.setAttribute('hidden', ''); });
+    ownerBulkModalEl.addEventListener('click', function (e) { if (e.target === ownerBulkModalEl) ownerBulkModalEl.setAttribute('hidden', ''); });
+
+    ownerBulkAssignEl.addEventListener('click', function () {
+      const list = ownerBulkPlanRows.filter(function (item) { return item.hour !== null && !ownerAssignments.has(ownerRowKey(item.row, item.index)); });
+      const skipped = ownerBulkPlanRows.length - list.length;
+      if (!list.length) {
+        ownerBulkFeedbackEl.textContent = '지금 배정 가능한 건이 없습니다.';
+        return;
+      }
+      ownerBulkAssignEl.disabled = true;
+      let done = 0, failed = 0;
+      ownerBulkFeedbackEl.textContent = '배정 중... (0/' + list.length + ')';
+
+      function next(i) {
+        if (i >= list.length) {
+          ownerBulkAssignEl.disabled = false;
+          ownerBulkFeedbackEl.textContent = done + '건 배정 완료' + (failed ? ', ' + failed + '건 실패' : '') +
+            (skipped ? ' · 추천 시간 없음 ' + skipped + '건 제외' : '') + '.';
+          renderOwnerMode();
+          renderOwnerBulk();
+          setTimeout(loadApplications, 500);
+          return;
+        }
+        const item = list[i];
+        const timeText = String(item.hour).padStart(2, '0') + '시';
+        const executionAt = item.reviewDate + ' ' + timeText;
+        fetch(APPS_SCRIPT_URL, {
+          method: 'POST', mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({ action: 'updateExecution', rowNumber: item.row.__rowNumber, executionAt: executionAt })
+        }).then(function () {
+          ownerAssignments.set(ownerRowKey(item.row, item.index), { date: item.reviewDate, time: timeText });
+          done++;
+        }).catch(function () {
+          failed++;
+        }).then(function () {
+          ownerBulkFeedbackEl.textContent = '배정 중... (' + (i + 1) + '/' + list.length + ')';
+          next(i + 1);
+        });
+      }
+      next(0);
+    });
 
     ownerModeOpenEl.addEventListener('click', function () {
       ownerModeModalEl.removeAttribute('hidden');
@@ -3459,6 +3596,17 @@
       return hdrs.find(function (h) { return h.indexOf('캠페인명') !== -1; }) ||
         hdrs.find(function (h) { return h.indexOf('캠페인') !== -1; }) ||
         hdrs[0];
+    }
+
+    // "[테스트 신청확인]", "5[플레이라이트테스트]자동화확인", "6[로컬검증]index"처럼 QA 자동화/로컬 점검 과정에서
+    // new_dashboard 시트에 남은 행은 실제 신청 건이 아니므로 캘린더/신청 조회/담당자 모드 등 모든 목록에서 제외한다.
+    function isTestCampaignTitle(title) {
+      const t = String(title || '').trim();
+      if (!t) return false;
+      if (/^\[?\s*테스트/.test(t)) return true; // "테스트...", "[테스트...]"
+      if (/^\d+\s*\[/.test(t)) return true; // "5[...]", "6[...]" 처럼 번호+대괄호로 시작하는 자동화/로컬 점검 행
+      if (/\[[^\]]*(테스트|검증|플레이라이트|playwright|자동화|디버그|debug|qa)[^\]]*\]/i.test(t)) return true; // 대괄호 안에 QA 점검 키워드
+      return false;
     }
     function findOwnerColumn(hdrs) {
       return hdrs.find(function (h) { return h === '담당자'; }) ||
@@ -3713,6 +3861,7 @@
         const dateColIndex = headers.indexOf(dateCol);
         const popCol = findPopColumn(headers);
         const popColIndex = popCol ? headers.indexOf(popCol) : -1;
+        const titleCol = findTitleColumn(headers);
 
         allRows = [];
         (json.table.rows || []).forEach(function (r) {
@@ -3722,6 +3871,7 @@
             const cell = cells[i];
             display[h] = cell ? String(cell.f != null ? cell.f : (cell.v != null ? cell.v : '')) : '';
           });
+          if (isTestCampaignTitle(display[titleCol])) return;
           display.__pop = popColIndex === -1 ? 0 : parsePopValue(display[headers[popColIndex]]);
           const parsed = parseGvizDate(cells[dateColIndex], colTypes[dateColIndex]);
           if (!parsed) return;
@@ -3773,6 +3923,7 @@
             return cell ? String(cell.f != null ? cell.f : (cell.v != null ? cell.v : '')) : '';
           });
           if (values.slice(0, 9).some(function (value) { return !value.trim(); })) return null;
+          if (isTestCampaignTitle(values[0])) return null;
           return {
             '시작일': values[1], '캠페인명': values[0], '담당자': values[8], '채널': values[3],
             '부서': values[7], '상품': values[7], '쿠폰': values[5], '타겟 수': values[6], '메모': '',
@@ -3783,9 +3934,11 @@
         applicationRows = parsedRows.filter(function (row) { return !row.__executionAt.trim(); });
         completedRows = parsedRows.filter(function (row) { return String(row.__status || '').trim() === '배정 완료'; });
         if (!ownerModeModalEl.hasAttribute('hidden')) renderOwnerMode();
+        if (!ownerBulkModalEl.hasAttribute('hidden')) renderOwnerBulk();
       } catch (_err) {
         applicationRows = [];
         if (!ownerModeModalEl.hasAttribute('hidden')) renderOwnerMode();
+        if (!ownerBulkModalEl.hasAttribute('hidden')) renderOwnerBulk();
       }
     }
   })();
@@ -3795,7 +3948,6 @@
     const calendarPanelEl = document.getElementById('calendarPanel');
     const jumpRequestPanelEl = document.getElementById('jumpRequestPanel');
     const jumpCalendarPanelEl = document.getElementById('jumpCalendarPanel');
-    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwnaO52DbpGfHR_Nksq67tOnrAZ2M1DLEsUiFQkuXbXbC-4eigjCC1O8gbwTaZofNgtFA/exec';
     const resultsEl = document.getElementById('requestSearchResults');
     const searchFeedbackEl = document.getElementById('requestSearchFeedback');
     const submitFeedbackEl = document.getElementById('requestSubmitFeedback');
@@ -3820,7 +3972,11 @@
 
     let results = [];
     let selectedCampaign = null;
-    const TODAY = '2026-08-28';
+    const TODAY = (function () {
+      const date = new Date();
+      date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
+      return date.toISOString().slice(0, 10);
+    })();
     const BANNER_CAPA = 2800000;
     const COUPON_CAPA = 2800000;
     const THURSDAY_COUPON_CAPA = 2700000;
@@ -4194,9 +4350,9 @@
       targetEl.value = '';
       departmentEl.value = '';
       memoEl.value = '';
-      campaignMonthEl.value = '2026-08';
-      startDateEl.value = '2026-08-28';
-      endDateEl.value = '2026-08-28';
+      campaignMonthEl.value = TODAY.slice(0, 7);
+      startDateEl.value = TODAY;
+      endDateEl.value = TODAY;
       syncForm();
       renderResults();
       setFeedback(searchFeedbackEl, '', '');
@@ -5275,7 +5431,122 @@
   // feature/next-action insights. All comparisons are transparent averages/percentiles
   // over the same DATA rows used elsewhere - not a black-box prediction. ----
   (function () {
+    const formEl = document.getElementById('qaForm');
+    if (!formEl) return;
+    const inputEl = document.getElementById('qaInput');
+    const messagesEl = document.getElementById('qaMessages');
+    const metricsEl = document.getElementById('qaMetrics');
+    const chipsEl = document.getElementById('qaPromptChips');
+
+    function appendQaMessage(role, text) {
+      const div = document.createElement('div');
+      div.className = 'qa-msg ' + role;
+      div.textContent = text;
+      messagesEl.appendChild(div);
+      requestAnimationFrame(function () { messagesEl.scrollTop = messagesEl.scrollHeight; });
+      return div;
+    }
+
+    function qaPct(value, digits) {
+      return value == null || isNaN(value) ? '-' : (value * 100).toFixed(digits || 1) + '%';
+    }
+
+    function qaMonthText(month) {
+      return month ? month.slice(0, 4) + '.' + month.slice(4, 6) : '-';
+    }
+
+    function qaRowsForQuestion(question) {
+      const text = question.toLowerCase();
+      const monthMatch = question.match(/(\d{1,2})월/);
+      const month = monthMatch ? '2026' + String(monthMatch[1]).padStart(2, '0') : '';
+      return DATA.filter(function (row) {
+        if (month && row.ym !== month) return false;
+        if (text.indexOf('b tv+') !== -1 && String(row.prod || '').toLowerCase().indexOf('b tv+') === -1 && String(row.nm || '').toLowerCase().indexOf('b tv+') === -1) return false;
+        if (text.indexOf('월정액') !== -1 && String(row.nm + ' ' + row.prod).indexOf('월정액') === -1) return false;
+        if (text.indexOf('쿠폰') !== -1 && !row.copnYn) return false;
+        return true;
+      });
+    }
+
+    function summarizeQuestion(question) {
+      const rows = qaRowsForQuestion(question);
+      if (!rows.length) return '조건에 맞는 캠페인을 찾지 못했습니다. 월, 상품명, 캠페인명을 조금 넓혀서 질문해 주세요.';
+      const q = question.toLowerCase();
+      const withCouponRate = rows.filter(function (r) { return r.copnYn && r.svc > 0; })
+        .map(function (r) { return Object.assign({ rate: r.copnUse / r.svc }, r); })
+        .sort(function (a, b) { return b.rate - a.rate; });
+      const byTarget = rows.slice().sort(function (a, b) { return b.svc - a.svc; });
+      const bySmart = rows.filter(function (r) { return r.sShow > 0; })
+        .map(function (r) { return Object.assign({ rate: r.sClick / r.sShow }, r); })
+        .sort(function (a, b) { return b.rate - a.rate; });
+      let list;
+      let title;
+      if (q.indexOf('스마트') !== -1 || q.indexOf('알림') !== -1) {
+        title = '스마트알림 클릭률 기준 상위 캠페인입니다.';
+        list = bySmart.slice(0, 5).map(function (r, i) { return (i + 1) + '. ' + r.nm + ' - ' + qaPct(r.rate, 1) + ' (' + qaMonthText(r.ym) + ', ' + r.prod + ')'; });
+      } else if (q.indexOf('모수') !== -1 || q.indexOf('타겟') !== -1) {
+        title = '서비스 모수 기준 상위 캠페인입니다.';
+        list = byTarget.slice(0, 5).map(function (r, i) { return (i + 1) + '. ' + r.nm + ' - ' + fmt(r.svc) + '명 (' + qaMonthText(r.ym) + ', ' + r.prod + ')'; });
+      } else {
+        title = '쿠폰 반응률 기준 상위 캠페인입니다.';
+        list = withCouponRate.slice(0, 5).map(function (r, i) { return (i + 1) + '. ' + r.nm + ' - ' + qaPct(r.rate, 2) + ' / 사용 ' + fmt(r.copnUse) + '건 (' + qaMonthText(r.ym) + ', ' + r.prod + ')'; });
+      }
+      const totalSvc = rows.reduce(function (sum, r) { return sum + (r.svc || 0); }, 0);
+      const totalCouponUse = rows.reduce(function (sum, r) { return sum + (r.copnUse || 0); }, 0);
+      return title + '\n\n' + list.join('\n') + '\n\n근거 데이터: 필터 후 ' + fmt(rows.length) + '개 캠페인, 총 서비스 모수 ' + fmt(totalSvc) + '명, 쿠폰 사용 ' + fmt(totalCouponUse) + '건 기준입니다.';
+    }
+
+    function askLlmApi(question) {
+      // 사내망 LLM API가 준비되면 이 함수에서 fetch URL/인증 헤더만 연결하면 됩니다.
+      return Promise.resolve(summarizeQuestion(question));
+    }
+
+    function renderQaMetrics() {
+      const couponRows = DATA.filter(function (r) { return r.copnYn; });
+      const totalSvc = DATA.reduce(function (sum, r) { return sum + (r.svc || 0); }, 0);
+      const totalCouponUse = DATA.reduce(function (sum, r) { return sum + (r.copnUse || 0); }, 0);
+      const products = new Set(DATA.map(function (r) { return r.prod; }));
+      metricsEl.innerHTML =
+        '<div class="qa-metric"><span>캠페인</span><b>' + fmt(DATA.length) + '</b></div>' +
+        '<div class="qa-metric"><span>상품</span><b>' + fmt(products.size) + '</b></div>' +
+        '<div class="qa-metric"><span>총 모수</span><b>' + fmt(totalSvc) + '</b></div>' +
+        '<div class="qa-metric"><span>쿠폰 사용</span><b>' + fmt(totalCouponUse) + '</b></div>' +
+        '<div class="qa-metric"><span>쿠폰 캠페인</span><b>' + fmt(couponRows.length) + '</b></div>' +
+        '<div class="qa-metric"><span>기준월</span><b>' + monthLabel(REPORT_MONTH) + '</b></div>';
+    }
+
+    formEl.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const question = inputEl.value.trim();
+      if (!question) return;
+      inputEl.value = '';
+      appendQaMessage('user', question);
+      const loadingEl = appendQaMessage('bot', '데이터를 확인하고 있습니다...');
+      askLlmApi(question).then(function (answer) {
+        loadingEl.textContent = answer;
+      }).catch(function () {
+        loadingEl.textContent = '답변 생성 중 오류가 발생했습니다. LLM API 연결 정보가 들어오면 이 부분도 함께 점검하겠습니다.';
+      });
+    });
+
+    chipsEl.querySelectorAll('.qa-chip').forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        inputEl.value = chip.textContent.trim();
+        formEl.requestSubmit();
+      });
+    });
+    inputEl.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        formEl.requestSubmit();
+      }
+    });
+    renderQaMetrics();
+  })();
+
+  (function () {
     const filterStatusEl = document.getElementById('detailFilterStatus');
+    if (!filterStatusEl) return;
     const emptyEl = document.getElementById('detailEmptyState');
     const analysisEl = document.getElementById('detailAnalysis');
     const selectedEyebrowEl = document.getElementById('detailSelectedEyebrow');
@@ -5297,7 +5568,7 @@
     const detailCampaignTriggerLabelEl = document.getElementById('detailCampaignTriggerLabel');
     const detailCampaignPanelEl = document.getElementById('detailCampaignPanel');
 
-    // Top-right quick nav: jump between the 실적 마감 예측 section and the 캠페인 교차 분석
+    // Top-right quick nav: jump between the 실적 마감 예측 section and the Analysis Agent
     // section further down the page. Purely a scroll/highlight affordance - it doesn't touch
     // either section's filter state, which stay fully independent of one another.
     (function () {
